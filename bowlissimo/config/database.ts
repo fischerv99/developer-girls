@@ -6,7 +6,7 @@ const databaseConfig: DatabaseConfig = {
     sqlite: {
       client: 'sqlite3',
       connection: {
-        filename: 'C:\Users\jule\OneDrive\Dokumente\GitHub\developer-girls\bowlissimo\database.db', // Pfad zur SQLite-Datei
+        filename: '\developer-girls\bowlissimo\database.db', // Pfad zur SQLite-Datei
       },
       useNullAsDefault: true,
     },
