@@ -1,13 +1,12 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
 
 const databaseConfig: DatabaseConfig = {
   connection: 'sqlite',
   connections: {
     sqlite: {
-      client: 'sqlite',
+      client: 'sqlite3',
       connection: {
-        filename: './database.sqlite',
+        filename: 'C:\Users\jule\OneDrive\Dokumente\GitHub\developer-girls\bowlissimo\database.db', // Pfad zur SQLite-Datei
       },
       useNullAsDefault: true,
     },
@@ -15,3 +14,4 @@ const databaseConfig: DatabaseConfig = {
 }
 
 export default databaseConfig
+
