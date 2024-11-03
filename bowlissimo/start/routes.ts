@@ -8,5 +8,13 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import Database from '@ioc:Adonis/Lucid/Database'
 
-router.on('/').render('pages/home')
+router.get('/', async ({ view }) => {
+    const pasta = await Database.from('pasta').select('*')
+    return view.render('startseite1', { pasta}) 
+})
+
+router.get('/home', () => {
+    return view.render('home')
+})

@@ -1,17 +1,21 @@
-import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+import app from '@adonisjs/core/services/app'
+import {defineConfig} from '@adonisjs/lucid'
 
-const databaseConfig: DatabaseConfig = {
+const dbConfig = defineConfig ({
   connection: 'sqlite',
   connections: {
     sqlite: {
-      client: 'sqlite3',
+      client: 'better-sqlite3',
       connection: {
-        filename: '\developer-girls\bowlissimo\database.db', // Pfad zur SQLite-Datei
+        filename: 'database.db', // Pfad zur SQLite-Datei
       },
       useNullAsDefault: true,
+      migrations: {
+        naturalSort: true,
+        paths: ['database/migrations'],
     },
   },
-}
+},
+})
 
-export default databaseConfig
-
+export default dbConfig

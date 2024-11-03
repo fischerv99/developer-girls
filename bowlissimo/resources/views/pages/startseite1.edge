@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <ul>
+                <li><a href="#" class="aktiv">PASTA-BOWLS</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <div class="überschrift">
+            <h1>CREATE YOUR OWN PASTA</h1>
+            <h2 class="überschrift_zusatz">- BASISPREIS: 5,99€</h2>
+        </div>
+        <div class="nudeln">
+            <h2 class="überschrift_auswahl">NUDELN</h2>
+            <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
+            <div class="nudel_auswahl">
+
+                @each (nudel in pasta)
+                <div class="nudeln_sorten" data-id="{{ nudel.id }}">
+                    <img src="{{ nudel.bild }}" alt="Nudel" longdesc="Ein Bild von Nudeln in Herzform." width="300" height="200"> 
+                    <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4>{{ nudel.id }}</h4>
+                        <button class="details">
+                            <span class="details_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+            @endeach
+            
+                @endeach
+            </div>
+        </div>
+
+        <div class="soßen">
+            <h2 class="überschrift_auswahl">SOẞEN</h2>
+            <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
+            <div class="soßen_auswahl">
+                <div class="soßen_sorten" id="tomate">
+                    <img id="tomate" src="https://placehold.co/300x200" alt="Tomatensoße." longdesc="Ein Bild von Tomatensoße in Herzform." width="300" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4>Tomate</h4>
+                        <button class="details_button">
+                            <span class="details_button_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="soßen_sorten" id="bolognese">
+                    <img id="bolognese" src="https://placehold.co/300x200" alt="Bolognese." longdesc="Ein Bild von Bolognese in Herzform." width="300" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4>Bolognese</h4>
+                        <button class="details_button">
+                            <span class="details_button_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="soßen_sorten" id="pesto">
+                    <img id="pesto" src="https://placehold.co/300x200" alt="Pesto." longdesc="Ein Bild von Pesto in Herzform." width="300" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4>Pesto</h4>
+                        <button class="details_button">
+                            <span class="details_button_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+    
+    </footer>
+</body>
+</html>
