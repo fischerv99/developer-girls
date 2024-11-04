@@ -15,6 +15,13 @@ router.get('/', async ({ view }) => {
     return view.render('startseite1', { pasta}) 
 })
 
-router.get('/home', () => {
-    return view.render('home')
+
+router.get('/startseite_drinks', async ({ view }) => {
+    const getränke = await Database.from('getränke').select('*') 
+    return view.render('startseite_drinks', { getränke })
+})
+
+router.get('/startseite_beilagen', async ({ view }) => {
+    const beilagen = await Database.from('beilagen').select('*') 
+    return view.render('startseite_beilagen', { beilagen })
 })
