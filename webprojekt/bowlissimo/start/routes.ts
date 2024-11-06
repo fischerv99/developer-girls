@@ -63,3 +63,20 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
   return view.render('detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
 });
 
+
+//Anmelden im Administratorbereich
+router.get('/administratorbereich_login', async ({ view }) => {
+  return view.render('administratorbereich_login')
+})
+
+router.post('/administratorbereich_login', async ({ request, response, auth }) => {
+  const { administrator_id, passwort } = request.only(['nutzername', 'passwort']) //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
+  const administrator = await db.from('administrator').where('administrator_id', administrator_id).first() //Administrator aus der Datenbank holen
+
+  if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
+    return response.redirect('administratorbereich_login') //Zurück zum Login
+  }
+  else {
+    return response.redirect('administratorbereich') //Weiter zum Administratorbereich
+  }
+})
