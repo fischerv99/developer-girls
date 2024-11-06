@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <ul>
+                <li><a href="/startseite1" class="inaktiv">PASTA-BOWLS</a></li>
+                <li><a href="/startseite_drinks" class="aktiv">DRINKS</a></li>
+                <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
+            </ul>
+        </nav>        
+    </header>
+    <main>
+        <div class="überschrift">
+            <h1>DRINKS</h1>
+        </div>
+        <div class="smoothies">
+            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
+            <div class="smoothie_auswahl">
+                @each (smoothie in getränke)
+                @if(getränke.art == 1)
+                <div class="smoothie_sorten" data-id="{{ smoothie_id }}">
+                    <img src="{{ smoothie.bild }}" alt="{{ smoothie_id }}" longdesc="Ein Bild von {{ smoothie_id }} in Herzform." width="200" height="200"> 
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4 class= "produkt_id">{{ smoothie_id }}</h4>
+                        <button class="details">
+                            <span class="details_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+            @endeach
+            </div>
+        </div>
+        <div class="erfrischungsgetränke">
+            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
+            <div class="erfrischungsgetränke_auswahl">
+                @each (erfrischungsgetränk in getränke)
+                @if(getränke.art == 2)
+                <div class="erfrischungsgetränk_sorten" data-id="{{ erfrischungsgetränk_id }}">
+                    <img src="{{ erfrischungsgetränk.bild }}" alt="{{ erfrischungsgetränk_id }}" longdesc="Ein Bild von {{ erfrischungsgetränk_id}} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">AUSWÄHLEN</span>
+                        </button>
+                        <h4 class="produkt_id">{{ erfrischungsgetränk_id }}</h4>
+                        <button class="details_button">
+                            <span class="details_button_text">DETAILS</span>
+                        </button>
+                    </div>
+                @endeach
+                </div>
+            </div>
+        </div>
+        <div class="alkoholfreie_cocktails">
+            <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
+            <div class="cocktails_auswahl"
+                @each (cocktail in getränke)
+                @if(getränke == 3)
+                <div class="cocktails_sorten" data-id="{{ cocktail_id }}">
+                    <img src="{{ cocktail.bild }}" alt="{{ cocktail_id }}" longdesc="Ein Bild von {{ cocktail_id }} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">AUSWÄHLEN</span>
+                        </button>
+                        <h4 class="produkt_id">{{ cocktail_id }}</h4>
+                        <button class="details_button">
+                            <span class="details_button_text">DETAILS</h4>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button class="footer_button" id="impressum_button">
+            <span class="footer_text" id="impressum_button_text">IMPRESSUM</span>
+        </button>
+        <button class="footer_button" id="datenschutz_button">
+            <span class="footer_text" id="datenschutz_button_text">DATENSCHUTZ</span>
+        </button>
+    </footer>
+</body>
+</html>

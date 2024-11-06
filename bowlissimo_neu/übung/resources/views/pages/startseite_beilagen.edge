@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <ul>
+                <li><a href="/startseite1" class="inaktiv">PASTA-BOWLS</a></li>
+                <li><a href="/startseite_drinks" class="inaktiv">DRINKS</a></li>
+                <li><a href="/startseite_beilagen" class="aktiv">BEILAGEN</a></li>
+            </ul>
+        </nav>        
+    </header>
+    <main>
+        <div class="überschrift">
+            <h1>BEILAGEN</h1>
+        </div>
+        <div class="BEILAGEN">
+            <div class="beilagen_auswahl">
+                @each(beilage in beilagen)
+                <div class="beilagen_angebot" data-id="{{ beilage_id }}">
+                    <img src="{{ beilage.bild }}" alt="{{ beilage_id }}" longdesc="Ein Bild von {{ beilage_id }} in Herzform." width="200" height="200"> 
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4 class= "produkt_id">{{ beilage_id }}</h4>
+                        <button class="details">
+                            <span class="details_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+                @endeach
+            </div>
+        <div>
+    </main>
+    <footer>
+        <button class="footer_button" id="impressum_button">
+            <span class="footer_text" id="impressum_button_text">IMPRESSUM</span>
+        </button>
+        <button class="footer_button" id="datenschutz_button">
+            <span class="footer_text" id="datenschutz_button_text">DATENSCHUTZ</span>
+        </button>
+    </footer>
+</body>
+</html>
