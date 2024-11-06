@@ -23,25 +23,45 @@
         <div class="überschrift">
             <h1>BEILAGEN</h1>
         </div>
-        <div class="BEILAGEN">
-            <div class="beilagen_auswahl">
-                @each(beilage in beilagen)
-                <div class="beilagen_angebot" data-id="{{ beilage_id }}">
-                    <img src="{{ beilage.bild }}" alt="{{ beilage_id }}" longdesc="Ein Bild von {{ beilage_id }} in Herzform." width="200" height="200"> 
-                    <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
-                        <h4 class= "produkt_id">{{ beilage_id }}</h4>
-                        <button class="details">
-                            <span class="details_text">Details</span>
-                        </button>
-                    </div>
+
+        <div class="salate">
+            <h2 class="überschrift_auswahl">SALATE</h2>
+                <div class="salate_auswahl">
+                    @each (sorte in salate)
+                        <div class="salate_sorten" data-id="{{ sorte.beilagen_id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
+                            <div class="auswahl">
+                                <button class="auswahl_button">
+                                    <span class="auswahl_button_text">Auswählen</span>
+                                </button>
+                                <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
+                                <button class="details" onclick='details/:kategorie/:id'>
+                                    <span class="details_text">Details</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endeach
                 </div>
-                @endeach
-            </div>
-        <div>
-    </main>
+
+        <div class="suppen">
+            <h2 class="überschrift_auswahl">SUPPEN</h2>
+                <div class="salate_auswahl">
+                    @each (sorte in suppen)
+                        <div class="suppen_sorten" data-id="{{ sorte.beilagen_id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
+                            <div class="auswahl">
+                                <button class="auswahl_button">
+                                    <span class="auswahl_button_text">Auswählen</span>
+                                </button>
+                                <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
+                                <button class="details" onclick='details/:kategorie/:id'>
+                                    <span class="details_text">Details</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endeach
+                </div>
+        </div>
 
     <footer>
        @include('pages.partials.footer')
