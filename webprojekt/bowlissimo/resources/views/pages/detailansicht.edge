@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Detailansicht</title>
     <link rel="stylesheet" href="/css/app.css">
 </head>
+
 <body>
-    <header class="header">      <!-- kopbereich mit logo muss noch rein -->
+
+    <header class="header">    
+        @include('pages.partials.header')   
     </header>
+
     <main>
         <div class="product-details">
             <h1>{{ produkt.id }}</h1> <!-- Name des Produkts -->
@@ -29,6 +33,11 @@
                 <li><strong>Kalorien pro Bowl:</strong> {{ kalorien_pro_bowl }} kcal</li> <!-- Kalorien pro Bowl -->
             </ul>
         </div>
-    </main>    
+    </main> 
+
+    <footer>
+        @include('pages.partials.footer')
+    </footer>  
+    
 </body>
 </html>

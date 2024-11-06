@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +7,18 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/app.css">
 </head>
+
 <body>
+
     <header class="header">
-        <nav>
-            <ul>
-                <li><a href="/startseite1" class="inaktiv">PASTA-BOWLS</a></li>
-                <li><a href="/startseite_drinks" class="inaktiv">DRINKS</a></li>
-                <li><a href="/startseite_beilagen" class="aktiv">BEILAGEN</a></li>
-            </ul>
-        </nav>        
+        @include('pages.partials.header')
+        <ul>
+            <li><a href="/startseite_pasta" class="inaktiv">PASTA-BOWLS</a></li>
+            <li><a href="/startseite_drinks" class="inaktiv">DRINKS</a></li>
+            <li><a href="/startseite_beilagen" class="aktiv">BEILAGEN</a></li>
+        </ul>
     </header>
+
     <main>
         <div class="überschrift">
             <h1>BEILAGEN</h1>
@@ -40,13 +42,10 @@
             </div>
         <div>
     </main>
+
     <footer>
-        <button class="footer_button" id="impressum_button">
-            <span class="footer_text" id="impressum_button_text">IMPRESSUM</span>
-        </button>
-        <button class="footer_button" id="datenschutz_button">
-            <span class="footer_text" id="datenschutz_button_text">DATENSCHUTZ</span>
-        </button>
+       @include('pages.partials.footer')
     </footer>
+
 </body>
 </html>

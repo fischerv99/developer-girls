@@ -12,11 +12,13 @@ import db from "@adonisjs/lucid/services/db"
 
 router.get('/startseite_pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')
-  return view.render('startseite', { pasta}) 
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+  return view.render('startseite', {pasta, soßen, toppings}) 
 })
 
 router.get('/startseite_drinks', async ({ view }) => {
-  const getränke = await db.from('getränke').select('*') 
+  const getränke = await db.from('getränke').select('*')
   return view.render('startseite_drinks', { getränke })
 })
 
