@@ -58,3 +58,16 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
   return view.render('detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
 });
 
+
+  router.get('/warenkorb', async ({ view, session }) => { 
+    const cartItems = session.get('cartItems', []); // Warenkorb-Items aus der Session abrufen, falls vorhanden
+  
+    // Gesamtpreis berechnen (Beispiel: Preis je Produkt x Menge):
+    const totalPrice = cartItems.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+  
+    return view.render('warenkorb', { cartItems, totalPrice });
+  });
+
+  
