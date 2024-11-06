@@ -11,7 +11,7 @@ import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 
 router.get('/startseite_pasta', async ({ view }) => {
-  const pasta = await db.from('pasta').select('*')
+  const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
   return view.render('startseite', {pasta, soßen, toppings}) 
@@ -30,14 +30,14 @@ router.get('/startseite_beilagen', async ({ view }) => {
   return view.render('startseite_beilagen', { salate, suppen })
 })
 
-//Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings getränke und beilagen 
+//Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings Getränke und Beilagen 
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
   const { kategorie, id } = params; // Kategorie und ID ausparams extrahieren -> category und id jeweils als eigene Konstanten definiert 
 
   // Erlaubte Kategorien und die zugehörigen Tabellennamen als "Nachschlagewerk" für die Datenbank
   const erlaubteKategorien = {
     pasta: 'pasta',
-    soße: 'soße',
+    soße: 'soßen',
     toppings: 'toppings',
     getränke: 'getränke',
     beilagen: 'beilagen'
