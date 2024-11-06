@@ -10,10 +10,6 @@
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 
-router.get('/startseite/pasta', async ({ view }) => {
-router.on('/').render('pages/startseite_pasta')
-})
-
 router.get('/startseite_pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
   const soßen = await db.from('soßen').select('*')
@@ -60,7 +56,7 @@ router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('administratorbereich_login')
 })
 
-router.post('/administratorbereich_login', async ({ request, response, auth }) => {
+router.post('/administratorbereich_login', async ({ request, response }) => {
   const { nutzername, passwort } = request.only(['nutzername', 'passwort']) //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
   const administrator = await db.from('administrator').where('administrator_id', nutzername).first() //Administrator aus der Datenbank holen
 
