@@ -12,17 +12,22 @@ import db from "@adonisjs/lucid/services/db"
 
 router.get('/startseite_pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')
-  return view.render('startseite', { pasta}) 
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+  return view.render('startseite', {pasta, soßen, toppings}) 
 })
 
 router.get('/startseite_drinks', async ({ view }) => {
-  const getränke = await db.from('getränke').select('*') 
-  return view.render('startseite_drinks', { getränke })
+  const smoothies = await db.from('getränke').select('*').where('art', 1)
+  const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
+  const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
+  return view.render('startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
 
 router.get('/startseite_beilagen', async ({ view }) => {
-  const beilagen = await db.from('beilagen').select('*') 
-  return view.render('startseite_beilagen', { beilagen })
+  const salate = await db.from('beilagen').select('*').where('art', 1)
+  const suppen = await db.from('beilagen').select('*').where('art', 2)
+  return view.render('startseite_beilagen', { salate, suppen })
 })
 
 //Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings getränke und beilagen 
