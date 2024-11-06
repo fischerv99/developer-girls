@@ -10,13 +10,11 @@
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 
-<<<<<<< HEAD
 router.get('/startseite/pasta', async ({ view }) => {
-=======
 router.on('/').render('pages/startseite_pasta')
+})
 
 router.get('/startseite_pasta', async ({ view }) => {
->>>>>>> d3e75dd2a69ddb3fa9ceae0d94c80ecc74676af8
   const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
@@ -43,8 +41,8 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
   const Tabellenname = kategorie; // Tabellenname definieren nach Kategorie
 
   // Abruf des Produkts basierend auf Tabelle und ID
-  const produkt = await db.select('*')
-                          .from(Tabellenname)
+  const produkt = await db.from(Tabellenname)
+                          .select('*')
                           .where('id', id)
                           .first();
    
@@ -72,4 +70,22 @@ router.post('/administratorbereich_login', async ({ request, response, auth }) =
   else {
     return response.redirect('administratorbereich') //Weiter zum Administratorbereich
   }
+})
+
+//der Administratorbereich
+router.get('/administratorbereich/pasta', async ({ view }) => {
+  const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+  return view.render('administratorbereich', { pasta, soßen, toppings })
+})
+
+router.get('/administratorbereich/drinks', async ({ view }) => {
+  const getränke = await db.from('getränke').select('*')  //Datenabfrage einzeln, so leichter in der view
+  return view.render('administratorbereich_drinks', { getränke })
+})
+
+router.get('/administratorbereich/beilagen', async ({ view }) => {
+  const beilagen = await db.from('beilagen').select('*')  //Datenabfrage einzeln, so leichter in der view
+  return view.render('administratorbereich_beilagen', { beilagen })
 })

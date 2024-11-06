@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+
+<body>
+
+    <header class="header"> 
+        @include('pages.partials.header')
+        <nav>
+            <ul>
+                <li><a href="/startseite_pasta" class="inaktiv">PASTA-BOWLS</a></li>
+                <li><a href="/startseite_drinks" class="aktiv">DRINKS</a></li>
+                <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
+            </ul>
+        </nav>        
+    </header>
+
+    <main>
+
+        <div class="überschrift">
+            <h1>DRINKS</h1>
+        </div>
+        <div class="smoothies">
+            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
+            <div class="smoothie_auswahl">
+                @each (sorte in smoothies)
+                <div class="smoothie_sorten" data-id="{{ sorte.getränke_id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id }} in Herzform." width="200" height="200"> 
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
+                        <h4 class= "produkt_id">{{ sorte.getränke_id }}</h4>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
+                        </button>
+                    </div>
+                </div>
+            @endeach
+            </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Smoothie hinzufügen</span>
+            </button>
+        </div>
+
+        <div class="erfrischungsgetränke">
+            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
+            <div class="erfrischungsgetränke_auswahl">
+                @each (sorte in erfrischungsgetränke)
+                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.sgetränk_id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränk_id}} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">AUSWÄHLEN</span>
+                        </button>
+                        <h4 class="produkt_id">{{ sorte.getränk_id }}</h4>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
+                        </button>
+                    </div>
+                @endeach
+                </div>
+            </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
+            </button>
+        </div>
+
+        <div class="alkoholfreie_cocktails">
+            <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
+            <div class="cocktails_auswahl"
+
+                @each (sorte in getränke)
+                <div class="cocktails_sorten" data-id="{{ sorte.getränke_id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id }} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button">
+                            <span class="auswahl_button_text">AUSWÄHLEN</span>
+                        </button>
+                        <h4 class="produkt_id">{{ sorte.getränke_id }}</h4>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
+                        </button>
+                    </div>
+                </div> 
+                @endeach
+            </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Cocktail hinzufügen</span>
+            </button>
+        </div>
+
+    </main>
+
+    <footer>
+        @include('pages.partials.footer')
+    </footer>
+
+</body>
+</html>
