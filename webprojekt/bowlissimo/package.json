@@ -1,5 +1,5 @@
 {
-  "name": "übung",
+  "name": "bowlissimo",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -63,7 +63,8 @@
     "edge.js": "^6.2.0",
     "luxon": "^3.5.0",
     "mysql2": "^3.11.3",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2"
   },
   "hotHook": {
     "boundaries": [
