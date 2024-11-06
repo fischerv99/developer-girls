@@ -85,3 +85,37 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
   const beilagen = await db.from('beilagen').select('*')  //Datenabfrage einzeln, so leichter in der view
   return view.render('administratorbereich_beilagen', { beilagen })
 })
+
+
+
+// Administratorbereich: Route zum Hinzufügen eines neuen Produkts
+router.get('/administratorbereich/hinzufügen/:kategorie', ({view, params}) => { //kategorie = pasta, soßen, toppings, getränke, beilagen
+  const { kategorie } = params;
+  return view.render('administratorbereich_hinzufügen', { kategorie });  // Rendert die Seite mit dem Formular zum Hinzufügen
+});
+
+// POST-Route zum Speichern des neuen Produkts in der Datenbank
+router.post('/administratorbereich/hinzufügen/:kategorie', async ({request, response, params}) => {
+  const { kategorie } = params;
+  const { name, image_url } = request; //Hier muss noch alles abgefragt werden, was in der Datenbank gespeichert werden soll
+
+  let query = '';
+  if (kategorie === 'pasta') {
+    query = 'INSERT INTO pasta (name, image_url) VALUES (?, ?)';
+  } else if (kategorie === 'sauce') {
+    query = 'INSERT INTO sauce (name, image_url) VALUES (?, ?)';
+  } else if (kategorie === 'topping') {
+    query = 'INSERT INTO topping (name, image_url) VALUES (?, ?)';
+  } else {
+    return response.status(400).send('Invalid category');
+  }
+
+  // Führe die Abfrage aus, um das Produkt in die richtige Tabelle einzufügen
+  db.run(query, [name, image_url], function (err) {
+    if (err) {
+      return response.status(500).send(err.message);
+    }
+    return response.redirect('/administratorbereich/:kategorie');  // Nach dem Speichern wird zur Startseite zurückgeleitet
+  });
+});
+
