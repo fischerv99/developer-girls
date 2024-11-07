@@ -10,6 +10,8 @@
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 
+router.on('/').render('pages/startseite_pasta')
+
 router.get('/startseite_pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
   const soßen = await db.from('soßen').select('*')
