@@ -53,7 +53,6 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
 });
 
 
-<<<<<<< HEAD
   router.get('/warenkorb', async ({ view, session }) => { 
     const cartItems = session.get('cartItems', []); // Warenkorb-Items aus der Session abrufen, falls vorhanden
   
@@ -66,7 +65,6 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
   });
 
   
-=======
 //Anmelden im Administratorbereich
 router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('administratorbereich_login')
@@ -105,34 +103,38 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
 
 
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
-router.get('/administratorbereich/hinzufügen/:kategorie', ({view, params}) => { //kategorie = pasta, soßen, toppings, getränke, beilagen
-  const { kategorie } = params;
-  return view.render('administratorbereich_hinzufügen', { kategorie });  // Rendert die Seite mit dem Formular zum Hinzufügen
+router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen
+  const { oberkategorie, unterkategorie } = params;
+  return view.render('administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
-router.post('/administratorbereich/hinzufügen/:kategorie', async ({request, response, params}) => {
-  const { kategorie } = params;
-  const { name, image_url } = request; //Hier muss noch alles abgefragt werden, was in der Datenbank gespeichert werden soll
+router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
+  const { oberkategorie, unterkategorie } = params;
 
-  let query = '';
-  if (kategorie === 'pasta') {
-    query = 'INSERT INTO pasta (name, image_url) VALUES (?, ?)';
-  } else if (kategorie === 'sauce') {
-    query = 'INSERT INTO sauce (name, image_url) VALUES (?, ?)';
-  } else if (kategorie === 'topping') {
-    query = 'INSERT INTO topping (name, image_url) VALUES (?, ?)';
-  } else {
-    return response.status(400).send('Invalid category');
-  }
+      //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 
 
-  // Führe die Abfrage aus, um das Produkt in die richtige Tabelle einzufügen
-  db.run(query, [name, image_url], function (err) {
-    if (err) {
-      return response.status(500).send(err.message);
+    //Unterkategorie bestimmen
+    if (unterkategorie === 'smoothies' || unterkategorie === 'salate') {
+      unterkategorie = 1;
+    } else if (unterkategorie === 'erfrischungsgetränke' || unterkategorie === 'suppen') {
+      unterkategorie = 2;
     }
-    return response.redirect('/administratorbereich/:kategorie');  // Nach dem Speichern wird zur Startseite zurückgeleitet
-  });
-});
+    else if (unterkategorie === 'alkoholfreie_getränke') {
+      unterkategorie = 3;
+    }
 
->>>>>>> 83638a8cfc4d949d089ac9c5f3e3f16ae276e372
+   //Speichern des neuen Produkts in der Datenbank
+   const neuesProdukt = await db.table(oberkategorie) //oberkategorie = pasta, soßen, toppings, getränke, beilagen
+                                .insert({id: request.input('name'), 
+                                         name: request.input('name'), 
+                                         inhalte: request.input('inhalte'), 
+                                         ernaehrungsform: request.input('ernaehrungsform'),
+                                         kalorien_pro_100g: request.input('kalorien_pro_100g'),
+                                         menge_pro_bowl: request.input('menge_pro_bowl'),
+                                         kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                                         preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
+                                         art: unterkategorie
+                                        });
+
+  return response.redirect('/administratorbereich/:oberkategorie'); // Weiterleitung zur Übersichtsseite der Kategorie
