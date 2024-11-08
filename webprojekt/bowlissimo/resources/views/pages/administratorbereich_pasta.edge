@@ -11,12 +11,11 @@
 <body>
 
     <header class="header">
-        @include('pages/partials/header')
-        <nav>
+        @include('pages.partials.header')
             <ul>
-                <li><a href="/startseite_pasta" class="aktiv">PASTA-BOWLS</a></li>
-                <li><a href="/startseite_drinks" class="inaktiv">DRINKS</a></li>
-                <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
+                <li><a href="/administratorbereich/pasta" class="aktiv">PASTA-BOWLS</a></li>
+                <li><a href="/administratorbereich/drinks" class="inaktiv">DRINKS</a></li>
+                <li><a href="/administratorbereich/beilagen" class="inaktiv">BEILAGEN</a></li>
             </ul>
         </nav>        
     </header>
@@ -40,14 +39,16 @@
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class= "produkt_id">{{ sorte.nudel_id }}</h4>
-                        <button class="details" onclick='details/:kategorie/:id'> 
-                            <span class="details_text">Details</span>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>
                     </div>
                 </div>
-                @endeach
-
+            @endeach
             </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Pasta hinzufügen</span>
+            </button>
         </div>
 
         <div class="soßen">
@@ -64,13 +65,16 @@
                         </button>
                         <h4 class="produkt_id">{{ sorte.soße_id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
-                        <button class="details_button"  onclick='details/:kategorie/:id'>
-                            <span class="details_button_text">Details</span>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>
                     </div>
                 </div>
                 @endeach
             </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Soße hinzufügen</span>
+            </button>
         </div>
 
         <div class="toppings">
@@ -87,13 +91,16 @@
                         </button>
                         <h4 class="produkt_id">{{ sorte.topping_id }}</h4>
                         <h5 class="produkt_preis">{{ sorte.preis }}</h5>
-                        <button class="details_button" onclick='details/:kategorie/:id'>
-                            <span class="details_button_text">Details</span>
+                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                            <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>
                     </div>
                 @endeach
                 </div>
             </div>
+            <button class="hinzufügen_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                <span class="hinzufügen_button_text">Topping hinzufügen</span>
+            </button>
         </div> 
 
         <div class="deine_kreation">
@@ -111,7 +118,7 @@
     </main>
 
     <footer>
-        @include('pages/partials/footer')
+       @include('pages.partials.footer')
     </footer>
 
 </body>

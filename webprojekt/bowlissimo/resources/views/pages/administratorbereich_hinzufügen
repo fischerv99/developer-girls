@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ kategorie }} hinzufügen</title>
+</head>
+
+<body>
+    <h1>{{ kategorie }} hinzufügen</h1>
+
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="beschreibung">Beschreibung:</label>
+        <input type="text" id="beschreibung" name="beschreibung" required><br><br>
+
+        <label for="inhalte">Inhalte:</label>
+        <input type="text" id="inhalte" name="inhalte" required><br><br>
+
+        <label for="allergene">Allergene:</label>
+        <input type="text" id="allergene" name="allergene" required><br><br>
+
+        <label for="ernaehrungsform">Ernährungsform:</label><br>   <!--Radio-Button dass nutzer eingeschränkt wird-->
+        <input type="radio" id="omnivor" name="ernaehrungsform" value="omnivor" required>
+        <label for="omnivor">Omnivor</label><br>
+        <input type="radio" id="vegan" name="ernaehrungsform" value="vegan" required>
+        <label for="vegan">Vegan</label><br>
+        <input type="radio" id="vegetarisch" name="ernaehrungsform" value="vegetarisch" required>
+        <label for="vegetarisch">Vegetarisch</label><br><br>
+
+        <label for="kalorien_pro_100g">Kalorien pro 100g:</label> <!-- Andere Bezeichnung besser, weil auch für Getränke so??-->
+        <input type="number" id="kalorien_pro_100g" name="kalorien_pro_100g" required><br><br>
+
+        <label for="menge_pro_bowl">Menge pro Bowl:<label> 
+        <input type="number" id="menge_pro_bowl" name="menge_pro_bowl" required><br><br>
+
+        <label for="kalorien_pro_portion">Kalorien pro Portion:</label>
+        <input type="number" id="kalorien_pro_portion" name="kalorien_pro_portion" required><br><br>
+
+        <label for="preis">Preis:</label> <!-- Das wird bei pasta nicht benötigt!!??-->
+        <input type="number" id="preis" name="preis" required><br><br>
+
+         <!--Bild einfügen fehlt noch -->
+        
+
+        <button type="submit">{{ kategorie }} hinzufügen</button>
+    </form>
+</body>
+
+</html>
