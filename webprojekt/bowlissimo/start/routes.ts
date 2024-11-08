@@ -12,12 +12,17 @@ import db from "@adonisjs/lucid/services/db"
 
 router.on('/').render('pages/startseite_pasta')
 
-router.get('/startseite_pasta', async ({ view }) => {
+router.get('/startseite_pasta', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
-  return view.render('startseite', {pasta, soßen, toppings}) 
-})
+
+   // Abrufen der Warenkorb-Items und Zählen der Anzahl
+   const cartItems = session.get('cartItems', []);
+   const cartCount = cartItems.length; // Anzahl der Warenkorb-Items ermitteln
+
+   return view.render('startseite', { pasta, soßen, toppings, cartCount });
+});
 
 router.get('/startseite/drinks', async ({ view }) => {
   const smoothies = await db.from('getränke').select('*').where('art', 1)
@@ -53,20 +58,6 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
 });
 
 
-<<<<<<< HEAD
-  router.get('/warenkorb', async ({ view, session }) => { 
-    const cartItems = session.get('cartItems', []); // Warenkorb-Items aus der Session abrufen, falls vorhanden
-  
-    // Gesamtpreis berechnen (Beispiel: Preis je Produkt x Menge):
-    const totalPrice = cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
-  
-    return view.render('warenkorb', { cartItems, totalPrice });
-  });
-
-  
-=======
 //Anmelden im Administratorbereich
 router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('administratorbereich_login')
@@ -135,4 +126,42 @@ router.post('/administratorbereich/hinzufügen/:kategorie', async ({request, res
   });
 });
 
->>>>>>> 83638a8cfc4d949d089ac9c5f3e3f16ae276e372
+
+
+//Warenkorb-Seite:
+// Route für den Warenkorb
+router.get('/warenkorb', async ({ view, session }) => {
+  // Warenkorb-Items aus der Session abrufen, falls vorhanden
+    const cartItems = session.get('cartItems', []);
+  
+    // Logge die cartItems, um zu sehen, ob sie korrekt gefüllt sind
+    console.log(cartItems);
+  
+    // Gesamtpreis berechnen
+    const totalPrice = cartItems.reduce((total: number, item: any) => {
+      // Stelle sicher, dass 'price' und 'quantity' existieren
+      console.log(item); // Hier kannst du das Produkt sehen
+      return total + (item.price * item.quantity);
+    }, 0);
+  
+    return view.render('warenkorb', { cartItems, totalPrice });
+  });
+
+// Route zum Hinzufügen eines Produkts zum Warenkorb
+router.post('/warenkorb/add', async ({ request, session, response }) => {
+  const { productId, quantity } = request.only(['productId', 'quantity']);
+
+  // Produktinformationen abrufen
+  const product = await db.from('produkte').where('id', productId).first();
+
+  if (!product) {
+    return response.redirect('back').with('error', 'Produkt nicht gefunden');
+  }
+
+  // Warenkorb-Items aus der Session abrufen und aktualisieren
+  const cartItems = session.get('cartItems', []);
+  cartItems.push({ ...product, quantity });
+
+  session.put('cartItems', cartItems);
+  return response.redirect('/warenkorb');
+});

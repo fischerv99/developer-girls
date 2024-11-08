@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warenkorb</title>
+</head>
+<body>
+    <h1>Warenkorb</h1>
+    
+    @if (cartItems.length > 0)
+        <ul>
+            @each(cartItem in cartItems)
+                <li>{{ cartItem.name }} - Menge: {{ cartItem.quantity }} - Preis: €{{ cartItem.price }}</li>
+            @endeach
+        </ul>
+        <p>Gesamtpreis: €{{ totalPrice }}</p>
+    @else
+        <p>Dein Warenkorb ist leer.</p>
+    @endif
+
+</body>
+</html>
