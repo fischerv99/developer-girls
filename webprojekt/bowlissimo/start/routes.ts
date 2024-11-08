@@ -57,22 +57,7 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
   return view.render('detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
 });
 
-
-<<<<<<< HEAD
-=======
-  router.get('/warenkorb', async ({ view, session }) => { 
-    const cartItems = session.get('cartItems', []); // Warenkorb-Items aus der Session abrufen, falls vorhanden
   
-    // Gesamtpreis berechnen (Beispiel: Preis je Produkt x Menge):
-    const totalPrice = cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
-  
-    return view.render('warenkorb', { cartItems, totalPrice });
-  });
-
-  
->>>>>>> 98908d8de514af3dc76e3ede452b0a9a3fb33e89
 //Anmelden im Administratorbereich
 router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('administratorbereich_login')
@@ -118,73 +103,75 @@ router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', (
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
 router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
-  const { oberkategorie, unterkategorie } = params;
+  let { oberkategorie, unterkategorie } = params;
 
-      //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 
+  //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 
 
-    //Unterkategorie bestimmen
-    if (unterkategorie === 'smoothies' || unterkategorie === 'salate') {
-      unterkategorie = 1;
-    } else if (unterkategorie === 'erfrischungsgetränke' || unterkategorie === 'suppen') {
-      unterkategorie = 2;
-    }
-    else if (unterkategorie === 'alkoholfreie_getränke') {
-      unterkategorie = 3;
-    }
+  //Unterkategorie bestimmen
+  if (unterkategorie === 'smoothies' || unterkategorie === 'salate') {
+    unterkategorie = 1;
+  } else if (unterkategorie === 'erfrischungsgetränke' || unterkategorie === 'suppen') {
+    unterkategorie = 2;
+  }
+  else if (unterkategorie === 'alkoholfreie_getränke') {
+    unterkategorie = 3;
+  }
 
-<<<<<<< HEAD
+  //Speichern des neuen Produkts in der Datenbank
+  const neuesProdukt = await db.table(oberkategorie) //oberkategorie = pasta, soßen, toppings, getränke, beilagen
+                               .insert({id: request.input('name'), 
+                                        name: request.input('name'), 
+                                        inhalte: request.input('inhalte'), 
+                                        ernaehrungsform: request.input('ernaehrungsform'),
+                                        kalorien_pro_100g: request.input('kalorien_pro_100g'),
+                                        menge_pro_bowl: request.input('menge_pro_bowl'),
+                                        kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                                        preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
+                                        art: unterkategorie
+                                       });
+
+  return response.redirect(`/administratorbereich/${oberkategorie}`); // Weiterleitung zur Übersichtsseite der Kategorie
+});
+
+
+
 
 
 //Warenkorb-Seite:
 // Route für den Warenkorb
 router.get('/warenkorb', async ({ view, session }) => {
   // Warenkorb-Items aus der Session abrufen, falls vorhanden
-    const cartItems = session.get('cartItems', []);
-  
-    // Logge die cartItems, um zu sehen, ob sie korrekt gefüllt sind
-    console.log(cartItems);
-  
-    // Gesamtpreis berechnen
-    const totalPrice = cartItems.reduce((total: number, item: any) => {
-      // Stelle sicher, dass 'price' und 'quantity' existieren
-      console.log(item); // Hier kannst du das Produkt sehen
-      return total + (item.price * item.quantity);
-    }, 0);
-  
-    return view.render('warenkorb', { cartItems, totalPrice });
-  });
+  const cartItems = session.get('cartItems', []);
+
+  // Gesamtpreis berechnen
+const totalPrice = cartItems.reduce((total: number, item: { price: number, quantity: number }) => total + (item.price * item.quantity), 0);
+
+return view.render('warenkorb', { cartItems, totalPrice });
+});
+
 
 // Route zum Hinzufügen eines Produkts zum Warenkorb
 router.post('/warenkorb/add', async ({ request, session, response }) => {
-  const { productId, quantity } = request.only(['productId', 'quantity']);
+  const { productid, quantity } = request.only(['productid', 'quantity']);
 
-  // Produktinformationen abrufen
-  const product = await db.from('produkte').where('id', productId).first();
+  const product = await db.from('pasta').where('id', productid).first() ||
+                  await db.from('soßen').where('id', productid).first() ||
+                  await db.from('toppings').where('id', productid).first() ||
+                  await db.from('getränke').where('id', productid).first() ||
+                  await db.from('beilagen').where('id', productid).first();
 
   if (!product) {
-    return response.redirect('back').with('error', 'Produkt nicht gefunden');
+    session.flash({ error: 'Produkt nicht gefunden' });
+    return response.redirect('back');
   }
 
-  // Warenkorb-Items aus der Session abrufen und aktualisieren
+  // Warenkorb-Items aus der Session abrufen
   const cartItems = session.get('cartItems', []);
-  cartItems.push({ ...product, quantity });
 
+  // Hinzufügen des Produkts zum Warenkorb
+  cartItems.push({ ...product, quantity });
+  
+  // Warenkorb in der Session speichern
   session.put('cartItems', cartItems);
   return response.redirect('/warenkorb');
 });
-=======
-   //Speichern des neuen Produkts in der Datenbank
-   const neuesProdukt = await db.table(oberkategorie) //oberkategorie = pasta, soßen, toppings, getränke, beilagen
-                                .insert({id: request.input('name'), 
-                                         name: request.input('name'), 
-                                         inhalte: request.input('inhalte'), 
-                                         ernaehrungsform: request.input('ernaehrungsform'),
-                                         kalorien_pro_100g: request.input('kalorien_pro_100g'),
-                                         menge_pro_bowl: request.input('menge_pro_bowl'),
-                                         kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                                         preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
-                                         art: unterkategorie
-                                        });
-
-  return response.redirect('/administratorbereich/:oberkategorie'); // Weiterleitung zur Übersichtsseite der Kategorie
->>>>>>> 98908d8de514af3dc76e3ede452b0a9a3fb33e89
