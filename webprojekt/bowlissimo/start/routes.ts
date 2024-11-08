@@ -134,7 +134,64 @@ router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', 
 });
 
 
+//Login-Seite:
+// Registrierung
+router.get('/register', async ({ view }) => {
+  return view.render('register');
+});
 
+// Registrierung verarbeiten
+router.post('/register', async ({ request, response }) => {
+  const { nutzername, passwort } = request.only(['nutzername', 'passwort']);
+
+  // Neuen Benutzer in die Datenbank einfügen
+  await db.table('users').insert({ nutzername, passwort });
+  return response.redirect('/login');
+});
+
+// Login-Seite anzeigen
+router.get('/login', async ({ view }) => {
+  return view.render('login');
+});
+
+// Login verarbeiten
+router.post('/login', async ({ request, response, session }) => {
+  const { nutzername, passwort } = request.only(['nutzername', 'passwort']);
+
+  // Benutzer in der Datenbank suchen
+  const user = await db.from('users').where({ nutzername }).first();
+
+  if (!user || user.passwort !== passwort) {
+    return response.redirect('/login'); // Bei falschen Anmeldedaten zurück zum Login
+  }
+
+  // Benutzersitzung erstellen
+  session.put('user_id', user.id);
+  return response.redirect('/favoriten'); // Weiterleitung zur Favoriten-Seite
+});
+
+// Favoriten-Seite anzeigen (nur eingeloggt)
+router.get('/favoriten', async ({ view, session, response }) => {
+  const userId = session.get('user_id');
+  if (!userId) {
+    // Weiterleitung zur Login-Seite, falls nicht eingeloggt
+    return response.redirect('/login');
+  }
+  
+  const favorites = await db.from('favorites').where('user_id', userId);
+  return view.render('favoriten', { favorites });
+}); // Hier gehen wir sicher, dass nur eingeloggt benutzer auf favoriten seite zugreifen können
+
+
+
+// Logout
+router.get('/logout', async ({ session, response }) => {
+  session.forget('user_id');
+  return response.redirect('/');
+});
+
+
+  
 
 
 //Warenkorb-Seite:
