@@ -53,7 +53,7 @@
             <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
             <div class="erfrischungsgetränke_auswahl">
                 @each (sorte in erfrischungsgetränke)
-                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.sgetränk_id }}">
+                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.setränk_id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränk_id}} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
@@ -76,7 +76,7 @@
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
             <div class="cocktails_auswahl"
 
-                @each (sorte in getränke)
+                @each (sorte in alkoholfreie_cocktails)
                 <div class="cocktails_sorten" data-id="{{ sorte.getränke_id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
