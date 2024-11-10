@@ -10,19 +10,28 @@
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 
-router.on('/').render('pages/startseite_pasta')
-
-router.get('/startseite_pasta', async ({ view, session }) => {
-  const pasta = await db.from('pasta').select('*')  //Datenabfrage einzeln, so leichter in der view
+router.get('/', async ({ view, session }) => {
+  const pasta = await db.from('pasta').select('*')
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
 
-   // Abrufen der Warenkorb-Items und Zählen der Anzahl
-   const cartItems = session.get('cartItems', []);
-   const cartCount = cartItems.length; // Anzahl der Warenkorb-Items ermitteln
+  const cartItems = session.get('cartItems', [])
+  const cartCount = cartItems.length
 
-   return view.render('startseite', { pasta, soßen, toppings, cartCount });
-});
+  return view.render('pages/startseite_pasta', { pasta, soßen, toppings, cartCount })
+})
+
+router.get('/startseite_pasta', async ({ view, session }) => {
+  const pasta = await db.from('pasta').select('*')
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+
+  const cartItems = session.get('cartItems', [])
+  const cartCount = cartItems.length
+
+  return view.render('pages/startseite_pasta', { pasta, soßen, toppings, cartCount })
+})
+
 
 router.get('/startseite/drinks', async ({ view }) => {
   const smoothies = await db.from('getränke').select('*').where('art', 1)
