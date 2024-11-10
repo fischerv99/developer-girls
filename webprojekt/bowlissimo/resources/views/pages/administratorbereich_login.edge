@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <header>
+        @include('pages/partials/header')
+    </header>
+
+    <div>
+        <a href="pages/register">Anmelden als Kunde</a>
+    </div>
+
+<div class="login">
+    <h2>Anmelden als Administrator</h2>
+
+    @if (error != undefined)
+        Fehler: {{ error }}
+    @endif
+
+    <form action="/administratorbereich_login" method="POST"> <!-- Formular für die Anmeldung -->
+        <!-- Benutzername -->
+        <label for="nutzername">Benutzername</label>
+        <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Benutzernamen ein">
+
+        <!-- Passwort -->
+        <label for="passwort">Passwort</label>
+        <input type="password" id="passwort" name="passwort" required placeholder="Geben Sie Ihr Passwort ein">
+
+        <!-- Login Button -->
+        <button type="submit">Anmelden</button>
+    </form>
+</div>
+
+    <footer>
+        @include('pages/partials/footer')
+    </footer>
+    
+</body>
+</html>

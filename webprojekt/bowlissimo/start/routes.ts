@@ -64,24 +64,36 @@ router.get('/details/:kategorie/:id', async ({ view, params }) => {
     return view.render('errors/not-found'); // Falls das Produkt nicht gefunden wird
   }
 
-  return view.render('detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
+  return view.render('pages/detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
 });
 
   
 //Anmelden im Administratorbereich
 router.get('/administratorbereich_login', async ({ view }) => {
-  return view.render('administratorbereich_login')
+  return view.render('pages/administratorbereich_login')
 })
 
-router.post('/administratorbereich_login', async ({ request, response }) => {
-  const { nutzername, passwort } = request.only(['nutzername', 'passwort']) //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
+router.post('/administratorbereich_login', async ({ request, response, view }) => {
+  const nutzername = request.input('nutzername');
+  const passwort = request.input('passwort'); //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
+
   const administrator = await db.from('administrator').where('administrator_id', nutzername).first() //Administrator aus der Datenbank holen
 
+  if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
+    const error = 'Formular-Fehler'
+    return view.render('pages/administratorbereich_login', {error})
+  }
+
+  if(request.input('nutzername') === null || request.input('passwort') === null) { 
+    const error = 'Bitte alle Felder ausfüllen'
+    return view.render('pages/administratorbereich_login', {error}) 
+  }
+
   if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
-    return response.redirect('administratorbereich_login') //Zurück zum Login
+    return response.redirect('/administratorbereich_login') //Zurück zum Login
   }
   else {
-    return response.redirect('administratorbereich') //Weiter zum Administratorbereich
+    return response.redirect('/administratorbereich_pasta') //Weiter zum Administratorbereich
   }
 })
 
@@ -90,20 +102,20 @@ router.get('/administratorbereich/pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')  
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
-  return view.render('administratorbereich', { pasta, soßen, toppings })
+  return view.render('pages/administratorbereich_pasta', { pasta, soßen, toppings })
 })
 
 router.get('/administratorbereich/drinks', async ({ view }) => {
   const smoothies = await db.from('getränke').select('*').where('art', 1) 
   const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
   const alkoholfreie_cocktails = await db.from('getränke').select('*').where('art', 3)
-  return view.render('administratorbereich_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_cocktails })
+  return view.render('pages/administratorbereich_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_cocktails })
 })
 
 router.get('/administratorbereich/beilagen', async ({ view }) => {
   const salate = await db.from('beilagen').select('*').where('art', 1) 
   const suppen = await db.from('beilagen').select('*').where('art', 2)
-  return view.render('administratorbereich_beilagen', { salate, suppen })
+  return view.render('pages/administratorbereich_beilagen', { salate, suppen })
 })
 
 
@@ -111,7 +123,7 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
 router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen
   const { oberkategorie, unterkategorie } = params;
-  return view.render('administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
+  return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
@@ -156,14 +168,14 @@ router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', 
                                     });
   }
 
-  return response.redirect(`/administratorbereich/oberkategorie}`); // Weiterleitung zur Übersichtsseite der Kategorie
+  return response.redirect(`pages/administratorbereich/oberkategorie}`); // Weiterleitung zur Übersichtsseite der Kategorie
 });
 
 
 //Login-Seite:
 // Registrierung
 router.get('/register', async ({ view }) => {
-  return view.render('register');
+  return view.render('pages/register');
 });
 
 // Registrierung verarbeiten
@@ -172,12 +184,12 @@ router.post('/register', async ({ request, response }) => {
 
   // Neuen Benutzer in die Datenbank einfügen
   await db.table('users').insert({ nutzername, passwort });
-  return response.redirect('/login');
+  return response.redirect('pages/login');
 });
 
 // Login-Seite anzeigen
 router.get('/login', async ({ view }) => {
-  return view.render('login');
+  return view.render('pages/login');
 });
 
 // Login verarbeiten
@@ -205,7 +217,7 @@ router.get('/favoriten', async ({ view, session, response }) => {
   }
   
   const favorites = await db.from('favorites').where('user_id', userId);
-  return view.render('favoriten', { favorites });
+  return view.render('pages/favoriten', { favorites });
 }); // Hier gehen wir sicher, dass nur eingeloggt benutzer auf favoriten seite zugreifen können
 
 
@@ -213,7 +225,7 @@ router.get('/favoriten', async ({ view, session, response }) => {
 // Logout
 router.get('/logout', async ({ session, response }) => {
   session.forget('user_id');
-  return response.redirect('/');
+  return response.redirect('pages/');
 });
 
 
@@ -229,7 +241,7 @@ router.get('/warenkorb', async ({ view, session }) => {
   // Gesamtpreis berechnen
 const totalPrice = cartItems.reduce((total: number, item: { price: number, quantity: number }) => total + (item.price * item.quantity), 0);
 
-return view.render('warenkorb', { cartItems, totalPrice });
+return view.render('pages/warenkorb', { cartItems, totalPrice });
 });
 
 
@@ -256,5 +268,5 @@ router.post('/warenkorb/add', async ({ request, session, response }) => {
   
   // Warenkorb in der Session speichern
   session.put('cartItems', cartItems);
-  return response.redirect('/warenkorb');
+  return response.redirect('pages/warenkorb');
 });
