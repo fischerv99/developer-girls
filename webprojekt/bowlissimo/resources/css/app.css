@@ -7,4 +7,262 @@ html,
 body {
   height: 100%;
   width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav_oben {
+  background-color: #FCF8ED;
+}
+
+body {
+  background-color: #649e4c;
+}
+
+.inaktiv {
+  color: #649e4c;
+}
+
+.aktiv {
+  color: #FCC21D;
+}
+
+.main {
+  display: flex;
+  padding-top: 100px;
+  flex-direction: column;
+  width: 100%;
+  color: #FCF8ED;
+  align-items: center;
+}
+
+/* Hauptüberschrift und Basispreis nebeneinander */
+.überschrift {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
+}
+
+.überschrift h1 {
+  padding-left: 40px;
+  font-family: fantasy;
+  font-size: 2rem;
+  text-align: left;
+  margin-right: 10px; /* Kleiner Abstand zwischen H1 und Basispreis */
+}
+
+.überschrift_zusatz {
+  font-size: 1rem;
+  color: #FCF8ED;
+  text-align: left;
+}
+
+/* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
+.pasta, .soßen, .toppings {
+  width: 100%;
+  padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
+}
+
+.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl,
+.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h2.überschrift_zusatz {
+    padding-left: 40px;
+  display: inline-block;
+  text-align: left;
+  margin: 0;
+}
+
+.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl {
+  font-family: fantasy;
+  font-size: 1.5rem;
+  margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
+}
+
+.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
+  font-size: 1rem;
+  color: #FCF8ED;
+}
+
+/* Linie über den Produkt-Containern */
+.pasta_auswahl, .soßen_auswahl, .toppings_auswahl {
+    padding-left: 40px;
+  position: relative;
+  margin-top: 20px; /* Abstand zur Überschrift */
+  padding-top: 20px; /* Abstand zur Linie */
+}
+
+.pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px; /* Gleicher linker Abstand wie die Überschriften */
+  right: 40px; /* Optional: rechter Abstand für Symmetrie */
+  height: 2px;
+  background-color: #FCF8ED; /* Farbe der Linie */
+}
+
+/* Grid für Auswahl bei Nudeln und Soßen */
+.pasta_auswahl, .soßen_auswahl, .toppings_auswahl {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  justify-items: center;
+  align-items: center;
+}
+
+.pasta_sorten, .soßen_sorten, .toppings_sorten {
+  width: 100%;
+  max-width: 300px;
+  margin: 40px;
+}
+
+.auswahl {
+  text-align: center;
+}
+
+.auswahl_button, .details_button {
+  margin: 5px;
+  display: inline-block;
+}
+
+.auswahl_button {
+    color:#649e4c;
+    padding: 5px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.auswahl_button:hover {
+    color:#3A6205;
+    background-color:#FFF7F5;
+    font-weight: bold;
+}
+
+.details_button:hover {
+    color:#FCC21D;
+    font-weight: bold;
+}
+
+.details_button {
+    color:#FCF8ED;
+    font-size: 13px;
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    margin: 5px;
+}
+
+.name {
+    margin: 5px;
+}
+
+/* Container für die Bilder */
+.pasta_sorten, .soßen_sorten, .toppings_sorten {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto; /* Zentriert den gesamten Container */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Zentriert den Inhalt horizontal */
+}
+
+
+
+/* Grundlegendes Styling für die Navigation */
+.nav_oben {
+    background-color: #FCF8ED;
+    padding: 30px 0;
+    position: fixed; /* Fixiert die Navigation oben */
+    top: 0; /* Setzt sie ganz nach oben */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Desktop-Menü und Flexbox-Einstellungen */
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Links innerhalb der Menüpunkte */
+nav ul li a {
+    color: #649e4c;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+}
+
+/* Hover-Effekt für Links */
+nav ul li a:hover {
+    color: #FCC21D;
+}
+
+/* Aktiver Menüpunkt */
+nav ul li a.aktiv {
+    font-weight: bold;
+    color: #FCC21D;
+}
+
+/* Verstecktes Checkbox-Element für die Navigation */
+#menu-toggle {
+    display: none;
+}
+
+/* Burger-Button Styling */
+.menu-icon {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 0px; /* Abstand für bessere Sichtbarkeit */
+    right: 20px;
+    z-index: 1001;
+}
+
+.menu-icon span {
+    display: block;
+    height: 2px;
+    width: 22px;
+    background: #649e4c;
+    margin: 4px 0;
+    transition: 0.3s ease;
+}
+
+/* Responsive Off-Canvas-Menü */
+@media (max-width: 768px) {
+    /* Verbirgt das normale Menü und zeigt den Burger-Button */
+    .nav_oben ul {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0px;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #FCF8ED;
+        padding-top: 60px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    /* Checkbox aktiviert das Menü */
+    #menu-toggle:checked ~ .nav_oben ul {
+        left: 0;
+    }
+
+    /* Burger-Button anzeigen */
+    .menu-icon {
+        display: flex;
+    }
+
+  }
+.main {
+    padding-top: 100px;
 }
