@@ -33,17 +33,18 @@ router.get('/startseite_pasta', async ({ view, session }) => {
 })
 
 
-router.get('/startseite/drinks', async ({ view }) => {
+router.get('/startseite_drinks', async ({ view }) => {
   const smoothies = await db.from('getränke').select('*').where('art', 1)
   const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
   const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
-  return view.render('startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
+
+  return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
 
-router.get('/startseite/beilagen', async ({ view }) => {
+router.get('/startseite_beilagen', async ({ view }) => {
   const salate = await db.from('beilagen').select('*').where('art', 1)
   const suppen = await db.from('beilagen').select('*').where('art', 2)
-  return view.render('startseite_beilagen', { salate, suppen })
+  return view.render('pages/startseite_beilagen', { salate, suppen })
 })
 
 //Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings Getränke und Beilagen 
