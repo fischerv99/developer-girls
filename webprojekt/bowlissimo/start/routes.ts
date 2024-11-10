@@ -270,3 +270,14 @@ router.post('/warenkorb/add', async ({ request, session, response }) => {
   session.put('cartItems', cartItems);
   return response.redirect('pages/warenkorb');
 });
+
+
+//Route für Datenschutz
+router.get('/datenschutz', async ({ view }) => {
+  return view.render('pages/datenschutz')
+})
+
+//Route für Impressum
+router.get('/impressum', async ({ view }) => {
+  return view.render('pages/impressum')
+})
