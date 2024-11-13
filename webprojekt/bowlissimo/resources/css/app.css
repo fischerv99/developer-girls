@@ -28,7 +28,7 @@ body {
 
 .main {
   display: flex;
-  padding-top: 100px;
+  padding-top: 150px;
   flex-direction: column;
   width: 100%;
   color: #FCF8ED;
@@ -173,12 +173,12 @@ body {
 /* Grundlegendes Styling für die Navigation */
 .nav_oben {
     background-color: #FCF8ED;
-    padding: 30px 0;
+    padding: 5px 0;
     position: fixed; /* Fixiert die Navigation oben */
-    top: 0; /* Setzt sie ganz nach oben */
+    top: 85px; /* Setzt sie ganz nach oben */
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 999;
 }
 
 /* Desktop-Menü und Flexbox-Einstellungen */
@@ -219,7 +219,9 @@ nav ul li a.aktiv {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    padding: 10px;
+    padding-top: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
     position: absolute;
     top: 0px; /* Abstand für bessere Sichtbarkeit */
     right: 20px;
@@ -230,7 +232,7 @@ nav ul li a.aktiv {
     display: block;
     height: 2px;
     width: 22px;
-    background: #649e4c;
+    background-color:#FCF8ED;
     margin: 4px 0;
     transition: 0.3s ease;
 }
@@ -263,6 +265,23 @@ nav ul li a.aktiv {
     }
 
   }
-.main {
-    padding-top: 100px;
+
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #649e4c; /* Grüner Hintergrund für das Logo */
+  padding: 20px 0; /* Abstand um das Logo */
+  position: fixed; /* Fixiert das Logo am oberen Rand */
+  top: 0;
+  width: 100%;
+  z-index: 1001;
+}
+  
+  /* Logo Styling */
+.header img {
+  width: 200px; /* Größe des Logos anpassen */
+  height: auto; /* Höhe automatisch anpassen */
+  margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
 }
