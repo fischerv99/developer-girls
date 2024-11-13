@@ -73,7 +73,7 @@ router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('pages/administratorbereich_login')
 })
 
-router.post('/administratorbereich_login', async ({ request, response, view }) => {
+router.post('/administratorbereich_login2', async ({ request, response, view }) => {
   const nutzername = request.input('nutzername');
   const passwort = request.input('passwort'); //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
 
@@ -90,7 +90,7 @@ router.post('/administratorbereich_login', async ({ request, response, view }) =
   }
 
   if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
-    return response.redirect('/administratorbereich_login') //Zurück zum Login
+    return response.redirect('pages/administratorbereich_login') //Zurück zum Login
   }
   else {
     return response.redirect('/administratorbereich_pasta') //Weiter zum Administratorbereich

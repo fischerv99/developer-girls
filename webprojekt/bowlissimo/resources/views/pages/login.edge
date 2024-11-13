@@ -9,6 +9,7 @@
 <body>
   <h1>Login</h1>
   <form action="/login" method="POST">
+    {{csrfField()}}
     <label for="username">Nutzername:</label>
     <input type="text" id="username" name="username" required>
     
