@@ -29,11 +29,11 @@
             <div class="pasta_auswahl">
 
                 @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.pasta_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.pasta_id }}" longdesc="Ein Bild von {{ sorte.pasta_id }} in Herzform." width="200" height="200"> 
+                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <h4 class= "produkt_id">{{ sorte.pasta_id }}</h4>
+                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>
@@ -41,7 +41,7 @@
                 </div>
             @endeach
             </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/'> <!--Pfad zu administrator_hinzufügen-->
+            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/pasta/pasta'> <!--Pfad zu administrator_hinzufügen-->
                 <span class="hinzufügen_button_text">Pasta hinzufügen</span>
             </button>
         </div>
@@ -51,10 +51,10 @@
             <div class="soßen_auswahl">
 
                 @each (sorte in soßen)
-                <div class="soßen_sorten" data-id="{{ sorte.soße_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.soße_id }}" longdesc="Ein Bild von {{ sorte.soße_id }} in Herzform." width="200" height="200">
+                <div class="soßen_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <h4 class="produkt_id">{{ sorte.soße_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                             <span class="bearbeiten_button_text">Bearbeiten</span>
@@ -73,10 +73,10 @@
             <div class="toppings_auswahl">
 
                 @each (sorte in toppings)
-                <div class="toppings_produkte" data-id="{{ sorte.topping_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.topping_id }}" longdesc="Ein Bild von {{ sorte.topping_id }} in Herzform." width="200" height="200">
+                <div class="toppings_produkte" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <h4 class="produkt_id">{{ sorte.topping_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <h5 class="produkt_preis">{{ sorte.preis }}</h5>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                             <span class="bearbeiten_button_text">Bearbeiten</span>

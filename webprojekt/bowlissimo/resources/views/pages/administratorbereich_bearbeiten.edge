@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detailansicht</title>
+    <link rel="stylesheet" href="resources/css/app.css">
+</head>
+
+<body>
+
+
+    <main>
+        <div class="product-details">
+            <h1>{{ produkt.id }}</h1> <!-- Name des Produkts -->
+            
+            <div class="product-image">
+                <img src="{{ produkt.bild }}" alt="{{ product.id }} Bild"> <!-- Bild des Produkts -->
+            </div>
+    
+            <p>{{ produkt.beschreibung }}</p> <!-- Beschreibung des Produkts -->
+            
+            <ul>
+                <li><strong>Inhalte:</strong> {{ produkt.inhalte }}</li> <!-- Zutaten -->
+                <li><strong>Allergene:</strong> {{ produkt.allergene }}</li> <!-- Allergene -->
+                <li><strong>Ernährungsform:</strong> {{ produkt.ernährungsform }}</li> <!-- Ernährungsform -->
+                <li><strong>Kalorien pro 100 g:</strong> {{ produkt.kalorien_pro_100g }} kcal</li> <!-- Kalorien pro 100g -->
+                <li><strong>Menge pro Bowl:</strong> {{ menge_pro_bowl }} g</li> <!-- Menge pro Bowl -->
+                <li><strong>Kalorien pro Bowl:</strong> {{ kalorien_pro_bowl }} kcal</li> <!-- Kalorien pro Bowl -->
+            </ul>
+        </div>
+    </main> 
+
+    <footer>
+        @include('pages/partials/footer')
+    </footer>  
+    
+</body>
+</html>
