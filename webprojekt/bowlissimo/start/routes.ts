@@ -90,10 +90,11 @@ router.post('/administratorbereich_login2', async ({ request, response, view }) 
   }
 
   if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
-    return response.redirect('pages/administratorbereich_login') //Zurück zum Login
+    const error = 'Falsche Anmeldedaten'
+    return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
   }
   else {
-    return response.redirect('/administratorbereich_pasta') //Weiter zum Administratorbereich
+    return view.render('pages/administratorbereich_pasta') //Weiter zum Administratorbereich aber warum geht nicht return response redirect???
   }
 })
 
