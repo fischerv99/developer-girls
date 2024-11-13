@@ -22,12 +22,10 @@
 
     <main class="main">
         <div class="überschrift">
-            <h1>CREATE YOUR OWN PASTA</h1>
-            <h2 class="überschrift_zusatz">- BASISPREIS: 5,99€</h2>
+            <h1>WILLKOMMEN!</h1>
         </div>
         <div class="pasta">
             <h2 class="überschrift_auswahl">NUDELN</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
             <div class="pasta_auswahl">
 
                 @each (sorte in pasta)
@@ -35,10 +33,7 @@
                     <img src="{{ sorte.bild }}" alt="{{ sorte.pasta_id }}" longdesc="Ein Bild von {{ sorte.pasta_id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
-                        <h4 class= "produkt_id">{{ sorte.nudel_id }}</h4>
+                        <h4 class= "produkt_id">{{ sorte.pasta_id }}</h4>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>
@@ -46,23 +41,19 @@
                 </div>
             @endeach
             </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/pasta/pasta'> <!--Pfad zu administrator_hinzufügen-->
+            <button class="hinzufügen_button"  onclick='/administratorbereich/'> <!--Pfad zu administrator_hinzufügen-->
                 <span class="hinzufügen_button_text">Pasta hinzufügen</span>
             </button>
         </div>
 
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
             <div class="soßen_auswahl">
 
                 @each (sorte in soßen)
                 <div class="soßen_sorten" data-id="{{ sorte.soße_id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.soße_id }}" longdesc="Ein Bild von {{ sorte.soße_id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
                         <h4 class="produkt_id">{{ sorte.soße_id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
@@ -72,23 +63,19 @@
                 </div>
                 @endeach
             </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/soßen'> <!--Pfad zu administrator_hinzufügen-->
-                <span class="hinzufügen_button_text">Soße hinzufügen</span>
-            </button>
+            <a href="/administratorbereich/hinzufügen/pasta/pasta" class="button-klasse">
+                <button>Pasta hinzufügen</button>
+            </a>            
         </div>
 
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE SO VIEL DU MÖCHTEST</h3>
             <div class="toppings_auswahl">
 
                 @each (sorte in toppings)
                 <div class="toppings_produkte" data-id="{{ sorte.topping_id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.topping_id }}" longdesc="Ein Bild von {{ sorte.topping_id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="details_button_text">Auswählen</span>
-                        </button>
                         <h4 class="produkt_id">{{ sorte.topping_id }}</h4>
                         <h5 class="produkt_preis">{{ sorte.preis }}</h5>
                         <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->

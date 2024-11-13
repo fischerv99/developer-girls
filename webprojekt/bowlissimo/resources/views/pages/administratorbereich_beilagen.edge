@@ -11,11 +11,11 @@
 <body>
 
     <header class="header">
-        @include('pages.partials.header')
+        @include('pages/partials/header')
         <ul>
-            <li><a href="/adminitratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
+            <li><a href="/administratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
             <li><a href="/administratorbereich/drinks" class="inaktiv">DRINKS</a></li>
-            <li><a href="/administratorberiech/beilagen" class="aktiv">BEILAGEN</a></li>
+            <li><a href="/administratorbereich/beilagen" class="aktiv">BEILAGEN</a></li>
         </ul>
     </header>
 
@@ -31,10 +31,8 @@
                         <div class="salate_sorten" data-id="{{ sorte.beilagen_id }}">
                             <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
-                                <button class="auswahl_button">
-                                    <span class="auswahl_button_text">Auswählen</span>
-                                </button>
                                 <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
+                                <p class="produkt_preis">{{ sorte.preis }}</p>
                                 <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
                                 </button>
@@ -54,10 +52,8 @@
                         <div class="suppen_sorten" data-id="{{ sorte.beilagen_id }}">
                             <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
-                                <button class="auswahl_button">
-                                    <span class="auswahl_button_text">Auswählen</span>
-                                </button>
                                 <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
+                                <p class="produkt_preis">{{ sorte.preis }}</p>
                                 <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
                                 </button>
@@ -71,7 +67,7 @@
         </div>
 
     <footer>
-       @include('pages.partials.footer')
+       @include('pages/partials/footer')
     </footer>
 
 </body>

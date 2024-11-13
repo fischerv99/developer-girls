@@ -122,7 +122,7 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
 
 
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
-router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen
+router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen und unterkategorie=
   const { oberkategorie, unterkategorie } = params;
   return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
