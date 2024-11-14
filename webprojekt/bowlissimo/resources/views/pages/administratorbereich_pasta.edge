@@ -34,16 +34,16 @@
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/pasta/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button>                        
                     </div>
                 </div>
             @endeach
             </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/pasta/pasta'> <!--Pfad zu administrator_hinzufügen-->
+            <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/pasta/pasta'">
                 <span class="hinzufügen_button_text">Pasta hinzufügen</span>
-            </button>
+            </button>  
         </div>
 
         <div class="soßen">
@@ -56,16 +56,16 @@
                     <div class="auswahl">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/soßen/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button>  
                     </div>
                 </div>
                 @endeach
             </div>
-            <a href="/administratorbereich/hinzufügen/pasta/pasta" class="button-klasse">
-                <button>Pasta hinzufügen</button>
-            </a>            
+            <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/soßen/soße'">
+                <span class="hinzufügen_button_text">Soße hinzufügen</span>
+            </button>            
         </div>
 
         <div class="toppings">
@@ -78,14 +78,14 @@
                     <div class="auswahl">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <h5 class="produkt_preis">{{ sorte.preis }}</h5>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/toppings/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button>  
                     </div>
                 @endeach
                 </div>
             </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/toppings'> <!--Pfad zu administrator_hinzufügen-->
+            <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/toppings/topping'">
                 <span class="hinzufügen_button_text">Topping hinzufügen</span>
             </button>
         </div> 

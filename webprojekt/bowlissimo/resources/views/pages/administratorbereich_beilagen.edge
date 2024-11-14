@@ -33,16 +33,16 @@
                             <div class="auswahl">
                                 <h4 class= "produkt_id">{{ sorte.id }}</h4>
                                 <p class="produkt_preis">{{ sorte.preis }}</p>
-                                <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                                <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/beilagen/{{sorte.id}}'">
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     @endeach
                 </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/beilagen/salate'> <!--Pfad zu administratorbereich_hinzufügen mit params-->
-                <span class="hinzufügen_button_text">Salat hinzufügen</span>
-            </button>
+                <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/beilagen/salate'">
+                    <span class="hinzufügen_button_text">Salat hinzufügen</span>
+                </button>
         </div>
 
         <div class="suppen">
@@ -54,16 +54,16 @@
                             <div class="auswahl">
                                 <h4 class= "produkt_id">{{ sorte.id }}</h4>
                                 <p class="produkt_preis">{{ sorte.preis }}</p>
-                                <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                                <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/beilagen/{{sorte.id}}'">
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     @endeach
                 </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/beilagen/suppen'> <!--Pfad zu administratorbereich_hinzufügen mit params-->
-                <span class="hinzufügen_button_text">Suppe hinzufügen</span>
-            </button>
+                <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/beilagen/suppen'">
+                    <span class="hinzufügen_button_text">Topping hinzufügen</span>
+                </button>
         </div>
 
     <footer>

@@ -49,22 +49,17 @@ router.get('/startseite_beilagen', async ({ view }) => {
 
 //Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings Getränke und Beilagen 
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
-  const { kategorie, id } = params; // Kategorie und ID ausparams extrahieren -> category und id jeweils als eigene Konstanten definiert 
+  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
 
-  const Tabellenname = kategorie; // Tabellenname definieren nach Kategorie
+  // Produkt aus der Datenbank holen
+  const produkt = await db.from(oberkategorie).where('id', id).first(); 
 
-  // Abruf des Produkts basierend auf Tabelle und ID
-  const produkt = await db.from(Tabellenname)
-                          .select('*')
-                          .where('id', id)
-                          .first();
-   
-  // Überprüfung, ob das Produkt existiert
+  // Falls das Produkt nicht gefunden wird
   if (!produkt) {
-    return view.render('errors/not-found'); // Falls das Produkt nicht gefunden wird
+    return view.render('errors/not-found'); 
   }
 
-  return view.render('pages/detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
+  return view.render('pages/detailansicht', { produkt, oberkategorie }); // Produkt und Kategorie an die View übergeben
 });
 
   
@@ -94,7 +89,7 @@ router.post('/administratorbereich_login2', async ({ request, response, view }) 
     return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
   }
   else {
-    return view.render('pages/administratorbereich_pasta') //Weiter zum Administratorbereich aber warum geht nicht return response redirect???
+    return response.redirect('administratorbereich/pasta') //Weiter zum Administratorbereich aber warum geht nicht return response redirect???
   }
 })
 
@@ -122,13 +117,13 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
 
 
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
-router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen und unterkategorie=
+router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen und unterkategorie=
   const { oberkategorie, unterkategorie } = params;
   return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
-router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
+router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
   let { oberkategorie, unterkategorie } = params;
 
   //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 

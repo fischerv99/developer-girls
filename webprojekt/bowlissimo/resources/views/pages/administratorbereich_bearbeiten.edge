@@ -16,19 +16,52 @@
             <h1>{{ produkt.id }}</h1> <!-- Name des Produkts -->
             
             <div class="product-image">
-                <img src="{{ produkt.bild }}" alt="{{ product.id }} Bild"> <!-- Bild des Produkts -->
+                <img src="{{ produkt.bild }}" alt="{{ produkt.id }} Bild"> <!-- Bild des Produkts -->
             </div>
     
             <p>{{ produkt.beschreibung }}</p> <!-- Beschreibung des Produkts -->
             
-            <ul>
-                <li><strong>Inhalte:</strong> {{ produkt.inhalte }}</li> <!-- Zutaten -->
-                <li><strong>Allergene:</strong> {{ produkt.allergene }}</li> <!-- Allergene -->
-                <li><strong>Ernährungsform:</strong> {{ produkt.ernährungsform }}</li> <!-- Ernährungsform -->
-                <li><strong>Kalorien pro 100 g:</strong> {{ produkt.kalorien_pro_100g }} kcal</li> <!-- Kalorien pro 100g -->
-                <li><strong>Menge pro Bowl:</strong> {{ menge_pro_bowl }} g</li> <!-- Menge pro Bowl -->
-                <li><strong>Kalorien pro Bowl:</strong> {{ kalorien_pro_bowl }} kcal</li> <!-- Kalorien pro Bowl -->
-            </ul>
+            <form action="/updateProdukt" method="POST">
+                {{csrfField()}}
+
+                <div>
+                    <label for="produkt_id">Name:</label>
+                    <input type="text" id="produkt_id" name="produkt_id" value="{{ produkt.id }}" readonly>
+                </div>
+                <div>
+                    <label for="produkt_bild">Produkt Bild URL:</label>
+                    <input type="text" id="produkt_bild" name="produkt_bild" value="{{ produkt.bild }}">
+                </div>
+                <div>
+                    <label for="produkt_beschreibung">Beschreibung:</label>
+                    <textarea id="produkt_beschreibung" name="produkt_beschreibung">{{ produkt.beschreibung }}</textarea>
+                </div>
+                <div>
+                    <label for="produkt_inhalte">Inhalte:</label>
+                    <input type="text" id="produkt_inhalte" name="produkt_inhalte" value="{{ produkt.inhalte }}">
+                </div>
+                <div>
+                    <label for="produkt_allergene">Allergene:</label>
+                    <input type="text" id="produkt_allergene" name="produkt_allergene" value="{{ produkt.allergene }}">
+                </div>
+                <div>
+                    <label for="produkt_ernährungsform">Ernährungsform:</label>
+                    <input type="text" id="produkt_ernährungsform" name="produkt_ernährungsform" value="{{ produkt.ernährungsform }}">
+                </div>
+                <div>
+                    <label for="produkt_kalorien_pro_100g">Kalorien pro 100 g:</label>
+                    <input type="number" id="produkt_kalorien_pro_100g" name="produkt_kalorien_pro_100g" value="{{ produkt.kalorien_pro_100g }}">
+                </div>
+                <div>
+                    <label for="menge_pro_bowl">Menge pro Bowl:</label>
+                    <input type="number" id="menge_pro_bowl" name="menge_pro_bowl" value="{{ menge_pro_bowl }}">
+                </div>
+                <div>
+                    <label for="kalorien_pro_bowl">Kalorien pro Bowl:</label>
+                    <input type="number" id="kalorien_pro_bowl" name="kalorien_pro_bowl" value="{{ kalorien_pro_bowl }}">
+                </div>
+                <button type="submit">Speichern</button>
+            </form>
         </div>
     </main> 
 

@@ -35,9 +35,9 @@
                 </div>          
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getränke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button> 
                     </div>
                 </div>
             @endeach
@@ -56,9 +56,9 @@
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id}} in Herzform." width="200" height="200">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getränke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button> 
                     </div>
                 @endeach
                 </div>
@@ -78,9 +78,9 @@
                 </div>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
-                        <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                        <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getränke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
-                        </button>
+                        </button> 
                     </div>
                 </div> 
                 @endeach
