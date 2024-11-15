@@ -11,11 +11,11 @@
 <body>
 
     <header class="header">
-        @include('pages.partials.header')
+        @include('pages/partials/header')
         <ul>
-            <li><a href="/adminitratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
+            <li><a href="/administratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
             <li><a href="/administratorbereich/drinks" class="inaktiv">DRINKS</a></li>
-            <li><a href="/administratorberiech/beilagen" class="aktiv">BEILAGEN</a></li>
+            <li><a href="/administratorbereich/beilagen" class="aktiv">BEILAGEN</a></li>
         </ul>
     </header>
 
@@ -28,50 +28,46 @@
             <h2 class="überschrift_auswahl">SALATE</h2>
                 <div class="salate_auswahl">
                     @each (sorte in salate)
-                        <div class="salate_sorten" data-id="{{ sorte.beilagen_id }}">
-                            <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
+                        <div class="salate_sorten" data-id="{{ sorte.id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
-                                <button class="auswahl_button">
-                                    <span class="auswahl_button_text">Auswählen</span>
-                                </button>
-                                <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
-                                <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                                <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                                <p class="produkt_preis">{{ sorte.preis }}</p>
+                                <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/beilagen/{{sorte.id}}'">
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     @endeach
                 </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/beilagen/salate'> <!--Pfad zu administratorbereich_hinzufügen mit params-->
-                <span class="hinzufügen_button_text">Salat hinzufügen</span>
-            </button>
+                <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/beilagen/salate'">
+                    <span class="hinzufügen_button_text">Salat hinzufügen</span>
+                </button>
         </div>
 
         <div class="suppen">
             <h2 class="überschrift_auswahl">SUPPEN</h2>
                 <div class="salate_auswahl">
                     @each (sorte in suppen)
-                        <div class="suppen_sorten" data-id="{{ sorte.beilagen_id }}">
-                            <img src="{{ sorte.bild }}" alt="{{ sorte.beilagen_id }}" longdesc="Ein Bild von {{ sorte.beilagen_id }} in Herzform." width="200" height="200"> 
+                        <div class="suppen_sorten" data-id="{{ sorte.id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
-                                <button class="auswahl_button">
-                                    <span class="auswahl_button_text">Auswählen</span>
-                                </button>
-                                <h4 class= "produkt_id">{{ sorte.beilagen_id }}</h4>
-                                <button class="bearbeiten_button"  onclick='Pfad'> <!--Pfad noch einfügen zu bearbeiten-->
+                                <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                                <p class="produkt_preis">{{ sorte.preis }}</p>
+                                <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/beilagen/{{sorte.id}}'">
                                     <span class="bearbeiten_button_text">Bearbeiten</span>
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     @endeach
                 </div>
-            <button class="hinzufügen_button"  onclick='/administratorbereich/hinzufügen/beilagen/suppen'> <!--Pfad zu administratorbereich_hinzufügen mit params-->
-                <span class="hinzufügen_button_text">Suppe hinzufügen</span>
-            </button>
+                <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/beilagen/suppen'">
+                    <span class="hinzufügen_button_text">Topping hinzufügen</span>
+                </button>
         </div>
 
     <footer>
-       @include('pages.partials.footer')
+       @include('pages/partials/footer')
     </footer>
 
 </body>

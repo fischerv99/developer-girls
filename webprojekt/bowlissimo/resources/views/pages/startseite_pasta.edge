@@ -25,7 +25,7 @@
                 <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
                 <li><a href="/login" class="inaktiv">
                     <img src="\bilder\profil.png" alt="Logo" style="width: 40px; height: 40px;">
-                </a></li>   <!--  Login Button hinzufügen -->
+                </a></li>   
                 <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
             </ul>
         </nav>
@@ -42,15 +42,15 @@
             <div class="pasta_auswahl">
 
                 @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.pasta_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.pasta_id }}" longdesc="Ein Bild von {{ sorte.pasta_id }} in Herzform." width="200" height="200"> 
+                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
-                        <h4 class= "produkt_id">{{ sorte.pasta_id }}</h4>
-                        <button class="details_button" onclick='details/:kategorie/:id'> 
+                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                        <button class="details_button" onclick="window.location.href= 'details/:kategorie/:id'"> 
                             <span class="details_text">Details</span>
                         </button>
                     </div>
@@ -66,13 +66,13 @@
             <div class="soßen_auswahl">
 
                 @each (sorte in soßen)
-                <div class="soßen_sorten" data-id="{{ sorte.soße_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.soße_id }}" longdesc="Ein Bild von {{ sorte.soße_id }} in Herzform." width="200" height="200">
+                <div class="soßen_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
-                        <h4 class="produkt_id">{{ sorte.soße_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
                         <button class="details_button"  onclick='details/:kategorie/:id'>
                             <span class="details_button_text">Details</span>
@@ -88,13 +88,13 @@
             <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
             <div class="toppings_auswahl">
                 @each (sorte in toppings)
-                <div class="toppings_sorten" data-id="{{ sorte.topping_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.topping_id }}" longdesc="Ein Bild von {{ sorte.topping_id }} in Herzform." width="200" height="200">
+                <div class="toppings_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="details_button_text">Auswählen</span>
                         </button>
-                        <h4 class="produkt_id">{{ sorte.topping_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <h5 class="produkt_preis">{{ sorte.preis }}</h5>
                         <button class="details_button" onclick='details/:kategorie/:id'>
                             <span class="details_button_text">Details</span>

@@ -37,13 +37,13 @@
             <h2 class="überschrift_auswahl">SMOOTHIES</h2>
             <div class="smoothie_auswahl">
                 @each (sorte in smoothies)
-                <div class="smoothie_sorten" data-id="{{ sorte.getränke_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id }} in Herzform." width="200" height="200"> 
+                <div class="smoothie_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
-                        <h4 class= "produkt_id">{{ sorte.getränke_id }}</h4>
+                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
                         <button class="details" onclick='details/:kategorie/:id'>
                             <span class="details_text">Details</span>
                         </button>
@@ -57,13 +57,13 @@
             <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
             <div class="erfrischungsgetränke_auswahl">
                 @each (sorte in erfrischungsgetränke)
-                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.getränke_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id}} in Herzform." width="200" height="200">
+                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id}} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">AUSWÄHLEN</span>
                         </button>
-                        <h4 class="produkt_id">{{ sorte.getränk_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <button class="details_button" onclick='details/:kategorie/:id'>
                             <span class="details_button_text">DETAILS</span>
                         </button>
@@ -78,13 +78,13 @@
             <div class="cocktails_auswahl">
 
                 @each (sorte in alkoholfreie_getränke)
-                <div class="cocktails_sorten" data-id="{{ sorte.getränke_id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.getränke_id }}" longdesc="Ein Bild von {{ sorte.getränke_id }} in Herzform." width="200" height="200">
+                <div class="cocktails_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">AUSWÄHLEN</span>
                         </button>
-                        <h4 class="produkt_id">{{ sorte.getränke_id }}</h4>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <button class="details_button"onclick='details/:kategorie/:id'>
                             <span class="details_button_text">DETAILS</h4>
                         </button>

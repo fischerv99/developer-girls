@@ -49,22 +49,17 @@ router.get('/startseite_beilagen', async ({ view }) => {
 
 //Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings Getränke und Beilagen 
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
-  const { kategorie, id } = params; // Kategorie und ID ausparams extrahieren -> category und id jeweils als eigene Konstanten definiert 
+  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
 
-  const Tabellenname = kategorie; // Tabellenname definieren nach Kategorie
+  // Produkt aus der Datenbank holen
+  const produkt = await db.from(oberkategorie).where('id', id).first(); 
 
-  // Abruf des Produkts basierend auf Tabelle und ID
-  const produkt = await db.from(Tabellenname)
-                          .select('*')
-                          .where('id', id)
-                          .first();
-   
-  // Überprüfung, ob das Produkt existiert
+  // Falls das Produkt nicht gefunden wird
   if (!produkt) {
-    return view.render('errors/not-found'); // Falls das Produkt nicht gefunden wird
+    return view.render('errors/not-found'); 
   }
 
-  return view.render('pages/detailansicht', { produkt, kategorie }); // Produkt und Kategorie an die View übergeben
+  return view.render('pages/detailansicht', { produkt, oberkategorie }); // Produkt und Kategorie an die View übergeben
 });
 
   
@@ -73,7 +68,7 @@ router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('pages/administratorbereich_login')
 })
 
-router.post('/administratorbereich_login', async ({ request, response, view }) => {
+router.post('/administratorbereich_login2', async ({ request, response, view }) => {
   const nutzername = request.input('nutzername');
   const passwort = request.input('passwort'); //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
 
@@ -90,10 +85,11 @@ router.post('/administratorbereich_login', async ({ request, response, view }) =
   }
 
   if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
-    return response.redirect('/administratorbereich_login') //Zurück zum Login
+    const error = 'Falsche Anmeldedaten'
+    return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
   }
   else {
-    return response.redirect('/administratorbereich_pasta') //Weiter zum Administratorbereich
+    return response.redirect('administratorbereich/pasta') //Weiter zum Administratorbereich aber warum geht nicht return response redirect???
   }
 })
 
@@ -121,13 +117,13 @@ router.get('/administratorbereich/beilagen', async ({ view }) => {
 
 
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
-router.get('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen
+router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen und unterkategorie=
   const { oberkategorie, unterkategorie } = params;
   return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
-router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
+router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
   let { oberkategorie, unterkategorie } = params;
 
   //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 
@@ -144,31 +140,44 @@ router.post('/administratorbereich/hinzufügen/:oberkategorie/:unterkategorie', 
 
   //Speichern des neuen Produkts in der Datenbank
   if(oberkategorie === 'pasta') {
-  const neuesProdukt = await db.table(oberkategorie) //oberkategorie = pasta
-                               .insert({id: request.input('name'), 
-                                        name: request.input('name'), 
-                                        inhalte: request.input('inhalte'), 
-                                        ernaehrungsform: request.input('ernaehrungsform'),
-                                        kalorien_pro_100g: request.input('kalorien_pro_100g'),
-                                        menge_pro_bowl: request.input('menge_pro_bowl'),
-                                        kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                                        art: unterkategorie
-                                       });
+    await db.table(oberkategorie) //oberkategorie = pasta
+            .insert({id: request.input('name'), 
+                     name: request.input('name'), 
+                     inhalte: request.input('inhalte'), 
+                     ernaehrungsform: request.input('ernaehrungsform'),
+                     kalorien_pro_100g: request.input('kalorien_pro_100g'),
+                     menge_pro_bowl: request.input('menge_pro_bowl'),
+                     kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                     art: unterkategorie
+                     });
   } else {
-    const neuesProdukt = await db.table(oberkategorie) //oberkategorie = soßen, toppings, getränke, beilagen
-                                 .insert({id: request.input('name'), 
-                                        name: request.input('name'), 
-                                        inhalte: request.input('inhalte'), 
-                                        ernaehrungsform: request.input('ernaehrungsform'),
-                                        kalorien_pro_100g: request.input('kalorien_pro_100g'),
-                                        menge_pro_bowl: request.input('menge_pro_bowl'),
-                                        kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                                        preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
-                                        art: unterkategorie
-                                    });
+    await db.table(oberkategorie) //oberkategorie = soßen, toppings, getränke, beilagen
+            .insert({id: request.input('name'), 
+                     name: request.input('name'), 
+                     inhalte: request.input('inhalte'), 
+                     ernaehrungsform: request.input('ernaehrungsform'),
+                     kalorien_pro_100g: request.input('kalorien_pro_100g'),
+                     menge_pro_bowl: request.input('menge_pro_bowl'),
+                     kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                     preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
+                     art: unterkategorie
+                    });
   }
 
   return response.redirect(`pages/administratorbereich/oberkategorie}`); // Weiterleitung zur Übersichtsseite der Kategorie
+});
+
+// Administratorbereich: Route zum Bearbeiten eines Produkts
+router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ view, params }) => {
+  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
+
+  const produkt = await db.from(oberkategorie).where('id', id).first(); // Produkt aus der Datenbank holen
+
+  if (!produkt) {
+    return view.render('errors/not-found'); // Falls das Produkt nicht gefunden wird
+  }
+
+  return view.render('pages/administratorbereich_bearbeiten', { produkt, oberkategorie }); // Produkt und Kategorie an die View übergeben
 });
 
 

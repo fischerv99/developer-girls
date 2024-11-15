@@ -23,7 +23,8 @@
         Fehler: {{ error }}
     @endif
 
-    <form action="/administratorbereich_login" method="POST"> <!-- Formular für die Anmeldung -->
+    <form action="/administratorbereich_login2" method="POST"> <!-- Formular für die Anmeldung -->
+        {{csrfField()}}
         <!-- Benutzername -->
         <label for="nutzername">Benutzername</label>
         <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Benutzernamen ein">
