@@ -32,20 +32,39 @@
     </header>
 
     <main>
-        
-        <div class="smoothies">
-            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
-            <div class="smoothie_auswahl">
-                @each (sorte in smoothies)
-                <div class="smoothie_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
+        <div class="erfrischungsgetränke">
+            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
+            <div class="produkt_auswahl">
+                @each (sorte in erfrischungsgetränke)
+                <div class="produkt_sorte" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
+                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                            <span class="details_button_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+            @endeach
+        </div>
+
+
+        <div class="smoothies">
+            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
+            <div class="produkt_auswahl">
+                @each (sorte in smoothies)
+                <div class="produkt_sorte" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <button class="auswahl_button"> 
+                            <span class="auswahl_button_text">Auswählen</span>
+                        </button>
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                        <button class="details" onclick='details/:kategorie/:id'>
-                            <span class="details_text">Details</span>
+                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                            <span class="details_button_text">Details</span>
                         </button>
                     </div>
                 </div>
@@ -53,40 +72,21 @@
             </div>
         </div>
 
-        <div class="erfrischungsgetränke">
-            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
-            <div class="erfrischungsgetränke_auswahl">
-                @each (sorte in erfrischungsgetränke)
-                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id}} in Herzform." width="200" height="200">
-                    <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">AUSWÄHLEN</span>
-                        </button>
-                        <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick='details/:kategorie/:id'>
-                            <span class="details_button_text">DETAILS</span>
-                        </button>
-                    </div>
-                @endeach
-                </div>
-            </div>
-        </div>
+        
 
         <div class="alkoholfreie_cocktails">
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
-            <div class="cocktails_auswahl">
-
+            <div class="produkt_auswahl">
                 @each (sorte in alkoholfreie_getränke)
-                <div class="cocktails_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorte" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
-                            <span class="auswahl_button_text">AUSWÄHLEN</span>
+                            <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button"onclick='details/:kategorie/:id'>
-                            <span class="details_button_text">DETAILS</h4>
+                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                            <span class="details_button_text">Details</span>
                         </button>
                     </div>
                 </div> 
@@ -99,6 +99,12 @@
     <footer>
         @include('pages/partials/footer')
     </footer>
+
+    <script>
+        function addToCart(productId) {
+            console.log(productId + " wurde zum Warenkorb hinzugefügt!");
+        }
+    </script>
 
 </body>
 </html>

@@ -35,11 +35,13 @@ body {
   align-items: center;
 }
 
+
 /* Hauptüberschrift und Basispreis nebeneinander */
 .überschrift {
   width: 100%;
   display: flex;
   align-items: center;
+  color: #FCF8ED;
   padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
 }
 
@@ -48,6 +50,7 @@ body {
   font-family: fantasy;
   font-size: 2rem;
   text-align: left;
+  color: #FCF8ED;
   margin-right: 10px; /* Kleiner Abstand zwischen H1 und Basispreis */
 }
 
@@ -61,11 +64,12 @@ body {
 .pasta, .soßen, .toppings {
   width: 100%;
   padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
+  color: #FCF8ED;
 }
 
 .pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl,
 .pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h2.überschrift_zusatz {
-    padding-left: 40px;
+  padding-left: 40px;
   display: inline-block;
   text-align: left;
   margin: 0;
@@ -81,6 +85,7 @@ body {
   font-size: 1rem;
   color: #FCF8ED;
 }
+
 
 /* Linie über den Produkt-Containern */
 .pasta_auswahl, .soßen_auswahl, .toppings_auswahl {
@@ -120,44 +125,6 @@ body {
   text-align: center;
 }
 
-.auswahl_button, .details_button {
-  margin: 5px;
-  display: inline-block;
-}
-
-.auswahl_button {
-    color:#649e4c;
-    padding: 5px;
-    font-size: 15px;
-    border: none;
-    border-radius: 6px;
-    margin-top: 10px;
-}
-
-.auswahl_button:hover {
-    color:#3A6205;
-    background-color:#FFF7F5;
-    font-weight: bold;
-}
-
-.details_button:hover {
-    color:#FCC21D;
-    font-weight: bold;
-}
-
-.details_button {
-    color:#FCF8ED;
-    font-size: 13px;
-    border: none;
-    background-color: transparent;
-    text-decoration: underline;
-    margin: 5px;
-}
-
-.name {
-    margin: 5px;
-}
-
 /* Container für die Bilder */
 .pasta_sorten, .soßen_sorten, .toppings_sorten {
   width: 100%;
@@ -166,6 +133,115 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center; /* Zentriert den Inhalt horizontal */
+}
+
+/* Allgemeine Container für Produkt-Auswahl */
+.produkt_auswahl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.produkt_sorte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  background-color: transparent;
+  color: #FCF8ED;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.produkt_sorte:hover {
+  transform: scale(1.05);
+}
+
+/* Bildgrößen für die Getränke */
+.produkt_sorte img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+
+
+/* Allgemeines Styling für Getränke */
+/* Grid für die Drinks-Auswahl */
+.drinks_auswahl {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  justify-items: center;
+  align-items: center;
+  color: white;
+}
+
+.drinks_auswahl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px; /* Gleicher linker Abstand wie die Überschriften */
+  right: 40px; /* Optional: rechter Abstand für Symmetrie */
+  height: 2px;
+  background-color: #FCF8ED; /* Farbe der Linie */
+}
+
+/* Container für die Getränkekategorie */
+.drinks_sorten {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto; /* Zentriert den gesamten Container */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Zentriert den Inhalt horizontal */
+  }
+
+.name {
+  margin: 5px;
+}
+
+/* Buttons */
+.auswahl_button {
+  color: #649e4c;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin-top: 10px;
+}
+
+.auswahl_button:hover {
+  background-color: #ececec;
+  font-weight: bold;
+}
+
+.details_button {
+  color: #000;
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+.details_button:hover {
+  color: #649e4c;
+  font-weight: bold;
+}
+
+/* Überschrift */
+.überschrift_auswahl {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 40px;
+  font-weight: bold;
+  color:  #FCF8ED;
 }
 
 
@@ -285,3 +361,4 @@ nav ul li a.aktiv {
   height: auto; /* Höhe automatisch anpassen */
   margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
 }
+
