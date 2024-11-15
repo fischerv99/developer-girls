@@ -41,28 +41,24 @@ router.get('/startseite_drinks', async ({ view }) => {
   return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
 
-router.get('/startseite_beilagen', async ({ view }) => {
-  const salate = await db.from('beilagen').select('*').where('art', 1)
-  const suppen = await db.from('beilagen').select('*').where('art', 2)
-  return view.render('pages/startseite_beilagen', { salate, suppen })
-})
-
-//Dynamische Route für die Detailsseite von Pasta, Soßen, Toppings Getränke und Beilagen 
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
-  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
+  const { kategorie, id } = params; // Kategorie und ID aus params extrahieren
 
-  // Produkt aus der Datenbank holen
-  const produkt = await db.from(oberkategorie).where('id', id).first(); 
+  // Dynamische Tabelle basierend auf der Kategorie wählen
+  const produkt = await db.from(kategorie)  // Hier wird die Tabelle dynamisch auf Basis der Kategorie gewählt
+    .where('id', id)                        // Filtert nach der ID
+    .first();                              // Gibt das erste (und einzige) Ergebnis zurück
 
   // Falls das Produkt nicht gefunden wird
   if (!produkt) {
     return view.render('errors/not-found'); 
   }
 
-  return view.render('pages/detailansicht', { produkt, oberkategorie }); // Produkt und Kategorie an die View übergeben
+  // Wenn das Produkt gefunden wurde, wird es an die View übergeben
+  return view.render('pages/detailansicht', { produkt, kategorie });
 });
 
-  
+
 //Anmelden im Administratorbereich
 router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('pages/administratorbereich_login')
