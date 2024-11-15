@@ -177,7 +177,6 @@ router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ view,
 });
 
 
-//Login-Seite:
 // Registrierung
 router.get('/register', async ({ view }) => {
   return view.render('pages/register');
@@ -185,10 +184,10 @@ router.get('/register', async ({ view }) => {
 
 // Registrierung verarbeiten
 router.post('/register', async ({ request, response }) => {
-  const { nutzername, passwort } = request.only(['nutzername', 'passwort']);
+  const { nutzername, passwort } = request.only(['nutzername', 'passwort']); 
 
   // Neuen Benutzer in die Datenbank einfügen
-  await db.table('users').insert({ nutzername, passwort });
+  await db.table('kunde_gast').insert({ nutzername, passwort });
   return response.redirect('pages/login');
 });
 

@@ -9,11 +9,37 @@
 <body>
   <h1>Registrieren</h1>
   <form action="/register" method="POST">
+    {{csrfField()}}
     <label for="username">Nutzername:</label>
     <input type="text" id="username" name="username" required>
     
     <label for="password">Passwort:</label>
     <input type="password" id="password" name="password" required>
+
+    <label for ="vorname">Name:</label>
+    <input type="text" id="vorname" name="vorname" required>
+
+    <label for ="nachname">Nachname:</label>
+    <input type="text" id="nachname" name="nachname" required>
+
+    <label for="strasse_nr"Straße und Hausnummer:</label>
+    <input type="text" id="strasse_nr" name="strasse_nr" required>
+
+    <label for="postleitzahl">Postleitzahl:</label>
+    <input type="integer" id="postleitzahl" name="postleitzahl" required>
+
+    <label for="stadt">Stadt:</label>
+    <input type="text" id="stadt" name="stadt" required>
+
+    <label for="bezahlart">Bezahlart:</label>
+    <select id="bezahlart" name="bezahlart" required>
+      <option value="kreditkarte">Kreditkarte</option>
+      <option value="paypal">PayPal</option>
+      <option value="bar">Bar</option>
+    </select>
+
+    <label for="email">E-Mail:</label>
+    <input type="email" id="email" name="email" required>
     
     <button type="submit">Registrieren</button>
   </form>
