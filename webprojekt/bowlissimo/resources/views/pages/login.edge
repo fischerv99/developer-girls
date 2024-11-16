@@ -7,17 +7,31 @@
   <title>Login</title>
 </head>
 <body>
+
+  @include('pages/partials/header')
+
   <h1>Login</h1>
+
+   @if (error != undefined)
+    Fehler: {{ error }}
+  @endif
+
+
   <form action="/login" method="POST">
     {{csrfField()}}
-    <label for="username">Nutzername:</label>
-    <input type="text" id="username" name="username" required>
+    <label for="nutzername">Nutzername:</label>
+    <input type="text" id="nutzername" name="nutzername" required>
     
-    <label for="password">Passwort:</label>
-    <input type="password" id="password" name="password" required>
+    <label for="passwort">Passwort:</label>
+    <input type="password" id="passwort" name="passwort" required>
     
     <button type="submit">Einloggen</button>
   </form>
   <p>Noch kein Konto? <a href="/register">Registrieren</a></p>
 </body>
+
+<footer>
+  @include('pages/partials/footer')
+</footer>
+
 </html>

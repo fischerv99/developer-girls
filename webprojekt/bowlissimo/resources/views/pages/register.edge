@@ -6,23 +6,26 @@
   <link rel="stylesheet" href="resources/css/app.css">
   <title>Registrieren</title>
 </head>
+
 <body>
+
   <h1>Registrieren</h1>
+
   <form action="/register" method="POST">
     {{csrfField()}}
-    <label for="username">Nutzername:</label>
-    <input type="text" id="username" name="username" required>
+    <label for="nutzername">Nutzername:</label>
+    <input type="text" id="nutzername" name="nutzername" required>
     
-    <label for="password">Passwort:</label>
-    <input type="password" id="password" name="password" required>
+    <label for="passwort">Passwort:</label>
+    <input type="password" id="passwort" name="passwort" required>
 
-    <label for ="vorname">Name:</label>
+    <label for ="vorname">Vorame:</label>
     <input type="text" id="vorname" name="vorname" required>
 
     <label for ="nachname">Nachname:</label>
     <input type="text" id="nachname" name="nachname" required>
 
-    <label for="strasse_nr"Straße und Hausnummer:</label>
+    <label for="strasse_nr"> Straße und Hausnummer: </label>
     <input type="text" id="strasse_nr" name="strasse_nr" required>
 
     <label for="postleitzahl">Postleitzahl:</label>
@@ -33,9 +36,9 @@
 
     <label for="bezahlart">Bezahlart:</label>
     <select id="bezahlart" name="bezahlart" required>
-      <option value="kreditkarte">Kreditkarte</option>
-      <option value="paypal">PayPal</option>
-      <option value="bar">Bar</option>
+      <option value="1">Kreditkarte</option>
+      <option value="2">PayPal</option>
+      <option value="3">Bar</option>
     </select>
 
     <label for="email">E-Mail:</label>

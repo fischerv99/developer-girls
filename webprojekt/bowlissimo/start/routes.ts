@@ -9,11 +9,17 @@
 
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
+import hash from '@adonisjs/core/services/hash'
 
 router.get('/', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
   const soßen = await db.from('soßen').select('*')
   const toppings = await db.from('toppings').select('*')
+
+  // Create a new session if it doesn't exist
+  if (!session.get('sessionId')) {
+    session.put('sessionId', Math.random().toString(36).substring(2));
+  }
 
   const cartItems = session.get('cartItems', [])
   const cartCount = cartItems.length
@@ -39,6 +45,13 @@ router.get('/startseite_drinks', async ({ view }) => {
   const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
 
   return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
+})
+
+router.get('/startseite_beilagen', async ({ view }) => {
+  const salate = await db.from('beilagen').select('*').where('art', 1)
+  const suppen = await db.from('beilagen').select('*').where('art', 2)
+
+  return view.render('pages/startseite_beilagen', { salate, suppen })
 })
 
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
@@ -85,7 +98,7 @@ router.post('/administratorbereich_login2', async ({ request, response, view }) 
     return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
   }
   else {
-    return response.redirect('administratorbereich/pasta') //Weiter zum Administratorbereich aber warum geht nicht return response redirect???
+    return response.redirect('administratorbereich/pasta') //Weiter zum Administratorbereich 
   }
 })
 
@@ -184,10 +197,39 @@ router.get('/register', async ({ view }) => {
 
 // Registrierung verarbeiten
 router.post('/register', async ({ request, response }) => {
-  const { nutzername, passwort } = request.only(['nutzername', 'passwort']); 
+
+  // Formulardaten aus dem Request holen
+  const vorname = request.input('vorname')
+  const nachname = request.input('nachname') 
+  const strasse_nr = request.input('strasse_nr')
+  const postleitzahl = request.input('postleitzahl')
+  const stadt = request.input('stadt')
+  const mail = request.input('email')
+  const bezahlart = request.input('bezahlart')
+  const nutzername = request.input('nutzername')
+
+  // Passwort hashen
+  const passwort = request.input('passwort');
+  const hashedPasswort = await hash.make(passwort);
+ 
 
   // Neuen Benutzer in die Datenbank einfügen
-  await db.table('kunde_gast').insert({ nutzername, passwort });
+  try {
+  await db.table('kunde_gast').insert({vorname: vorname, 
+                                       nachname: nachname, 
+                                       strasse_nr: strasse_nr, 
+                                       postleitzahl:postleitzahl, 
+                                       stadt: stadt,
+                                       mail: mail,
+                                       bezahlart: bezahlart,
+                                       nutzername: nutzername,
+                                       passwort: hashedPasswort
+          });
+      } catch (error) {
+          console.error('Fehler beim Einfügen in die Datenbank:', error);
+          response.send('Es gab ein Problem bei der Registrierung.');
+      }
+  // Weiterleitung zur Login-Seite
   return response.redirect('pages/login');
 });
 
@@ -197,20 +239,59 @@ router.get('/login', async ({ view }) => {
 });
 
 // Login verarbeiten
-router.post('/login', async ({ request, response, session }) => {
-  const { nutzername, passwort } = request.only(['nutzername', 'passwort']);
+router.post('/login', async ({ request, view, response }) => {
+  const nutzername = request.input('nutzername');
+  const passwort = request.input('passwort');
 
   // Benutzer in der Datenbank suchen
-  const user = await db.from('users').where({ nutzername }).first();
+  const kunde = await db.from('kunde_gast').where({kunde_id: nutzername}).first();
 
-  if (!user || user.passwort !== passwort) {
-    return response.redirect('/login'); // Bei falschen Anmeldedaten zurück zum Login
+  // Benutzername und Passwort überprüfen
+  if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
+    const error = 'Formular-Fehler'
+    return view.render('pages/login', {error})
   }
 
-  // Benutzersitzung erstellen
-  session.put('user_id', user.id);
-  return response.redirect('/favoriten'); // Weiterleitung zur Favoriten-Seite
-});
+  if(request.input('nutzername') === null || request.input('passwort') === null) { 
+    const error = 'Bitte alle Felder ausfüllen'
+    return view.render('pages/login', {error}) 
+  }
+
+  if (!kunde || kunde.passwort !== passwort) { 
+    const error = 'Falsche Anmeldedaten'
+    return view.render('pages/login', {error}) 
+  }
+  else {
+    return response.redirect('/startseite/kunde/Pasta') //Weiterleitung noch überarbeiten
+  }
+})
+
+//Startseite für eingeloggte Kunden
+router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {
+  const pasta = await db.from('pasta').select('*')
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+
+  return view.render('pages/kunde_pasta', { pasta, soßen, toppings })
+})
+
+
+router.get('/startseite/:kunde/Drinks', async ({ view }) => {
+  const smoothies = await db.from('getränke').select('*').where('art', 1)
+  const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
+  const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
+
+  return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
+})
+
+router.get('/startseite/:kunde/Beilagen', async ({ view }) => {
+  const salate = await db.from('beilagen').select('*').where('art', 1)
+  const suppen = await db.from('beilagen').select('*').where('art', 2)
+
+  return view.render('pages/kunde_beilagen', { salate, suppen })
+})
+ 
+
 
 // Favoriten-Seite anzeigen (nur eingeloggt)
 router.get('/favoriten', async ({ view, session, response }) => {
@@ -222,18 +303,7 @@ router.get('/favoriten', async ({ view, session, response }) => {
   
   const favorites = await db.from('favorites').where('user_id', userId);
   return view.render('pages/favoriten', { favorites });
-}); // Hier gehen wir sicher, dass nur eingeloggt benutzer auf favoriten seite zugreifen können
-
-
-
-// Logout
-router.get('/logout', async ({ session, response }) => {
-  session.forget('user_id');
-  return response.redirect('pages/');
-});
-
-
-  
+}); // Hier gehen wir sicher, dass nur eingeloggt benutzer auf favoriten seite zugreifen können 
 
 
 //Warenkorb-Seite:

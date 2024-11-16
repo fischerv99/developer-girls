@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bowlissimo</title>
+    <link rel="stylesheet" href="resources/css/app.css">
+</head>
+
+<body>
+
+    <header class="header">
+        @include('pages/partials/header')
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben">
+            <ul>
+                <li><a href="/startseite/:kunde/Pasta" class="inaktiv">PASTA-BOWLS</a></li>
+                <li><a href="/startseite/:kunde/Drinks" class="inaktiv">DRINKS</a></li>
+                <li><a href="/startseite/:kunde/Beilagen" class="aktiv">BEILAGEN</a></li>
+                <li><a href="/favoriten" class="inaktiv">
+                    <img src="\bilder\herz.png" alt="Logo" style="width: 40px; height: 40px;">
+                </a></li>   
+                <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
+                <li><a href="/" class="inaktiv">Logout</a></li>
+            </ul>
+        </nav>        
+    </header>
+
+    <main>
+        <div class="überschrift">
+            <h1>BEILAGEN</h1>
+        </div>
+
+        <div class="salate">
+            <h2 class="überschrift_auswahl">SALATE</h2>
+                <div class="salate_auswahl">
+                    @each (sorte in salate)
+                        <div class="salate_sorten" data-id="{{ sorte.id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
+                            <div class="auswahl">
+                                <button class="auswahl_button">
+                                    <span class="auswahl_button_text">Auswählen</span>
+                                </button>
+                                <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                                <button class="details" onclick='details/:kategorie/:id'>
+                                    <span class="details_text">Details</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endeach
+                </div>
+
+        <div class="suppen">
+            <h2 class="überschrift_auswahl">SUPPEN</h2>
+                <div class="salate_auswahl">
+                    @each (sorte in suppen)
+                        <div class="suppen_sorten" data-id="{{ sorte.id }}">
+                            <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
+                            <div class="auswahl">
+                                <button class="auswahl_button">
+                                    <span class="auswahl_button_text">Auswählen</span>
+                                </button>
+                                <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                                <button class="details" onclick='details/:kategorie/:id'>
+                                    <span class="details_text">Details</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endeach
+                </div>
+        </div>
+
+    <footer>
+       @include('pages/partials/footer')
+    </footer>
+
+</body>
+</html>
