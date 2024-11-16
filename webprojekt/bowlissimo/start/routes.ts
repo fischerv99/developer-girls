@@ -13,14 +13,23 @@ import hash from '@adonisjs/core/services/hash'
 
 router.get('/', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('soßen').select('*')
+  const soßen = await db.from('sossen').select('*')
   const toppings = await db.from('toppings').select('*')
 
-  // Create a new session if it doesn't exist
+
+  // Neue Session-ID generieren, falls noch keine vorhanden ist
+  //Zufällige Session-ID mit 36 Zeichen und ohne 0 und 1 erstellen
   if (!session.get('sessionId')) {
-    session.put('sessionId', Math.random().toString(36).substring(2));
+    session.put('sessionId', Math.random().toString(36).substring(2)); 
   }
 
+  // Session in die Datenbank speichern
+  await db.table('session').insert({ session_id: session.get('sessionId'),
+                                     erstellt_am: new Date(),
+   });
+
+
+  // Anzahl der Produkte im Warenkorb berechnen
   const cartItems = session.get('cartItems', [])
   const cartCount = cartItems.length
 
@@ -29,7 +38,7 @@ router.get('/', async ({ view, session }) => {
 
 router.get('/startseite_pasta', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('soßen').select('*')
+  const soßen = await db.from('sossen').select('*')
   const toppings = await db.from('toppings').select('*')
 
   const cartItems = session.get('cartItems', [])
@@ -40,9 +49,9 @@ router.get('/startseite_pasta', async ({ view, session }) => {
 
 
 router.get('/startseite_drinks', async ({ view }) => {
-  const smoothies = await db.from('getränke').select('*').where('art', 1)
-  const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
-  const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
+  const smoothies = await db.from('getraenke').select('*').where('art', 1)
+  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
+  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 3)
 
   return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
@@ -106,15 +115,15 @@ router.post('/administratorbereich_login2', async ({ request, response, view }) 
 //der Administratorbereich
 router.get('/administratorbereich/pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')  
-  const soßen = await db.from('soßen').select('*')
+  const soßen = await db.from('sossen').select('*')
   const toppings = await db.from('toppings').select('*')
   return view.render('pages/administratorbereich_pasta', { pasta, soßen, toppings })
 })
 
 router.get('/administratorbereich/drinks', async ({ view }) => {
-  const smoothies = await db.from('getränke').select('*').where('art', 1) 
-  const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
-  const alkoholfreie_cocktails = await db.from('getränke').select('*').where('art', 3)
+  const smoothies = await db.from('getraenke').select('*').where('art', 1) 
+  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
+  const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 3)
   return view.render('pages/administratorbereich_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_cocktails })
 })
 
@@ -216,15 +225,15 @@ router.post('/register', async ({ request, response }) => {
 
   // Neuen Benutzer in die Datenbank einfügen
   try {
-  await db.table('kunde_gast').insert({vorname: vorname, 
+  await db.table('kunde_angemeldet').insert({vorname: vorname, 
                                        nachname: nachname, 
                                        strasse_nr: strasse_nr, 
                                        postleitzahl:postleitzahl, 
                                        stadt: stadt,
                                        mail: mail,
                                        bezahlart: bezahlart,
-                                       nutzername: nutzername,
-                                       passwort: hashedPasswort
+                                       kunden_id: nutzername,
+                                       passwort_hash: hashedPasswort
           });
       } catch (error) {
           console.error('Fehler beim Einfügen in die Datenbank:', error);
@@ -245,7 +254,7 @@ router.post('/login', async ({ request, view, response }) => {
   const passwort = request.input('passwort');
 
   // Benutzer in der Datenbank suchen
-  const kunde = await db.from('kunde_gast').where({kunde_id: nutzername}).first();
+  const kunde = await db.from('kunden_angemeldet').where({kunden_id: nutzername}).first();
 
   // Benutzername und Passwort überprüfen
   if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
@@ -258,7 +267,7 @@ router.post('/login', async ({ request, view, response }) => {
     return view.render('pages/login', {error}) 
   }
 
-  if (!kunde || kunde.passwort !== passwort) { 
+  if (!kunde || kunde.passwort_hash !== passwort) { 
     const error = 'Falsche Anmeldedaten'
     return view.render('pages/login', {error}) 
   }
@@ -270,7 +279,7 @@ router.post('/login', async ({ request, view, response }) => {
 //Startseite für eingeloggte Kunden
 router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('soßen').select('*')
+  const soßen = await db.from('sossen').select('*')
   const toppings = await db.from('toppings').select('*')
 
   return view.render('pages/kunde_pasta', { pasta, soßen, toppings })
@@ -278,9 +287,9 @@ router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {
 
 
 router.get('/startseite/:kunde/Drinks', async ({ view }) => {
-  const smoothies = await db.from('getränke').select('*').where('art', 1)
-  const erfrischungsgetränke = await db.from('getränke').select('*').where('art', 2)
-  const alkoholfreie_getränke = await db.from('getränke').select('*').where('art', 3)
+  const smoothies = await db.from('getraenke').select('*').where('art', 1)
+  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
+  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 3)
 
   return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
