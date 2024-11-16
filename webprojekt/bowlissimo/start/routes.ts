@@ -54,13 +54,14 @@ router.get('/startseite_beilagen', async ({ view }) => {
   return view.render('pages/startseite_beilagen', { salate, suppen })
 })
 
+// Detailansicht für ein Produkt
 router.get('/details/:kategorie/:id', async ({ view, params }) => {
   const { kategorie, id } = params; // Kategorie und ID aus params extrahieren
 
   // Dynamische Tabelle basierend auf der Kategorie wählen
   const produkt = await db.from(kategorie)  // Hier wird die Tabelle dynamisch auf Basis der Kategorie gewählt
-    .where('id', id)                        // Filtert nach der ID
-    .first();                              // Gibt das erste (und einzige) Ergebnis zurück
+                         .where('id', id)   // Filtert nach der ID
+                         .first();         // Gibt das erste (und einzige) Ergebnis zurück
 
   // Falls das Produkt nicht gefunden wird
   if (!produkt) {

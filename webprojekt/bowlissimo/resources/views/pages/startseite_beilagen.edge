@@ -26,7 +26,6 @@
                 <li><a href="/login" class="inaktiv">
                     <img src="\bilder\profil.png" alt="Logo" style="width: 40px; height: 40px;">
                 </a></li>  
-           <!--  Warenkorb Button hinzufügen -->
                 <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
             </ul>
         </nav>        
@@ -48,7 +47,7 @@
                                     <span class="auswahl_button_text">Auswählen</span>
                                 </button>
                                 <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                                <button class="details" onclick='details/:kategorie/:id'>
+                                <button class="details" onclick="window.location.href='/details/beilagen/{{ sorte.id }}'"'>
                                     <span class="details_text">Details</span>
                                 </button>
                             </div>
@@ -67,7 +66,7 @@
                                     <span class="auswahl_button_text">Auswählen</span>
                                 </button>
                                 <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                                <button class="details" onclick='details/:kategorie/:id'>
+                                <button class="details" onclick="window.location.href='/details/beilagen/{{ sorte.id }}'"
                                     <span class="details_text">Details</span>
                                 </button>
                             </div>
