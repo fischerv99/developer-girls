@@ -21,12 +21,12 @@
     
             <p>{{ produkt.beschreibung }}</p> <!-- Beschreibung des Produkts -->
             
-            <form action="/updateProdukt" method="POST">
+            <form action="/administratorbereich/bearbeiten/:oberkategorie/:id" method="POST">
                 {{csrfField()}}
 
                 <div>
                     <label for="produkt_id">Name:</label>
-                    <input type="text" id="produkt_id" name="produkt_id" value="{{ produkt.id }}" readonly>
+                    <input type="text" id="produkt_id" name="produkt_id" value="{{ produkt.id }}" >
                 </div>
                 <div>
                     <label for="produkt_bild">Produkt Bild URL:</label>
@@ -34,8 +34,9 @@
                 </div>
                 <div>
                     <label for="produkt_beschreibung">Beschreibung:</label>
-                    <textarea id="produkt_beschreibung" name="produkt_beschreibung">{{ produkt.beschreibung }}</textarea>
+                    <textarea id="produkt_beschreibung" name="produkt_beschreibung" > {{ produkt.beschreibung }} </textarea>
                 </div>
+        
                 <div>
                     <label for="produkt_inhalte">Inhalte:</label>
                     <input type="text" id="produkt_inhalte" name="produkt_inhalte" value="{{ produkt.inhalte }}">
@@ -45,21 +46,29 @@
                     <input type="text" id="produkt_allergene" name="produkt_allergene" value="{{ produkt.allergene }}">
                 </div>
                 <div>
-                    <label for="produkt_ernährungsform">Ernährungsform:</label>
-                    <input type="text" id="produkt_ernährungsform" name="produkt_ernährungsform" value="{{ produkt.ernährungsform }}">
+                    <label for="produkt_ernaehrungsform">Ernährungsform:</label>
+                    <input type="text" id="produkt_ernaehrungsform" name="produkt_ernaehrungsform" value="{{ produkt.ernaehrungsform }}">
                 </div>
                 <div>
-                    <label for="produkt_kalorien_pro_100g">Kalorien pro 100 g:</label>
-                    <input type="number" id="produkt_kalorien_pro_100g" name="produkt_kalorien_pro_100g" value="{{ produkt.kalorien_pro_100g }}">
+                    <label for="produkt_kalorien_pro_100me">Kalorien pro 100 g/ml:</label>
+                    <input type="number" id="produkt_kalorien_pro_100me" name="produkt_kalorien_pro_100me" value="{{ produkt.kalorien_pro_100me }}">
                 </div>
                 <div>
-                    <label for="menge_pro_bowl">Menge pro Bowl:</label>
-                    <input type="number" id="menge_pro_bowl" name="menge_pro_bowl" value="{{ menge_pro_bowl }}">
+                    <label for="portionsgroesse">Portionsgröße:</label>
+                    <input type="number" id="portionsgroesse" name="portionsgroesse" value="{{ produkt.portionsgroesse }}">
                 </div>
                 <div>
-                    <label for="kalorien_pro_bowl">Kalorien pro Bowl:</label>
-                    <input type="number" id="kalorien_pro_bowl" name="kalorien_pro_bowl" value="{{ kalorien_pro_bowl }}">
+                    <label for="kalorien_pro_portion">Kalorien pro Bowl:</label>
+                    <input type="number" id="kalorien_pro_portion" name="kalorien_pro_portion" value="{{ produkt.kalorien_pro_portion }}">
                 </div>
+
+                @if(oberkategorie !== 'pasta')
+                <div>
+                    <label for="produkt_preis">Preis:</label>
+                    <input type="text" id="produkt_preis" name="produkt_preis" value="{{ produkt.preis }}">
+                </div>
+                @endif
+
                 <button type="submit">Speichern</button>
             </form>
         </div>

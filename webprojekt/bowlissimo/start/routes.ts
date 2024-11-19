@@ -13,20 +13,20 @@ import hash from '@adonisjs/core/services/hash'
 
 router.get('/', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('sossen').select('*')
+  const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
 
   // Neue Session-ID generieren, falls noch keine vorhanden ist
   //Zufällige Session-ID mit 36 Zeichen und ohne 0 und 1 erstellen
-  if (!session.get('sessionId')) {
-    session.put('sessionId', Math.random().toString(36).substring(2)); 
-  }
+  //if (!session.get('sessionId')) {
+    //session.put('sessionId', Math.random().toString(36).substring(2)); 
+  //}
 
   // Session in die Datenbank speichern
-  await db.table('session').insert({ session_id: session.get('sessionId'),
-                                     erstellt_am: new Date(),
-   });
+  //await db.table('session').insert({ session_id: session.get('sessionId'),
+                                     //erstellt_am: new Date(),
+  // });
 
 
   // Anzahl der Produkte im Warenkorb berechnen
@@ -38,7 +38,7 @@ router.get('/', async ({ view, session }) => {
 
 router.get('/startseite_pasta', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('sossen').select('*')
+  const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
   const cartItems = session.get('cartItems', [])
@@ -115,7 +115,7 @@ router.post('/administratorbereich_login2', async ({ request, response, view }) 
 //der Administratorbereich
 router.get('/administratorbereich/pasta', async ({ view }) => {
   const pasta = await db.from('pasta').select('*')  
-  const soßen = await db.from('sossen').select('*')
+  const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
   return view.render('pages/administratorbereich_pasta', { pasta, soßen, toppings })
 })
@@ -198,6 +198,42 @@ router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ view,
 
   return view.render('pages/administratorbereich_bearbeiten', { produkt, oberkategorie }); // Produkt und Kategorie an die View übergeben
 });
+
+//Administratorbereich: POST-Route zum Speichern der Änderungen
+router.post('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ request, response, params }) => {
+  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
+
+//Request-Daten speichern
+const name = request.input('produkt_id');
+const bild = request.input('produkt_bild');
+const beschreibung = request.input('produkt_beschreibung');
+const inhalte = request.input('produkt_inhalte');
+const allergene = request.input('produkt_allergene');
+const ernaehrungsform = request.input('produkt_ernaehrungsform');
+const kalorien_pro_100me = request.input('produkt_kalorien_pro_100me');
+const portionsgroesse = request.input('produkt_portionsgroesse');
+const kalorien_pro_portion = request.input('produkt_kalorien_pro_portion');
+
+if (oberkategorie != 'pasta') {
+  const preis = request.input('produkt_preis');
+}
+
+//Produkt in der Datenbank aktualisieren-> stimmt glaube ich noch nicht ganz
+if (oberkategorie === 'pasta') {
+  await db.from(oberkategorie)
+          .where('id', id)
+          .update({name, bild, beschreibung, inhalte, allergene, ernaehrungsform, kalorien_pro_100me, portionsgroesse, kalorien_pro_portion});
+}
+else {
+  await db.from(oberkategorie)
+          .where('id', id)
+          .update({name, bild, beschreibung, inhalte, allergene, ernaehrungsform, kalorien_pro_100me, portionsgroesse, kalorien_pro_portion});
+
+}
+
+});
+
+
 
 
 // Registrierung
@@ -334,7 +370,7 @@ router.post('/warenkorb/add', async ({ request, session, response }) => {
   const { productid, quantity } = request.only(['productid', 'quantity']);
 
   const product = await db.from('pasta').where('id', productid).first() ||
-                  await db.from('soßen').where('id', productid).first() ||
+                  await db.from('saucen').where('id', productid).first() ||
                   await db.from('toppings').where('id', productid).first() ||
                   await db.from('getränke').where('id', productid).first() ||
                   await db.from('beilagen').where('id', productid).first();
