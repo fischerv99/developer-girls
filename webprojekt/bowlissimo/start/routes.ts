@@ -87,7 +87,7 @@ router.get('/administratorbereich_login', async ({ view }) => {
   return view.render('pages/administratorbereich_login')
 })
 
-router.post('/administratorbereich_login2', async ({ request, response, view }) => {
+router.post('/administratorbereich_login', async ({ request, response, view }) => {
   const nutzername = request.input('nutzername');
   const passwort = request.input('passwort'); //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
 
@@ -256,7 +256,7 @@ router.get('/register', async ({ view }) => {
 });
 
 // Registrierung verarbeiten
-router.post('/register', async ({ request, response }) => {
+router.post('/register', async ({ request, response, view }) => {
 
   // Formulardaten aus dem Request holen
   const vorname = request.input('vorname')
@@ -275,7 +275,7 @@ router.post('/register', async ({ request, response }) => {
 
   // Neuen Benutzer in die Datenbank einfügen
   try {
-  await db.table('kunde_angemeldet').insert({vorname: vorname, 
+  await db.table('kunden_angemeldet').insert({vorname: vorname, 
                                        nachname: nachname, 
                                        strasse_nr: strasse_nr, 
                                        postleitzahl:postleitzahl, 
@@ -285,13 +285,15 @@ router.post('/register', async ({ request, response }) => {
                                        kunden_id: nutzername,
                                        passwort_hash: hashedPasswort
           });
-      } catch (error) {
-          console.error('Fehler beim Einfügen in die Datenbank:', error);
-          response.send('Es gab ein Problem bei der Registrierung.');
+      } catch  { 
+          const error = 'Fehler beim Speichern des Benutzers'
+          return view.render('pages/register', {error}) 
       }
+
   // Weiterleitung zur Login-Seite
-  return response.redirect('pages/login');
+  return response.redirect('/login');
 });
+
 
 // Login-Seite anzeigen
 router.get('/login', async ({ view }) => {
@@ -329,7 +331,7 @@ router.post('/login', async ({ request, view, response }) => {
 //Startseite für eingeloggte Kunden
 router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {
   const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('sossen').select('*')
+  const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
   return view.render('pages/kunde_pasta', { pasta, soßen, toppings })

@@ -11,6 +11,10 @@
 
   <h1>Registrieren</h1>
 
+  @if (error != undefined)
+    Fehler: {{ error }}
+  @endif
+
   <form action="/register" method="POST">
     {{csrfField()}}
     <label for="nutzername">Nutzername:</label>
