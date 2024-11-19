@@ -10,7 +10,8 @@
 <body>
     <h1>{{ unterkategorie }} hinzufügen</h1>
 
-    <form method="post">
+    <form action= "/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie" method="post">
+        {{csrfField()}}
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -31,11 +32,11 @@
         <input type="radio" id="vegetarisch" name="ernaehrungsform" value="vegetarisch" required>
         <label for="vegetarisch">Vegetarisch</label><br><br>
 
-        <label for="kalorien_pro_100g">Kalorien pro 100g:</label> <!-- Andere Bezeichnung besser, weil auch für Getränke so??-->
-        <input type="number" id="kalorien_pro_100g" name="kalorien_pro_100g" required><br><br>
+        <label for="kalorien_pro_100me">Kalorien pro 100g oder ml:</label> 
+        <input type="number" id="kalorien_pro_100me" name="kalorien_pro_100me" required><br><br>
 
-        <label for="menge_pro_bowl">Menge pro Bowl:<label> 
-        <input type="number" id="menge_pro_bowl" name="menge_pro_bowl" required><br><br>
+        <label for="portionsgroesse">Portionsgröße:<label> 
+        <input type="number" id="portionsgroesse" name="portionsgroesse" required><br><br>
 
         <label for="kalorien_pro_portion">Kalorien pro Portion:</label>
         <input type="number" id="kalorien_pro_portion" name="kalorien_pro_portion" required><br><br>

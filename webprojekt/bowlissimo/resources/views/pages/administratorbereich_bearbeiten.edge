@@ -47,8 +47,14 @@
                 </div>
                 <div>
                     <label for="produkt_ernaehrungsform">Ernährungsform:</label>
-                    <input type="text" id="produkt_ernaehrungsform" name="produkt_ernaehrungsform" value="{{ produkt.ernaehrungsform }}">
-                </div>
+                      <select id="produkt_ernaehrungsform" name="produkt_ernaehrungsform">
+                        <!--Auswahl durch: Bedingung überprüft, ob  Wert von produkt.ernaehrungsform gleich 'omnivor' etc.
+                            wenn wahr: 'selected' zurückgeben, wenn falsch: leeren String zurückgeben -->
+                        <option value="omnivor" {{ produkt.ernaehrungsform == 'omnivor' ? 'selected' : '' }}>omnivor</option>
+                        <option value="vegetarisch" {{ produkt.ernaehrungsform == 'vegetarisch' ? 'selected' : '' }}>vegetarisch</option>
+                        <option value="vegan" {{ produkt.ernaehrungsform == 'vegan' ? 'selected' : '' }}>vegan</option>
+
+                       </select>
                 <div>
                     <label for="produkt_kalorien_pro_100me">Kalorien pro 100 g/ml:</label>
                     <input type="number" id="produkt_kalorien_pro_100me" name="produkt_kalorien_pro_100me" value="{{ produkt.kalorien_pro_100me }}">

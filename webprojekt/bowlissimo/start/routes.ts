@@ -143,18 +143,21 @@ router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', (
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
 router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
-  let { oberkategorie, unterkategorie } = params;
-
-  //erst noch if-abfrage möglich, ob felder leer sind (undefined und null) 
+  
+  let { oberkategorie } = params;
+  let { unterkategorie } = params;
 
   //Unterkategorie bestimmen
-  if (unterkategorie === 'smoothies' || unterkategorie === 'salate') {
+  if (unterkategorie === 'smoothie' || unterkategorie === 'salat') {
     unterkategorie = 1;
-  } else if (unterkategorie === 'erfrischungsgetränke' || unterkategorie === 'suppen') {
+  } else if (unterkategorie === 'erfrischungsgetraenk' || unterkategorie === 'suppe') {
     unterkategorie = 2;
   }
-  else if (unterkategorie === 'alkoholfreie_getränke') {
+  else if (unterkategorie === 'cocktail') {
     unterkategorie = 3;
+  }
+  else {
+    unterkategorie = unterkategorie; //wie sonst??
   }
 
   //Speichern des neuen Produkts in der Datenbank
@@ -164,19 +167,30 @@ router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', 
                      name: request.input('name'), 
                      inhalte: request.input('inhalte'), 
                      ernaehrungsform: request.input('ernaehrungsform'),
-                     kalorien_pro_100g: request.input('kalorien_pro_100g'),
-                     menge_pro_bowl: request.input('menge_pro_bowl'),
+                     kalorien_pro_100me: request.input('kalorien_pro_100me'),
+                     portionsgroesse: request.input('portionsgroesse'),
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                     art: unterkategorie
                      });
+
+  } else if (oberkategorie === 'sauce'|| oberkategorie === 'toppings') {
+    await db.table(oberkategorie) //oberkategorie = saucen
+            .insert({id: request.input('name'), 
+                     name: request.input('name'), 
+                     inhalte: request.input('inhalte'), 
+                     ernaehrungsform: request.input('ernaehrungsform'),
+                     kalorien_pro_100me: request.input('kalorien_pro_100me'),
+                     portionsgroesse: request.input('portionsgroesse'),
+                     kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                     preis: request.input('preis')
+                    });
   } else {
     await db.table(oberkategorie) //oberkategorie = soßen, toppings, getränke, beilagen
             .insert({id: request.input('name'), 
                      name: request.input('name'), 
                      inhalte: request.input('inhalte'), 
                      ernaehrungsform: request.input('ernaehrungsform'),
-                     kalorien_pro_100g: request.input('kalorien_pro_100g'),
-                     menge_pro_bowl: request.input('menge_pro_bowl'),
+                     kalorien_pro_100me: request.input('kalorien_pro_100me'),
+                     portionsgroesse: request.input('portionsgroesse'),
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
                      preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
                      art: unterkategorie
