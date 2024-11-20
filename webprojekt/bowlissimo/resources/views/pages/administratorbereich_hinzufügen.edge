@@ -10,6 +10,10 @@
 <body>
     <h1>{{ unterkategorie }} hinzufügen</h1>
 
+    @if(error != null) 
+    <p>{{ error }}</p>
+    @endif
+
     <form action= "/administratorbereich/hinzufuegen/{{oberkategorie}}/{{unterkategorie}}" method="post" enctype="multipart/form-data">
         {{csrfField()}}
         <label for="name">Name:</label>
@@ -49,6 +53,7 @@
 
          <!--Bild:  -->
         <label for="bild">Bild:</label>
+        <br> <p>Bitte nur .png Dateien in Herzform hochladen</p> 
         <input type="file" id="bild" name="bild" required><br><br>
         
 

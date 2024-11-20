@@ -10,6 +10,7 @@
 import router from '@adonisjs/core/services/router'
 import db from "@adonisjs/lucid/services/db"
 import hash from '@adonisjs/core/services/hash'
+import { cuid } from '@adonisjs/core/helpers'
 
 router.get('/', async ({ view, session }) => {
   const pasta = await db.from('pasta').select('*')
@@ -49,16 +50,16 @@ router.get('/startseite_pasta', async ({ view, session }) => {
 
 
 router.get('/startseite_drinks', async ({ view }) => {
-  const smoothies = await db.from('getraenke').select('*').where('art', 1)
-  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
-  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 3)
+  const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
+  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
+  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
 
   return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 })
 
 router.get('/startseite_beilagen', async ({ view }) => {
-  const salate = await db.from('beilagen').select('*').where('art', 1)
-  const suppen = await db.from('beilagen').select('*').where('art', 2)
+  const salate = await db.from('beilagen').select('*').where('art', 'salat')
+  const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
 
   return view.render('pages/startseite_beilagen', { salate, suppen })
 })
@@ -121,47 +122,55 @@ router.get('/administratorbereich/pasta', async ({ view }) => {
 })
 
 router.get('/administratorbereich/drinks', async ({ view }) => {
-  const smoothies = await db.from('getraenke').select('*').where('art', 1) 
-  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
-  const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 3)
+  const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie') 
+  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk' )
+  const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 'cocktail')
   return view.render('pages/administratorbereich_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_cocktails })
 })
 
 router.get('/administratorbereich/beilagen', async ({ view }) => {
-  const salate = await db.from('beilagen').select('*').where('art', 1) 
-  const suppen = await db.from('beilagen').select('*').where('art', 2)
+  const salate = await db.from('beilagen').select('*').where('art', 'salat') 
+  const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
   return view.render('pages/administratorbereich_beilagen', { salate, suppen })
 })
 
 
 
 // Administratorbereich: Route zum Hinzufügen eines neuen Produkts
-router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', ({view, params}) => { //oberkategorie = pasta, soßen, toppings, getränke, beilagen und unterkategorie=
+router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', ({view, params}) => {
   const { oberkategorie, unterkategorie } = params;
   return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  // Rendert die Seite mit dem Formular zum Hinzufügen
 });
 
 // POST-Route zum Speichern des neuen Produkts in der Datenbank
-router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', async ({request, response, params}) => {
+router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', async ({request, view, response, params}) => {
   
   let { oberkategorie } = params;
   let { unterkategorie } = params;
 
-  //Unterkategorie bestimmen
-  if (unterkategorie === 'smoothie' || unterkategorie === 'salat') {
-    unterkategorie = 1;
-  } else if (unterkategorie === 'erfrischungsgetraenk' || unterkategorie === 'suppe') {
-    unterkategorie = 2;
-  }
-  else if (unterkategorie === 'cocktail') {
-    unterkategorie = 3;
-  }
-  else {
-    unterkategorie = unterkategorie; //wie sonst??
+  //Bild 
+  const image = request.file('bild',
+                            { size: '5mb', 
+                              extnames: ['png']})
+  if (!image) {
+    return response.redirect('/administratorbereich/pasta')      
+  }      
+
+  //Bild_pfad erstellen                           
+const key = `uploads/${cuid()}.${image.extname}`;
+const url = `http://localhost:3333/storage/${key}`;
+
+
+  //Bild in den Speicher verschieben
+  await image.moveToDisk(key, 'fs') 
+
+  //Fehlermeldung, wenn id schon existiert
+  const produkt = await db.from(oberkategorie).where('id', request.input('name')).first();
+  if (produkt) {
+    const error = 'Produkt mit diesem Name existiert bereits';
+    return view.render('pages/administratorbereich_hinzufügen', { error, oberkategorie, unterkategorie });
   }
 
-  //Bild 
-  const bild = request.input('bild');
 
   //Speichern des neuen Produkts in der Datenbank
   if(oberkategorie === 'pasta') {
@@ -172,8 +181,20 @@ router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', 
                      kalorien_pro_100me: request.input('kalorien_pro_100me'),
                      portionsgroesse: request.input('portionsgroesse'),
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                     bild: bild,
+                     bild: url,
                      });
+  }
+    else if (oberkategorie === 'toppings' || oberkategorie === 'saucen') { 
+      await db.table(oberkategorie) //oberkategorie = getränke
+              .insert({id: request.input('name'), 
+                       inhalte: request.input('inhalte'), 
+                       ernaehrungsform: request.input('ernaehrungsform'),
+                       kalorien_pro_100me: request.input('kalorien_pro_100me'),
+                       portionsgroesse: request.input('portionsgroesse'),
+                       kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                       preis: request.input('preis'), 
+                       bild: url,
+                      });
 
   }  else {
     await db.table(oberkategorie) //oberkategorie = soßen, toppings, getränke, beilagen
@@ -185,12 +206,11 @@ router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', 
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
                      preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
                      art: unterkategorie,
-                     bild: bild,
+                     bild: url,
                     });
   }
 
   return response.redirect('/administratorbereich/pasta');
-
 });
 
 // Administratorbereich: Route zum Bearbeiten eines Produkts
