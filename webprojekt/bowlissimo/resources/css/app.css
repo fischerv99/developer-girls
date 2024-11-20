@@ -145,6 +145,15 @@ h3.überschrift_zusatz {
   justify-items: center;
 }
 
+.pasta_auswahl,
+.soßen_auswahl,
+.toppings_auswahl,
+.produkt_auswahl {
+  position: relative; /* Ermöglicht die Platzierung der Linie mit ::before */
+  padding-top: 20px; /* Abstand zur Linie */
+  margin-left: 0; /* Kein zusätzlicher Abstand */
+}
+
 .produkt_sorten {
   display: flex;
   flex-direction: column;
@@ -183,6 +192,7 @@ h3.überschrift_zusatz {
   border-radius: 6px;
   background-color: #f4f4f4;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .auswahl_button:hover {
@@ -191,11 +201,15 @@ h3.überschrift_zusatz {
 }
 
 .details_button {
+  display: block;
+  text-align: center;
+  width: 100%;
   color:#f4f4f4;
   font-size: 12px;
   background-color: transparent;
   border: none;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .details_button:hover {
@@ -206,6 +220,8 @@ h3.überschrift_zusatz {
 /* Grundlegendes Styling für die Navigation */
 .nav_oben {
     background-color: #FCF8ED;
+    align-items: center;
+    justify-content: space-around;
     padding: 5px 0;
     position: fixed; /* Fixiert die Navigation oben */
     top: 85px; /* Setzt sie ganz nach oben */
@@ -217,6 +233,7 @@ h3.überschrift_zusatz {
 /* Desktop-Menü und Flexbox-Einstellungen */
 nav ul {
     display: flex;
+    align-items: center;
     justify-content: space-around;
     list-style-type: none;
     margin: 0;
@@ -319,3 +336,19 @@ nav ul li a.aktiv {
   margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
 }
 
+.produkt_preis {
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  color:#f4f4f4;
+}
+
+.produkt_preis_euro {
+  font-size: 1rem;
+  display: inline-flex;
+}
+
+.produkt_preis[data-preis="null"], .produkt_preis_euro[data-preis="null"]{
+  display: none; /* Versteckt sowohl den Preis als auch das €-Symbol */
+}

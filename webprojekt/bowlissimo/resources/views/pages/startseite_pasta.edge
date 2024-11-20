@@ -73,7 +73,8 @@
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
                         <button class="details_button" onclick="window.location.href= `/details/saucen/{{ sorte.id }}`"> 
                             <span class="details_text">Details</span>
                         </button>
@@ -95,7 +96,8 @@
                             <span class="details_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <h5 class="produkt_preis">{{ sorte.preis }}</h5>
+                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
                         <button class="details_button" onclick="window.location.href='details/toppings/{{sorte.id}}'">
                             <span class="details_button_text">Details</span>
                         </button>
