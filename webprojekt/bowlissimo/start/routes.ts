@@ -308,15 +308,21 @@ router.get('/register', async ({ view }) => {
 // Registrierung verarbeiten
 router.post('/register', async ({ request, response, view }) => {
 
-  // Formulardaten aus dem Request holen
-  const vorname = request.input('vorname')
-  const nachname = request.input('nachname') 
-  const strasse_nr = request.input('strasse_nr')
-  const postleitzahl = request.input('postleitzahl')
-  const stadt = request.input('stadt')
-  const mail = request.input('email')
-  const bezahlart = request.input('bezahlart')
-  const nutzername = request.input('nutzername')
+  //Fehlermeldung, wenn id schon existiert
+  const nutzername = request.input('nutzername');
+  const nutzer = await db.from('kunden_angemeldet').where('kunden_id', nutzername).first();
+  if (nutzer) {
+    const error = 'Nutzername ist schon vergeben';
+    return view.render('pages/register', {error});
+  }
+
+  //Fehlermeldung wenn die mail schon einem anderen Konto zugeordnet ist
+  const mail = request.input('email');
+  const mailcheck = await db.from('kunden_angemeldet').where('mail', mail).first();
+  if (mailcheck) {
+    const error = 'Mail ist schon vergeben';
+    return view.render('pages/register', {error});
+  }
 
   // Passwort hashen
   const passwort = request.input('passwort');
@@ -324,24 +330,20 @@ router.post('/register', async ({ request, response, view }) => {
  
 
   // Neuen Benutzer in die Datenbank einfügen
-  try {
-  await db.table('kunden_angemeldet').insert({vorname: vorname, 
-                                       nachname: nachname, 
-                                       strasse_nr: strasse_nr, 
-                                       postleitzahl:postleitzahl, 
-                                       stadt: stadt,
+  await db.table('kunden_angemeldet').insert({
+                                       vorname: request.input('vorname'),
+                                       nachname: request.input('nachname') , 
+                                       strasse_nr: request.input('strasse_nr'), 
+                                       postleitzahl:request.input('postleitzahl'), 
+                                       stadt: request.input('stadt'),
                                        mail: mail,
-                                       bezahlart: bezahlart,
+                                       bezahlart: request.input('bezahlart'),
                                        kunden_id: nutzername,
                                        passwort_hash: hashedPasswort
-          });
-      } catch  { 
-          const error = 'Fehler beim Speichern des Benutzers'
-          return view.render('pages/register', {error}) 
-      }
+                                      });
 
-  // Weiterleitung zur Login-Seite
-  return response.redirect('/login');
+  // Weiterleitung zur Login-Seite -> Nutzer muss sich mit seinen anmeldedaten einloggen
+  return response.redirect('/login'); 
 });
 
 
@@ -352,11 +354,6 @@ router.get('/login', async ({ view }) => {
 
 // Login verarbeiten
 router.post('/login', async ({ request, view, response }) => {
-  const nutzername = request.input('nutzername');
-  const passwort = request.input('passwort');
-
-  // Benutzer in der Datenbank suchen
-  const kunde = await db.from('kunden_angemeldet').where({kunden_id: nutzername}).first();
 
   // Benutzername und Passwort überprüfen
   if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
@@ -369,14 +366,23 @@ router.post('/login', async ({ request, view, response }) => {
     return view.render('pages/login', {error}) 
   }
 
-  if (!kunde || kunde.passwort_hash !== passwort) { 
-    const error = 'Falsche Anmeldedaten'
-    return view.render('pages/login', {error}) 
-  }
-  else {
-    return response.redirect('/startseite/kunde/Pasta') //Weiterleitung noch überarbeiten
-  }
-})
+//Kunde aus der Datenbank holen
+const kunde = await db.from('kunden_angemeldet').select('*').where('kunden_id', request.input('nutzername')).first();
+
+//Fehlermeldung, wenn der Kunde nicht existiert
+if (!kunde) {
+  const error = 'Falscher Nutzername'
+  return view.render('pages/login', {error}) //Zurück zum Login
+}
+
+//Passwort mit gehaster Passwort in der Datenbank vergleichen
+if (await hash.verify(kunde.passwort_hash, request.input('passwort'))) {
+  return response.redirect('/startseite/{{kunde.kunden.id}}/Pasta');
+} else { 
+  const error = 'Falsche Anmeldedaten'
+  return view.render('pages/login', {error}) //Zurück zum Login
+}
+});
 
 //Startseite für eingeloggte Kunden
 router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {

@@ -10,13 +10,15 @@
 <body>
 
   <h1>Registrieren</h1>
+  <p> Bitte füllen Sie folgende Felder aus, um ein Konto zu erstellen. Die Daten können später noch geändert werden.</p>
 
-  @if (error != undefined)
-    Fehler: {{ error }}
+  @if (error != null)
+   <p> Fehler: {{ error }} <p>
   @endif
 
-  <form action="/register" method="POST">
+  <form action="/register" method="post" enctype= "application/x-www-form-urlencoded">
     {{csrfField()}}
+
     <label for="nutzername">Nutzername:</label>
     <input type="text" id="nutzername" name="nutzername" required>
     
@@ -40,9 +42,9 @@
 
     <label for="bezahlart">Bezahlart:</label>
     <select id="bezahlart" name="bezahlart" required>
-      <option value="1">Kreditkarte</option>
-      <option value="2">PayPal</option>
-      <option value="3">Bar</option>
+      <option value="kreditkarte">Kreditkarte</option>
+      <option value="paypal">PayPal</option>
+      <option value="bar">Bar</option>
     </select>
 
     <label for="email">E-Mail:</label>
@@ -50,6 +52,7 @@
     
     <button type="submit">Registrieren</button>
   </form>
+
   <p>Schon ein Konto? <a href="/login">Einloggen</a></p>
 </body>
 </html>
