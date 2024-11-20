@@ -38,9 +38,9 @@
 
         <div class="salate">
             <h2 class="überschrift_auswahl">SALATE</h2>
-                <div class="salate_auswahl">
+                <div class="produkt_auswahl">
                     @each (sorte in salate)
-                        <div class="salate_sorten" data-id="{{ sorte.id }}">
+                        <div class="produkt_sorten" data-id="{{ sorte.id }}">
                             <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
                                 <button class="auswahl_button">
@@ -57,9 +57,9 @@
 
         <div class="suppen">
             <h2 class="überschrift_auswahl">SUPPEN</h2>
-                <div class="salate_auswahl">
+                <div class="produkt_auswahl">
                     @each (sorte in suppen)
-                        <div class="suppen_sorten" data-id="{{ sorte.id }}">
+                        <div class="produkt_sorten" data-id="{{ sorte.id }}">
                             <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                             <div class="auswahl">
                                 <button class="auswahl_button">

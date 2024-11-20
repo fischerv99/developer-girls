@@ -61,7 +61,7 @@ body {
 }
 
 /* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
-.pasta, .soßen, .toppings {
+.pasta, .soßen, .toppings, .erfrischungsgetränke, .salate, .suppen {
   width: 100%;
   padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
   color: #FCF8ED;
@@ -75,27 +75,27 @@ body {
   margin: 0;
 }
 
-.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl {
+h2.überschrift_auswahl {
   font-family: fantasy;
   font-size: 1.5rem;
   margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
 }
 
-.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
+h3.überschrift_zusatz {
   font-size: 1rem;
   color: #FCF8ED;
 }
 
 
 /* Linie über den Produkt-Containern */
-.pasta_auswahl, .soßen_auswahl, .toppings_auswahl {
+.pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
     padding-left: 40px;
   position: relative;
   margin-top: 20px; /* Abstand zur Überschrift */
   padding-top: 20px; /* Abstand zur Linie */
 }
 
-.pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before{
+.pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before, .produkt_auswahl::before {
   content: "";
   position: absolute;
   top: 0;
@@ -106,7 +106,7 @@ body {
 }
 
 /* Grid für Auswahl bei Nudeln und Soßen */
-.pasta_auswahl, .soßen_auswahl, .toppings_auswahl {
+.pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -115,7 +115,7 @@ body {
   align-items: center;
 }
 
-.pasta_sorten, .soßen_sorten, .toppings_sorten {
+.pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
   width: 100%;
   max-width: 300px;
   margin: 40px;
@@ -126,7 +126,7 @@ body {
 }
 
 /* Container für die Bilder */
-.pasta_sorten, .soßen_sorten, .toppings_sorten {
+.pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
   width: 100%;
   max-width: 300px;
   margin: 0 auto; /* Zentriert den gesamten Container */
@@ -143,7 +143,7 @@ body {
   justify-items: center;
 }
 
-.produkt_sorte {
+.produkt_sorten {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,55 +156,21 @@ body {
   transition: transform 0.3s ease;
 }
 
-.produkt_sorte:hover {
+.produkt_sorten:hover {
   transform: scale(1.05);
 }
 
 /* Bildgrößen für die Getränke */
-.produkt_sorte img {
+.produkt_sorten img {
   width: 100%;
   max-width: 200px;
   height: auto;
   margin-bottom: 10px;
 }
 
-
-
-/* Allgemeines Styling für Getränke */
-/* Grid für die Drinks-Auswahl */
-.drinks_auswahl {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 50px;
-  justify-items: center;
-  align-items: center;
-  color: white;
-}
-
-.drinks_auswahl::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 40px; /* Gleicher linker Abstand wie die Überschriften */
-  right: 40px; /* Optional: rechter Abstand für Symmetrie */
-  height: 2px;
-  background-color: #FCF8ED; /* Farbe der Linie */
-}
-
-/* Container für die Getränkekategorie */
-.drinks_sorten {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto; /* Zentriert den gesamten Container */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Zentriert den Inhalt horizontal */
-  }
-
 .name {
   margin: 5px;
-}
+} 
 
 /* Buttons */
 .auswahl_button {
@@ -223,7 +189,7 @@ body {
 }
 
 .details_button {
-  color: #000;
+  color:#f4f4f4;
   font-size: 12px;
   background-color: transparent;
   border: none;
