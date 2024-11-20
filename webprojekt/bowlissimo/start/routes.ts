@@ -49,6 +49,43 @@ router.get('/startseite_pasta', async ({ view, session }) => {
 })
 
 
+//Angemeldete Startseiten (Kunde ist eingeloggt)
+// Angemeldete Startseite Pasta (momentan provisorisch ans nav gebunden)
+router.get('/logged_start_pasta', async ({ view, session }) => {
+  const pasta = await db.from('pasta').select('*')
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+
+  const cartItems = session.get('cartItems', [])
+  const cartCount = cartItems.length
+
+  return view.render('pages/logged_start_pasta', { pasta, soßen, toppings, cartCount })
+})
+
+// Angemeldete Startseite Drinks 
+router.get('/logged_start_drinks', async ({ view, session }) => {
+  const pasta = await db.from('pasta').select('*')
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+
+  const cartItems = session.get('cartItems', [])
+  const cartCount = cartItems.length
+
+  return view.render('pages/logged_start_drinks', { pasta, soßen, toppings, cartCount })
+})
+
+// Angemeldete Startseite Beilagen 
+router.get('/logged_start_sides', async ({ view, session }) => {
+  const pasta = await db.from('pasta').select('*')
+  const soßen = await db.from('soßen').select('*')
+  const toppings = await db.from('toppings').select('*')
+
+  const cartItems = session.get('cartItems', [])
+  const cartCount = cartItems.length
+
+  return view.render('pages/logged_start_sides', { pasta, soßen, toppings, cartCount })
+})
+
 router.get('/startseite_drinks', async ({ view }) => {
   const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
   const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
