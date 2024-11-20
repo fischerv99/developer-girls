@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bowlissimo</title>
+    <link rel="stylesheet" href="resources/css/app.css">
+</head>
+
+<body>
+    <header class="header">
+        @include('pages/partials/header')
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben">
+            <ul>
+            </ul>
+        </nav>
+    </header>
+
+ <!-- IF ELSE Abfrage machen welcher Inhalt gezeigt werden soll: Eigene Kreationen oder Platzhalter keine Favoriten bisher -->
+    <main class="main">
+        <div class="überschrift">
+            <h1>Deine Favoriten:</h1>
+        </div>
+
+        <div class="text">
+           Du hast bisher keine Favoriten. Kreiere jetzt deine erste Pasta-Bowl!
+        </div>
+
+
+        <div class="deine_kreation">
+            <h2 class="überschrift">DEINE KREATION</h2>
+            <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
+            <div class="deine_kreation_bilder">
+            </div>
+        </div>
+
+ 
+    </main>
+
+    <footer>
+        @include('pages/partials/footer')
+    </footer>
+
+</body>
+</html>
