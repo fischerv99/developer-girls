@@ -4,7 +4,7 @@ const dbConfig = {
     sqlite: {
       client: 'better-sqlite3',
       connection: {
-        filename: 'database.db', // Pfad zur bestehenden Datenbank 
+        filename: 'database2.db', // Pfad zur bestehenden Datenbank 
       },
       useNullAsDefault: true,
     },

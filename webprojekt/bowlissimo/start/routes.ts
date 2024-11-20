@@ -160,44 +160,37 @@ router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', 
     unterkategorie = unterkategorie; //wie sonst??
   }
 
+  //Bild 
+  const bild = request.input('bild');
+
   //Speichern des neuen Produkts in der Datenbank
   if(oberkategorie === 'pasta') {
     await db.table(oberkategorie) //oberkategorie = pasta
             .insert({id: request.input('name'), 
-                     name: request.input('name'), 
                      inhalte: request.input('inhalte'), 
                      ernaehrungsform: request.input('ernaehrungsform'),
                      kalorien_pro_100me: request.input('kalorien_pro_100me'),
                      portionsgroesse: request.input('portionsgroesse'),
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
+                     bild: bild,
                      });
 
-  } else if (oberkategorie === 'sauce'|| oberkategorie === 'toppings') {
-    await db.table(oberkategorie) //oberkategorie = saucen
-            .insert({id: request.input('name'), 
-                     name: request.input('name'), 
-                     inhalte: request.input('inhalte'), 
-                     ernaehrungsform: request.input('ernaehrungsform'),
-                     kalorien_pro_100me: request.input('kalorien_pro_100me'),
-                     portionsgroesse: request.input('portionsgroesse'),
-                     kalorien_pro_portion: request.input('kalorien_pro_portion'),
-                     preis: request.input('preis')
-                    });
-  } else {
+  }  else {
     await db.table(oberkategorie) //oberkategorie = soßen, toppings, getränke, beilagen
             .insert({id: request.input('name'), 
-                     name: request.input('name'), 
                      inhalte: request.input('inhalte'), 
                      ernaehrungsform: request.input('ernaehrungsform'),
                      kalorien_pro_100me: request.input('kalorien_pro_100me'),
                      portionsgroesse: request.input('portionsgroesse'),
                      kalorien_pro_portion: request.input('kalorien_pro_portion'),
                      preis: request.input('preis'), //bei pasta wird dieser eintrag nicht benötigt
-                     art: unterkategorie
+                     art: unterkategorie,
+                     bild: bild,
                     });
   }
 
-  return response.redirect(`pages/administratorbereich/oberkategorie}`); // Weiterleitung zur Übersichtsseite der Kategorie
+  return response.redirect('/administratorbereich/pasta');
+
 });
 
 // Administratorbereich: Route zum Bearbeiten eines Produkts
