@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html,
@@ -61,14 +62,14 @@ body {
 }
 
 /* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
-.pasta, .soßen, .toppings, .erfrischungsgetränke, .salate, .suppen {
+.pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen {
   width: 100%;
   padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
   color: #FCF8ED;
 }
 
-.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl,
-.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h2.überschrift_zusatz {
+.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl, .beilage h2.überschrift_auswahl,
+.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
   padding-left: 40px;
   display: inline-block;
   text-align: left;
@@ -79,7 +80,10 @@ h2.überschrift_auswahl {
   font-family: fantasy;
   font-size: 1.5rem;
   margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
+  text-align: left;
+  padding-left: 40px;
 }
+
 
 h3.überschrift_zusatz {
   font-size: 1rem;
@@ -89,10 +93,16 @@ h3.überschrift_zusatz {
 
 /* Linie über den Produkt-Containern */
 .pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
-    padding-left: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  justify-items: center;
+  align-items: center;
   position: relative;
-  margin-top: 20px; /* Abstand zur Überschrift */
-  padding-top: 20px; /* Abstand zur Linie */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
 }
 
 .pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before, .produkt_auswahl::before {
@@ -101,19 +111,11 @@ h3.überschrift_zusatz {
   top: 0;
   left: 40px; /* Gleicher linker Abstand wie die Überschriften */
   right: 40px; /* Optional: rechter Abstand für Symmetrie */
+  width: calc(100%-80px);
   height: 2px;
   background-color: #FCF8ED; /* Farbe der Linie */
 }
 
-/* Grid für Auswahl bei Nudeln und Soßen */
-.pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 50px;
-  justify-items: center;
-  align-items: center;
-}
 
 .pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
   width: 100%;
@@ -200,17 +202,6 @@ h3.überschrift_zusatz {
   color: #FCC21D;
   font-weight: bold;
 }
-
-/* Überschrift */
-.überschrift_auswahl {
-  text-align: center;
-  font-size: 24px;
-  margin-top: 40px;
-  font-weight: bold;
-  color:  #FCF8ED;
-}
-
-
 
 /* Grundlegendes Styling für die Navigation */
 .nav_oben {
