@@ -189,9 +189,9 @@ router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', 
   const image = request.file('bild',
                             { size: '5mb', 
                               extnames: ['png']})
-  if (!image) {
-    return response.redirect('/administratorbereich/pasta')      
-  }      
+if (!image) {
+  return response.redirect('/administratorbereich/pasta');
+}
 
   //Bild_pfad erstellen                           
 const key = `uploads/${cuid()}.${image.extname}`;
@@ -207,7 +207,6 @@ const url = `http://localhost:3333/storage/${key}`;
     const error = 'Produkt mit diesem Name existiert bereits';
     return view.render('pages/administratorbereich_hinzufügen', { error, oberkategorie, unterkategorie });
   }
-
 
   //Speichern des neuen Produkts in der Datenbank
   if(oberkategorie === 'pasta') {
@@ -247,10 +246,11 @@ const url = `http://localhost:3333/storage/${key}`;
                     });
   }
 
-  return response.redirect('/administratorbereich/pasta');
+//Wichtig sind schräge Anführungszeichen, da sonst die Variable nicht erkannt wird
+  return response.redirect(`/administratorbereich/${oberkategorie}`);
 });
 
-// Administratorbereich: Route zum Bearbeiten eines Produkts
+// Administratorbereich: Route zum Bearbeiten eines Produkts -> id noch ändern können?
 router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ view, params }) => {
   const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
 
@@ -267,34 +267,73 @@ router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ view,
 router.post('/administratorbereich/bearbeiten/:oberkategorie/:id', async ({ request, response, params }) => {
   const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
 
-//Request-Daten speichern
-const name = request.input('produkt_id');
-const bild = request.input('produkt_bild');
-const beschreibung = request.input('produkt_beschreibung');
-const inhalte = request.input('produkt_inhalte');
-const allergene = request.input('produkt_allergene');
-const ernaehrungsform = request.input('produkt_ernaehrungsform');
-const kalorien_pro_100me = request.input('produkt_kalorien_pro_100me');
-const portionsgroesse = request.input('produkt_portionsgroesse');
-const kalorien_pro_portion = request.input('produkt_kalorien_pro_portion');
+  //let kann anderst als const noch nachträglich geändert werden
+let url
 
-if (oberkategorie != 'pasta') {
-  const preis = request.input('produkt_preis');
+//Bild 
+const image = request.file('bild',
+  { size: '5mb', 
+    extnames: ['png']})
+
+if (!image) {
+ const produkt = await db.from(oberkategorie).select('bild').where('id', id).first();   
+ url = produkt.bild   
+}      
+else {
+      //Bild_pfad erstellen                           
+      const key = `uploads/${cuid()}.${image.extname}`;
+      url = `http://localhost:3333/storage/${key}`;
+
+      //Bild in den Speicher verschieben
+      await image.moveToDisk(key, 'fs') 
 }
 
-//Produkt in der Datenbank aktualisieren-> stimmt glaube ich noch nicht ganz
+
+//Produkt in der Datenbank aktualisieren
 if (oberkategorie === 'pasta') {
   await db.from(oberkategorie)
           .where('id', id)
-          .update({name, bild, beschreibung, inhalte, allergene, ernaehrungsform, kalorien_pro_100me, portionsgroesse, kalorien_pro_portion});
+          .update({beschreibung: request.input('beschreibung'),
+                   inhalte: request.input('inhalte'), 
+                   allergene: request.input('allergene'),
+                   ernaehrungsform: request.input('ernaehrungsform'), 
+                   kalorien_pro_100me: request.input('kalorien_pro_100me'), 
+                   portionsgroesse: request.input('portionsgroesse'), 
+                   kalorien_pro_portion: request.input('kalorien_pro_portion'), 
+                   bild: url,
+                   });
+}
+else if (oberkategorie === 'toppings' || oberkategorie === 'saucen') {
+  await db.from(oberkategorie)
+          .where('id', id)
+          .update({beschreibung: request.input('beschreibung'),
+                   inhalte: request.input('inhalte'), 
+                   allergene: request.input('allergene'),
+                   ernaehrungsform: request.input('ernaehrungsform'), 
+                   kalorien_pro_100me: request.input('kalorien_pro_100me'), 
+                   portionsgroesse: request.input('portionsgroesse'), 
+                   kalorien_pro_portion: request.input('kalorien_pro_portion'), 
+                   preis: request.input('preis'),
+                   bild: url,
+                   });
 }
 else {
   await db.from(oberkategorie)
           .where('id', id)
-          .update({name, bild, beschreibung, inhalte, allergene, ernaehrungsform, kalorien_pro_100me, portionsgroesse, kalorien_pro_portion});
-
+          .update({beschreibung: request.input('beschreibung'),
+                   inhalte: request.input('inhalte'), 
+                   allergene: request.input('allergene'),
+                   ernaehrungsform: request.input('ernaehrungsform'), 
+                   kalorien_pro_100me: request.input('kalorien_pro_100me'), 
+                   portionsgroesse: request.input('portionsgroesse'), 
+                   kalorien_pro_portion: request.input('kalorien_pro_portion'), 
+                   preis: request.input('preis'),
+                   art: request.input('art'),
+                   bild: url,
+                   });
 }
 
+return response.redirect(`/administratorbereich/${oberkategorie}`);
 });
 
 

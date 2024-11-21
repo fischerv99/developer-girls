@@ -21,33 +21,25 @@
     
             <p>{{ produkt.beschreibung }}</p> <!-- Beschreibung des Produkts -->
             
-            <form action="/administratorbereich/bearbeiten/:oberkategorie/:id" method="POST">
+            <form action="/administratorbereich/bearbeiten/{{oberkategorie}}/{{produkt.id}}" method="post" enctype="multipart/form-data">
                 {{csrfField()}}
 
                 <div>
-                    <label for="produkt_id">Name:</label>
-                    <input type="text" id="produkt_id" name="produkt_id" value="{{ produkt.id }}" >
-                </div>
-                <div>
-                    <label for="produkt_bild">Produkt Bild URL:</label>
-                    <input type="text" id="produkt_bild" name="produkt_bild" value="{{ produkt.bild }}">
-                </div>
-                <div>
-                    <label for="produkt_beschreibung">Beschreibung:</label>
-                    <textarea id="produkt_beschreibung" name="produkt_beschreibung" > {{ produkt.beschreibung }} </textarea>
+                    <label for="beschreibung">Beschreibung:</label>
+                    <textarea id="beschreibung" name="beschreibung" > {{ produkt.beschreibung }} </textarea>
                 </div>
         
                 <div>
-                    <label for="produkt_inhalte">Inhalte:</label>
-                    <input type="text" id="produkt_inhalte" name="produkt_inhalte" value="{{ produkt.inhalte }}">
+                    <label for="inhalte">Inhalte:</label>
+                    <input type="text" id="inhalte" name="inhalte" value="{{ produkt.inhalte }}">
                 </div>
                 <div>
-                    <label for="produkt_allergene">Allergene:</label>
-                    <input type="text" id="produkt_allergene" name="produkt_allergene" value="{{ produkt.allergene }}">
+                    <label for="allergene">Allergene:</label>
+                    <input type="text" id="allergene" name="allergene" value="{{ produkt.allergene }}">
                 </div>
                 <div>
-                    <label for="produkt_ernaehrungsform">Ernährungsform:</label>
-                      <select id="produkt_ernaehrungsform" name="produkt_ernaehrungsform">
+                    <label for="ernaehrungsform">Ernährungsform:</label>
+                      <select id="ernaehrungsform" name="ernaehrungsform">
                         <!--Auswahl durch: Bedingung überprüft, ob  Wert von produkt.ernaehrungsform gleich 'omnivor' etc.
                             wenn wahr: 'selected' zurückgeben, wenn falsch: leeren String zurückgeben -->
                         <option value="omnivor" {{ produkt.ernaehrungsform == 'omnivor' ? 'selected' : '' }}>omnivor</option>
@@ -56,8 +48,8 @@
 
                        </select>
                 <div>
-                    <label for="produkt_kalorien_pro_100me">Kalorien pro 100 g/ml:</label>
-                    <input type="number" id="produkt_kalorien_pro_100me" name="produkt_kalorien_pro_100me" value="{{ produkt.kalorien_pro_100me }}">
+                    <label for="kalorien_pro_100me">Kalorien pro 100 g/ml:</label>
+                    <input type="number" id="kalorien_pro_100me" name="kalorien_pro_100me" value="{{ produkt.kalorien_pro_100me }}">
                 </div>
                 <div>
                     <label for="portionsgroesse">Portionsgröße:</label>
@@ -75,8 +67,40 @@
                 </div>
                 @endif
 
-                <button type="submit">Speichern</button>
+                @if(oberkategorie == 'getraenke')
+                <div>
+                    <label for="art">Art:</label>
+                    <select id="art" name="art">
+                        <option value="smoothie" {{ produkt.art == 'smoothie' ? 'selected' : '' }}>Smoothie</option>
+                        <option value="erfrischungsgetraenk" {{ produkt.art == 'erfrischungsgetraenk' ? 'selected' : '' }}>Erfrischungsgetränk</option>
+                        <option value="cocktail" {{ produkt.art == 'cocktail' ? 'selected' : '' }}>Cocktail</option>
+                    </select>
+                </div>
+                @endif
+
+                @if(oberkategorie == 'beilagen')
+                <div>
+                    <label for="art">Art:</label>
+                    <select id="art" name="art">
+                        <option value="suppe" {{ produkt.art == 'suppe' ? 'selected' : '' }}>Suppe</option>
+                        <option value="salat" {{ produkt.art == 'salat' ? 'selected' : '' }}>Salat</option>
+                    </select>
+                </div>
+                @endif
+
+                <div>
+                    <label for="bild">Bild:</label>
+                    <input type="file" id="bild" name="bild">
+                </div>
+
+                <button type="submit">Änderungen speichern</button>
             </form>
+
+            <form action="/administratorbereich/loeschen/:oberkategorie/:id" method="POST">
+                {{csrfField()}}
+                <button type="submit" onclick="return confirm('Sind Sie sicher, dass Sie dieses Produkt löschen möchten?')">Löschen</button>
+            </form>
+
         </div>
     </main> 
 
