@@ -119,6 +119,31 @@
                 <span id="zu_favoriten_hinzufügen_text">ZU FAVORITEN HINZUFÜGEN</span>
             </button>
         </div>
+
+  <!-- Warenkorb in localStorage speichern -->
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+     
+    document.querySelectorAll('.auswahl_button').forEach(button) => {
+        button.addEventListener('click', function() {
+            const productId = this.closest('.pasta_sorten, .soßen_sorten, .toppings_sorten').dataset.id;
+            addToCart(produktId);
+        });
+    
+  <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
+function addToCart(productId) {
+    cart.push(produktId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('Warenkorb:', cart); // Zum Testen im Log
+    updateCartDisplay();
+}
+
+  <!-- Funktion zum Aktualisieren der Anzahl im Warenkorb -->
+  function updateCartDisplay() {
+    const cartCount = cart.length;
+    document.getElementById('warenkorb-button').textContent = `Warenkorb (${cartCount})`;
+}
+
+
     </main>
 
     <footer>

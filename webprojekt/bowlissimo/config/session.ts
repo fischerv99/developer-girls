@@ -46,3 +46,5 @@ const sessionConfig = defineConfig({
 })
 
 export default sessionConfig
+driver:'memory'
+
