@@ -158,7 +158,7 @@ router.get('/administratorbereich/pasta', async ({ view }) => {
   return view.render('pages/administratorbereich_pasta', { pasta, soßen, toppings })
 })
 
-router.get('/administratorbereich/drinks', async ({ view }) => {
+router.get('/administratorbereich/getraenke', async ({ view }) => {
   const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie') 
   const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk' )
   const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 'cocktail')
@@ -336,6 +336,16 @@ else {
 return response.redirect(`/administratorbereich/${oberkategorie}`);
 });
 
+
+//Post-Route zum Löschen eines Produkts
+router.post('/administratorbereich/loeschen/:oberkategorie/:id', async ({ params, response }) => {
+  const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
+
+  // Produkt aus der Datenbank löschen
+  await db.from(oberkategorie).where('id', id).delete(); 
+
+  return response.redirect(`/administratorbereich/${oberkategorie}`);
+});
 
 
 

@@ -96,7 +96,7 @@
                 <button type="submit">Änderungen speichern</button>
             </form>
 
-            <form action="/administratorbereich/loeschen/:oberkategorie/:id" method="POST">
+            <form action="/administratorbereich/loeschen/{{oberkategorie}}/{{produkt.id}}" method="post" enctype="application/x-www-form-urlencoded">
                 {{csrfField()}}
                 <button type="submit" onclick="return confirm('Sind Sie sicher, dass Sie dieses Produkt löschen möchten?')">Löschen</button>
             </form>
