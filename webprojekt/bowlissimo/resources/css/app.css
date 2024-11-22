@@ -429,3 +429,37 @@ nav ul li a.aktiv {
     text-align: center; /* Liste zentriert */
   }
 }
+
+/*Administratorbereich (schon viel übernommen (gleiche class und id wie bei startseite*/
+
+.bearbeiten_button {
+  color: #649e4c;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.bearbeiten_button:hover {
+  background-color: #ececec;
+  font-weight: bold;
+}
+
+.hinzufügen_button {
+  color: #649e4c;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hinzufügen_button:hover {
+  background-color: #ececec;
+  font-weight: bold;
+}

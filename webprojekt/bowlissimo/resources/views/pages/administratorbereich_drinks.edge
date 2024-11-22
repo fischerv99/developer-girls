@@ -12,16 +12,22 @@
 
     <header class="header"> 
         @include('pages/partials/header')
-        <nav>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben">
             <ul>
                 <li><a href="/administratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
-                <li><a href="/administratorbereich/drinks" class="aktiv">DRINKS</a></li>
+                <li><a href="/administratorbereich/getraenke" class="aktiv">DRINKS</a></li>
                 <li><a href="/administratorbereich/beilagen" class="inaktiv">BEILAGEN</a></li>
             </ul>
         </nav>        
     </header>
 
-    <main>
+    <main class="main">
 
         <div class="überschrift">
             <h1>DRINKS</h1>
@@ -72,7 +78,7 @@
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
             <div class="cocktails_auswahl"
 
-                @each (sorte in alkoholfreie_cocktails)
+                @each (sorte in alkoholfreie_getränke)
                 <div class="cocktails_sorten" data-id="{{ sorte.getränke_id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                 </div>

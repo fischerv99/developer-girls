@@ -12,14 +12,21 @@
 
     <header class="header">
         @include('pages/partials/header')
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben">
         <ul>
             <li><a href="/administratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
-            <li><a href="/administratorbereich/drinks" class="inaktiv">DRINKS</a></li>
+            <li><a href="/administratorbereich/getraenke" class="inaktiv">DRINKS</a></li>
             <li><a href="/administratorbereich/beilagen" class="aktiv">BEILAGEN</a></li>
         </ul>
     </header>
 
-    <main>
+    <main class="main">
         <div class="überschrift">
             <h1>BEILAGEN</h1>
         </div>
