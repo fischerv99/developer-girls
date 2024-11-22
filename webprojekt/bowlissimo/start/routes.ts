@@ -480,7 +480,9 @@ router.get('/warenkorb', async ({ view, session }) => {
   const cartItems = session.get('cartItems', []);
 
   // Gesamtpreis berechnen
-const totalPrice = cartItems.reduce((total: number, item: { price: number, quantity: number }) => total + (item.price * item.quantity), 0);
+const totalPrice = cartItems.reduce((total: number, item: { price: number, quantity: number }) => {
+return total  + (item.price * item.quantity)
+}, 0)
 
 return view.render('pages/warenkorb', { cartItems, totalPrice });
 });
@@ -489,13 +491,15 @@ return view.render('pages/warenkorb', { cartItems, totalPrice });
 // Route zum Hinzufügen eines Produkts zum Warenkorb
 router.post('/warenkorb/add', async ({ request, session, response }) => {
   const { productid, quantity } = request.only(['productid', 'quantity']);
-
+ 
+// Produkt aus der Datenbank holen
   const product = await db.from('pasta').where('id', productid).first() ||
                   await db.from('saucen').where('id', productid).first() ||
                   await db.from('toppings').where('id', productid).first() ||
-                  await db.from('getränke').where('id', productid).first() ||
+                  await db.from('getraenke').where('id', productid).first() ||
                   await db.from('beilagen').where('id', productid).first();
 
+    // Wenn Produkt nicht gefunden wird             
   if (!product) {
     session.flash({ error: 'Produkt nicht gefunden' });
     return response.redirect('back');
@@ -511,6 +515,8 @@ router.post('/warenkorb/add', async ({ request, session, response }) => {
   session.put('cartItems', cartItems);
   return response.redirect('pages/warenkorb');
 });
+
+
 
 
 //Route für Datenschutz

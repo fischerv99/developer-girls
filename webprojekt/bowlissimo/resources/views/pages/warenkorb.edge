@@ -8,6 +8,7 @@
 <body>
     <h1>Warenkorb</h1>
     
+    <!-- Wenn der Warenkorb Produkte enthält -->
     @if (cartItems.length > 0)
         <ul>
             @each(cartItem in cartItems)
@@ -20,27 +21,6 @@
     @endif
 
     <div id="cart-container"></div>
-
-    <script>
-    // Warenkorb aus dem localStorage holen und anzeigen
-    function displayCart() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartContainer = document.getElementById('cart-container');
-        
-        cartContainer.innerHTML = ''; // Leere den Warenkorb-Container
-        
-        cart.forEach(item => {
-            const cartItem = document.createElement('div');
-            cartItem.innerHTML = `
-                <p>${item.productName} - ${item.productPrice} € x ${item.quantity}</p>
-            `;
-            cartContainer.appendChild(cartItem);
-        });
-    }
-
-    // Rufe diese Funktion auf der Warenkorb-Seite auf
-    displayCart();
-    </script>
 
 </body>
 </html>
