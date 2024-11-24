@@ -130,19 +130,14 @@
         });
     
   <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
-function addToCart(productId) {
-    cart.push(produktId);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    console.log('Warenkorb:', cart); // Zum Testen im Log
-    updateCartDisplay();
-}
-
-  <!-- Funktion zum Aktualisieren der Anzahl im Warenkorb -->
-  function updateCartDisplay() {
-    const cartCount = cart.length;
-    document.getElementById('warenkorb-button').textContent = `Warenkorb (${cartCount})`;
-}
-
+  <form action="/warenkorb/hinzufuegen" method="POST">
+  <input type="hidden" name="id" value="{{ produkt.id }}"> 
+  <input type="hidden" name="name" value="{{ produkt.name }}"> 
+  <input type="hidden" name="preis" value="{{ produkt.preis }}">
+  <label for="anzahl">Anzahl: </label>
+  <input type="number" name="anzahl" id="anzahl" value="1" min="1">
+  <button type="submit">Auswählen</button>
+  </form>
 
     </main>
 

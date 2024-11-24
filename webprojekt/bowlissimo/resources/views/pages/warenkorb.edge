@@ -14,18 +14,41 @@
     <h1>Warenkorb</h1>
     
     <!-- Wenn der Warenkorb Produkte enthält -->
-    @if (cartItems.length > 0)
-        <ul>
-            @each(cartItem in cartItems)
-                <li>{{ cartItem.name }} - Menge: {{ cartItem.quantity }} - Preis: €{{ cartItem.price }}</li>
+    @if (warenkorb.length > 0)
+       <table>
+          <thead>
+            <tr>
+                <th> Produkt</th>
+                <th> Preis</th>
+                <th> Anzahl</th>
+                <th> Gesamt</th>
+                <th>Aktionen</th>  <!--Entfernen-Formular korrekt zuzuordnen. -->
+
+            </tr>
+           </thead>
+           <tbody>            
+            @each (item in warenkorb)
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.preis.toFixed(2) }} €</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ (item.preis * item.quantity).toFixed(2) }} €</td>
+                <td>
+              
+                    <form action="/warenkorb/entfernen" method="POST" style="display: inline;"> 
+                        <input type="hidden" name="id" value="{{ item.id }}"> 
+                        <button type="submit">Entfernen</button>
+                    </form>
+                  </td> 
+              </tr>
             @endeach
-        </ul>
-        <p>Gesamtpreis: €{{ totalPrice }}</p>
+
+           </tbody>
+        </table>
+        <p><strong>Gesamtpreis:</strong> {{ totalPrice.toFixed(2) }} €</p>
+        <a href="/bestellen">Zur Kasse</a>
     @else
-        <p>Dein Warenkorb ist leer.</p>
+        <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
     @endif
-
-    <div id="cart-container"></div>
-
 </body>
 </html>

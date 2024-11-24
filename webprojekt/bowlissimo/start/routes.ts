@@ -91,9 +91,8 @@ router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminControlle
 
 // Routen für den Warenkorb -> WarenkorbsController
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
-  //Produkt hinzufügen
 router.post('/warenkorb/hinzufuegen', [WarenkorbsController, 'hinzufuegen'])
-
+router.post('/warenkorb/entfernen', [WarenkorbsController, 'entfernen']); // Produkt entfernen
 
 
 //Route für Datenschutz und Impressum -> SonstigesController

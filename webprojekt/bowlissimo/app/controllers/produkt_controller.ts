@@ -17,9 +17,11 @@ export default class ProduktesController {
   //await db.table('session').insert({ session_id: session.get('sessionId'),
                                      //erstellt_am: new Date(),
   // Anzahl der Produkte im Warenkorb berechnen
+
   const cartItems = session.get('cartItems', [])
   const cartCount = cartItems.length
 
+   // View rendern und Daten übergeben
   return view.render('pages/startseite_pasta', { pasta, soßen, toppings, cartCount })
 }
 
