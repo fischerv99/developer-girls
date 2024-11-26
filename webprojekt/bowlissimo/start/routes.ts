@@ -8,7 +8,9 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import db from "@adonisjs/lucid/services/db"
+import db from "@adonisjs/lucid/services/db'
+import auth from '@adonisjs/auth/services/auth'
+import admin from '@adonisjs/admin/services/admin'
 
 //Contoller (in Route) importieren
 const ProduktController = () => import('#controllers/produkt_controller')
@@ -98,3 +100,14 @@ router.post('/warenkorb/entfernen', [WarenkorbsController, 'entfernen']); // Pro
 //Route für Datenschutz und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
 router.get('/impressum', [SonstigesController, 'impressum'])
+
+//Route für session order & admin
+// Geschützte Routen
+router.group(() => {
+  router.post('/order', 'OrderController.processOrder')
+  
+  router.group(() => {
+    router.get('/*', 'AdminController.index')
+  }).middleware('admin')
+  
+}).middleware('auth')
