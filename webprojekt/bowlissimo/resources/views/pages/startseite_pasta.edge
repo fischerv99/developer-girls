@@ -40,90 +40,89 @@
             <h2 class="überschrift_auswahl">NUDELN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
             <div class="pasta_auswahl">
-
                 @each (sorte in pasta)
                 <div class="pasta_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
-                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'"> 
+                        <!-- Auswahl-Button, der das Produkt in den Warenkorb hinzufügt -->
+                        <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
+                            {{csrfField()}}
+                            <input type="hidden" name="id" value="{{ sorte.id }}">
+                            <input type="hidden" name="name" value="{{ sorte.name }}">
+                            <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                            <button type="submit" class="auswahl_button">
+                                <span class="auswahl_button_text">Auswählen</span>
+                            </button>
+                        </form>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
+                        <!-- Details-Button -->
+                        <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'">
                             <span class="details_text">Details</span>
                         </button>
-                     <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
-                     <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
-                        {{csrfField()}}
-                       <input type="hidden" name="id" value="{{ sorte.id }}"> 
-                       <input type="hidden" name="name" value="{{ sorte.name }}"> 
-                       <input type="hidden" name="preis" value="{{ sorte.preis }}">
-                    </form>
-                   </div>
-                   @endeach
-               </div>
-           </div>
+                    </div>
+                </div>
+                @endeach
+                
    
 
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
             <div class="soßen_auswahl">
-
-                @each (sorte in soßen)
-                <div class="soßen_sorten" data-id="{{ sorte.id }}">
+                @each (sorte in pasta)
+                <div class="pasta_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                    <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
+                        <!-- Auswahl-Button, der das Produkt in den Warenkorb hinzufügt -->
+                        <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
+                            {{csrfField()}}
+                            <input type="hidden" name="id" value="{{ sorte.id }}">
+                            <input type="hidden" name="name" value="{{ sorte.name }}">
+                            <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                            <button type="submit" class="auswahl_button">
+                                <span class="auswahl_button_text">Auswählen</span>
+                            </button>
+                        </form>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
-                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
-                        <button class="details_button" onclick="window.location.href= `/details/saucen/{{ sorte.id }}`"> 
+                        <!-- Details-Button -->
+                        <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'">
                             <span class="details_text">Details</span>
                         </button>
-                        <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
-                        <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
-                           {{csrfField()}}
-                          <input type="hidden" name="id" value="{{ sorte.id }}"> 
-                          <input type="hidden" name="name" value="{{ sorte.name }}"> 
-                          <input type="hidden" name="preis" value="{{ sorte.preis }}">
-                       </form>
-                      </div>
-                      @endeach
-                  </div>
-              </div>
+                    </div>
+                </div>
+                @endeach
+                
        
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
             <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
             <div class="toppings_auswahl">
-                @each (sorte in toppings)
-                <div class="toppings_sorten" data-id="{{ sorte.id }}">
+                @each (sorte in pasta)
+                <div class="pasta_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                    <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="details_button_text">Auswählen</span>
-                        </button>
-                        <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
-                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
-                        <button class="details_button" onclick="window.location.href='details/toppings/{{sorte.id}}'">
-                            <span class="details_button_text">Details</span>
-                        </button>
-                        <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
+                        <!-- Auswahl-Button, der das Produkt in den Warenkorb hinzufügt -->
                         <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
-                           {{csrfField()}}
-                          <input type="hidden" name="id" value="{{ sorte.id }}"> 
-                          <input type="hidden" name="name" value="{{ sorte.name }}"> 
-                          <input type="hidden" name="preis" value="{{ sorte.preis }}">
-                       </form>
-                      </div>
-                      @endeach
-                  </div>
-              </div>
+                            {{csrfField()}}
+                            <input type="hidden" name="id" value="{{ sorte.id }}">
+                            <input type="hidden" name="name" value="{{ sorte.name }}">
+                            <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                            <button type="submit" class="auswahl_button">
+                                <span class="auswahl_button_text">Auswählen</span>
+                            </button>
+                        </form>
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
+                        <!-- Details-Button -->
+                        <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'">
+                            <span class="details_text">Details</span>
+                        </button>
+                    </div>
+                </div>
+                @endeach
+                
 
         <div class="deine_kreation">
             <h2 class="überschrift">DEINE KREATION</h2>
