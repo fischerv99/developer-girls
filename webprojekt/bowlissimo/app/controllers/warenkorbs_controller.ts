@@ -5,63 +5,66 @@ export default class WarenkorbsController {
 
   // Warenkorb anzeigen
     public async warenkorb({ view, session }: HttpContext) {
-        // Warenkorb-Items aus der Session abrufen, falls vorhanden
-        const warenkorb = session.get('warenkorb', []); 
 
-        // Gesamtpreis berechnen
-      const totalPrice = warenkorb.reduce((total: number, item: { price: number, quantity: number }) => {
-      return total  + (item.price * item.quantity)
-      }, 0)
-      
-      return view.render('pages/warenkorb', { warenkorb, totalPrice }); // View rendern
-      }
+      //alle id der warenkorb_bestellung abrufen, welche zur session gehört -> Liste von warenkorb_bestellung-Einträgen zurückgeben, die der session_id entsprechen
+      const warenkorb_bestellungen = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('*');
+
+      //alle warenkorbspositionen abrufen, welche zu der warenkorb_bestellung gehört
+      let alle_warenkorbspositionen: any[] = [];
+        for (const bestellung of warenkorb_bestellungen) {
+          const warenkorbspositionen = await db.from('warenkorbsposition').where('warenkorb_bestellung_id', bestellung.id).select('*');
+          alle_warenkorbspositionen = alle_warenkorbspositionen.concat(warenkorbspositionen); }
+
+      //alle ausgewaehleten produkte abrufen, welche zu der warenkorbsposition gehören
+      let alle_ausgewaehlten_produkte: any [] = [];
+        for (const position of alle_warenkorbspositionen) {
+          const ausgewaehlte_produkte = await db.from('ausgewaehltes_produkt').where('warenkorbsposition_id', position.id).select('*');
+          alle_ausgewaehlten_produkte = alle_ausgewaehlten_produkte.concat(ausgewaehlte_produkte); }
+
+      return view.render('pages/warenkorb', { alle_ausgewaehlten_produkte, alle_warenkorbspositionen});
+    } 
+
+
   // Produkt hinzufügen
-      public async hinzufuegen({ request, response, session }: HttpContext) {
-            const { productid, quantity } = request.only(['productid', 'quantity']);
-           
-  // Produkt aus der Datenbank holen
-          const product = await db.from('pasta').where('id', productid).first()
-         || await db.from('saucen').where('id', productid).first()
-         || await db.from('toppings').where('id', productid).first()
-         || await db.from('getraenke').where('id', productid).first()
-         || await db.from('beilagen').where('id', productid).first();
-
+      public async hinzufuegen({ response, session, params }: HttpContext) {
+          const { produkt } = params;   
           
-   // Wenn Produkt nicht gefunden wird             
-        if (!product) {
-              session.flash({ error: 'Produkt nicht gefunden' });
-              return response.redirect('back');
-        }
+          //neuen Warenkorb erstellen, wenn noch nicht vorhanden, sonst den bestehenden Warenkorb abrufen
+          let warenkorb = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).first();
 
-    // Warenkorb-Items aus der Session abrufen
-        const warenkorb = session.get('warenkorb', []);
-
-    // existing item
-        const existingItem = warenkorb.find((item: { id: number }) => item.id === productid);
-        if (existingItem) {
-          existingItem.quantity += quantity;
-        } else {
-          const parsedQuantity = parseInt(quantity, 10);
-          warenkorb.push({ ...product, quantity: parsedQuantity }); // Neues Produkt hinzufügen
-        }
-                        
-      // Warenkorb in der Session speichern
-           // session.put('warenkorb', warenkorb);
-           // return response.redirect('/warenkorb');
-           
+          if (!warenkorb) {
+            await db.table('warenkorb_bestellung')
+                    .insert({session_id: session.sessionId,
+                            in_bestellung: false,
+                            id: Math.abs(Math.floor(Math.random() * 1_000_000)) // Generate ID in JS
+                    })
           }
+          
+          //neue Warenkorbsposition erstellen mit neuer ID
+            //warenkorb_bestellung.id abrufen
+            const warenkorb_bestellung_id = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('id').first();
+            // warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
+            const warenkorb_bestellung_id_format  = warenkorb_bestellung_id.id;
+          await db.table('warenkorbsposition')
+                  .insert({id: Math.abs(Math.floor(Math.random() * 1_000_000)), // Generate ID in JS
+                          warenkorb_bestellung_id: warenkorb_bestellung_id_format, 
+                          menge: 1
+                  })
+
+          //Produkt in ausgewähltes_produkt speichern
+            //Warekorbposition.id abrufen
+            const warenkorbsposition_id = await db.from('warenkorbsposition').where('warenkorb_bestellung_id', warenkorb_bestellung_id_format).select('id').first();
+            //warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
+            const warenkorbsposition_id_format  = warenkorbsposition_id.id;
+
+          await db.table('ausgewaehltes_produkt')
+                  .insert({produkt: produkt,
+                          id: Math.abs(Math.floor(Math.random() * 1_000_000)), // Generate ID in JS
+                          warenkorbsposition_id: warenkorbsposition_id_format
+                  })
+          
+          //Zu Warenkorb
+          return response.redirect('/warenkorb');
+      } }
 
  // Produkt entfernen
- public async entfernen({ request, response, session }: HttpContext) {
-  const { id } = request.only(['id']);
-
-  // Warenkorb aus der Session abrufen
-  let warenkorb = session.get('warenkorb', []);
-
-  warenkorb = warenkorb.filter((item: { id: number }) => item.id !== parseInt(id, 10));
- // Warenkorb in der Session aktualisieren
-    session.put('warenkorb', warenkorb);
-
-    return response.redirect('/warenkorb');
-  }
-}

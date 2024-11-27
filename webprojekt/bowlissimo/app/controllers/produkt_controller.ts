@@ -7,7 +7,8 @@ export default class ProduktesController {
         const pasta = await db.from('pasta').select('*')
         const soßen = await db.from('saucen').select('*')
         const toppings = await db.from('toppings').select('*')
-        // Neue Session-ID generieren, falls noch keine vorhanden ist
+        
+  // Neue Session-ID generieren, falls noch keine vorhanden ist
   //Zufällige Session-ID mit 36 Zeichen und ohne 0 und 1 erstellen
   //if (!session.get('sessionId')) {
     //session.put('sessionId', Math.random().toString(36).substring(2)); 
@@ -15,9 +16,10 @@ export default class ProduktesController {
 
   // Session in die Datenbank speichern
   //await db.table('session').insert({ session_id: session.get('sessionId'),
-                                     //erstellt_am: new Date(),
-  // Anzahl der Produkte im Warenkorb berechnen
 
+  //});
+
+  //Anzahl der Produkte im Warenkorb berechnen
   const cartItems = session.get('cartItems', [])
   const cartCount = cartItems.length
 
