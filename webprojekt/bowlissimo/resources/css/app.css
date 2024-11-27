@@ -37,13 +37,13 @@ body {
   top: 0;
   width: 100%;
   z-index: 1001;
+  border-bottom: 5px solid #f4f4f4;
 }
   
 /* Logo */
 .header img {
   width: 200px; /* Größe des Logos anpassen */
   height: auto; /* Höhe automatisch anpassen */
-  margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
 }
 
 /*NAVIGATION*/
@@ -62,10 +62,12 @@ body {
   justify-content: space-around;
   padding: 5px 0;
   position: fixed; /* Fixiert die Navigation oben */
-  top: 85px; /* Setzt sie ganz nach oben */
+  top: 85px; /* Position direkt unter dem Header */
   left: 0;
   width: 100%;
   z-index: 999;
+  border: none;
+  box-shadow: none;
 }
 
 /* Desktop-Menü und Flexbox-Einstellungen */
@@ -152,67 +154,67 @@ nav ul li a.aktiv {
       display: flex;
   }
 
-  }
+}
   
-  /*STARTSEITEN*/
+/*STARTSEITEN*/
 
-  /* Hauptüberschrift und Basispreis nebeneinander */
-  .überschrift {
+/* Hauptüberschrift und Basispreis nebeneinander */
+.überschrift {
     width: 100%;
     display: flex;
     align-items: center;
     color: #FCF8ED;
     padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
-  }
+}
   
-  .überschrift h1 {
+.überschrift h1 {
     padding-left: 40px;
     font-family: fantasy;
     font-size: 35px;
     text-align: left;
     color: #FCF8ED;
     margin-right: 10px; /* Kleiner Abstand zwischen H1 und Basispreis */
-  }
+}
   
-  .überschrift_zusatz {
+.überschrift_zusatz {
     padding-bottom: 13px;
     font-size: 20px;
     color: #FCF8ED;
     text-align: left;
-  }
+}
   
-  /* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
-  .pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen {
+/* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
+.pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen {
     width: 100%;
     padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
     color: #FCF8ED;
-  }
+}
   
-  .pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl, .beilage h2.überschrift_auswahl,
-  .pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
+.pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl, .beilage h2.überschrift_auswahl,
+.pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
     padding-left: 40px;
     display: inline-block;
     text-align: left;
     margin: 0;
-  }
+}
   
-  h2.überschrift_auswahl {
+h2.überschrift_auswahl {
     font-family: fantasy;
     font-size: 1.5rem;
     margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
     text-align: left;
     padding-left: 40px;
-  }
+}
   
   
-  h3.überschrift_zusatz {
+h3.überschrift_zusatz {
     font-size: 1rem;
     color: #FCF8ED;
-  }
+}
   
   
-  /* Linie über den Produkt-Containern */
-  .pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
+/* Linie über den Produkt-Containern */
+.pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 50px;
@@ -223,9 +225,9 @@ nav ul li a.aktiv {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 40px;
-  }
+}
   
-  .pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before, .produkt_auswahl::before {
+.pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before, .produkt_auswahl::before {
     content: "";
     position: absolute;
     top: 0;
@@ -234,47 +236,44 @@ nav ul li a.aktiv {
     width: calc(100%-80px);
     height: 2px;
     background-color: #FCF8ED; /* Farbe der Linie */
-  }
+}
   
   
-  .pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
+.produkt_sorten {
     width: 100%;
     max-width: 300px;
     margin: 40px;
-  }
+}
   
-  .auswahl {
+.auswahl {
     text-align: center;
-  }
+}
   
-  /* Container für die Bilder */
-  .pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
+/* Container für die Bilder */
+.pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
     width: 100%;
     max-width: 300px;
     margin: 0 auto; /* Zentriert den gesamten Container */
     display: flex;
     flex-direction: column;
     align-items: center; /* Zentriert den Inhalt horizontal */
-  }
+}
   
-  /* Allgemeine Container für Produkt-Auswahl */
-  .produkt_auswahl {
+/* Allgemeine Container für Produkt-Auswahl */
+.produkt_auswahl {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     justify-items: center;
-  }
+}
   
-  .pasta_auswahl,
-  .soßen_auswahl,
-  .toppings_auswahl,
-  .produkt_auswahl {
+.produkt_auswahl {
     position: relative; /* Ermöglicht die Platzierung der Linie mit ::before */
     padding-top: 20px; /* Abstand zur Linie */
     margin-left: 0; /* Kein zusätzlicher Abstand */
-  }
+}
   
-  .produkt_sorten {
+.produkt_sorten {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -285,23 +284,23 @@ nav ul li a.aktiv {
     color: #FCF8ED;
     border-radius: 8px;
     transition: transform 0.3s ease;
-  }
+}
   
-  .produkt_sorten:hover {
+.produkt_sorten:hover {
     transform: scale(1.05);
-  }
+}
   
-  /* Bildgrößen für die Getränke */
-  .produkt_sorten img {
+/* Bildgrößen für die Getränke */
+.produkt_sorten img {
     width: 100%;
     max-width: 200px;
     height: auto;
     margin-bottom: 10px;
-  }
+}
   
-  .name {
+.name {
     margin: 5px;
-  }
+}
 
 .produkt_preis {
     font-size: 1rem;
@@ -309,16 +308,16 @@ nav ul li a.aktiv {
     align-items: baseline;
     gap: 5px;
     color:#f4f4f4;
-  }
+}
   
 .produkt_preis_euro {
     font-size: 1rem;
     display: inline-flex;
-  }
+}
   
 .produkt_preis[data-preis="null"], .produkt_preis_euro[data-preis="null"]{
     display: none; /* Versteckt sowohl den Preis als auch das €-Symbol */
-  }
+}
 
 /*BUTTONS*/
 
@@ -353,6 +352,21 @@ nav ul li a.aktiv {
 .details_button:hover {
   color: #FCC21D;
   font-weight: bold;
+}
+
+.zurück_button {
+  color: #f4f4f4;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: right; /* Inhalt im Button rechtsbündig */
+  margin-left: auto; /* Verschiebt den Button nach rechts */
+}
+
+.zurück_button:hover {
+  color: #FCC21D;
 }
 
 /* DETAILANSICHT */
@@ -431,6 +445,40 @@ nav ul li a.aktiv {
   }
 }
 
+.produkt_details_header {
+  display: flex; /* Flexbox für horizontale Anordnung */
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: space-between; /* Button ganz rechts, Überschrift links */
+  padding: 20px 40px; /* Behalte das Padding */
+  width: 100%; /* Nimmt die gesamte Breite ein */
+  max-width: 1200px; /* Begrenze die Breite auf großen Bildschirmen */
+  margin: 0 auto; /* Zentriere den Container horizontal */
+}
+
+@media (max-width: 768px) {
+  .produkt_details_header {
+      flex-direction: row; /* Behalte die horizontale Anordnung */
+      align-items: center; /* Zentriere vertikal */
+      padding: 10px 20px; /* Weniger Padding auf kleinen Bildschirmen */
+  }
+
+  .zurück_button {
+      margin-left: auto; /* Button bleibt rechts */
+  }
+}
+
+.produkt_details_header .details_überschrift {
+  font-size: 30px;
+  font-family: fantasy;
+  color: #FCF8ED;
+  text-align: left; /* Überschrift links ausrichten */
+  flex-grow: 1; /* Überschrift nimmt den Platz zwischen den Rändern ein */
+}
+
+.details_überschrift {
+  text-align: center;
+}
+
 /*ADMINISTRATORBEREICH*/
 
 .bearbeiten_button {
@@ -488,8 +536,8 @@ font-size: 20px;
 }
 
 
-  /* Textabschnitte */
- .impressum p {
+/* Textabschnitte */
+.impressum p {
   margin-bottom: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
@@ -529,10 +577,32 @@ footer a:hover {
   color:  #FCC21D;   /* Farbe beim Hover */
 }
 
-
 /* Entfernen von zusätzlichen Rändern oder Linien */
 footer * {
   margin: 0;
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
 }
+
+@media (max-width: 768px) {
+  footer {
+      flex-direction: column; /* Ordnet die Inhalte vertikal an */
+      align-items: center; /* Zentriert die Inhalte horizontal */
+      text-align: center; /* Zentriert den Text */
+      padding: 20px 10px; /* Weniger Padding, damit es kompakter ist */
+  }
+
+  footer .footer-logo {
+      margin-bottom: 10px; /* Abstand unter dem Logo */
+  }
+
+  footer .footer-links {
+      margin-left: 0; /* Entfernt das große linke Margin */
+      margin-top: 10px; /* Etwas Abstand oben hinzufügen */
+  }
+
+  footer a {
+      margin: 5px; /* Weniger Abstand zwischen Links */
+  }
+}
+

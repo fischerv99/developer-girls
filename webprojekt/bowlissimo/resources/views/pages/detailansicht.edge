@@ -16,8 +16,12 @@
 
     <main>
         <div class="product-details">
-            <h1>{{ produkt.id }}</h1> <!-- Name des Produkts -->
-            
+            <div class="produkt_details_header">
+                <h1 class="details_überschrift">{{ produkt.id }}</h1> <!-- Name des Produkts -->
+                <button class="zurück_button" onclick="window.history.back();">
+                    <span class="zurück_button_text">Zurück</span>
+                </button>   
+            </div>
             <div class="product-image">
                 <img src="{{ produkt.bild }}" alt="{{ produkt.id }} Bild"> <!-- Bild des Produkts -->
             </div>
@@ -31,7 +35,7 @@
                 <li><strong>Kalorien pro 100 g oder ml:</strong> {{ produkt.kalorien_pro_100me }} kcal</li> <!-- Kalorien pro 100g oder wenn Getränk ml -->
                 <li><strong>Menge pro Bowl:</strong> {{ produkt.portionsgroesse }} g</li> <!-- Menge pro Bowl -->
                 <li><strong>Kalorien pro Bowl:</strong> {{ produkt.kalorien_pro_portion }} kcal</li> <!-- Kalorien pro Bowl -->
-            </ul>
+            </ul>         
         </div>
     </main> 
 
