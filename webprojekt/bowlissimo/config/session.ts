@@ -41,10 +41,11 @@ const sessionConfig = defineConfig({
    * list of available stores and their config.
    */
   stores: {
+    memory: stores.memory(),
     cookie: stores.cookie(),
+    file: stores.file({ location: 'sessions' }), // Use file store as an example
   },
 })
 
 export default sessionConfig
-driver:'memory'
-
+driver: 'memory'
