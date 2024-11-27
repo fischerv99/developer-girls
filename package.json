@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@adonisjs/drive": "^3.2.0",
+    "@adonisjs/session": "^7.5.0",
     "edge.js": "^6.2.0"
   }
 }
