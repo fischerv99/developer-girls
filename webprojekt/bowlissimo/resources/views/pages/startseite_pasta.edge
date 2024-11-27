@@ -53,12 +53,18 @@
                         <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'"> 
                             <span class="details_text">Details</span>
                         </button>
-                    </div>
-                </div>
-                @endeach
-
-            </div>
-        </div>
+                     <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
+                     <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
+                        {{csrfField()}}
+                       <input type="hidden" name="id" value="{{ sorte.id }}"> 
+                       <input type="hidden" name="name" value="{{ sorte.name }}"> 
+                       <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                    </form>
+                   </div>
+                   @endeach
+               </div>
+           </div>
+   
 
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
@@ -78,12 +84,18 @@
                         <button class="details_button" onclick="window.location.href= `/details/saucen/{{ sorte.id }}`"> 
                             <span class="details_text">Details</span>
                         </button>
-                    </div>
-                </div>
-                @endeach
-            </div>
-        </div>
-
+                        <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
+                        <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
+                           {{csrfField()}}
+                          <input type="hidden" name="id" value="{{ sorte.id }}"> 
+                          <input type="hidden" name="name" value="{{ sorte.name }}"> 
+                          <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                       </form>
+                      </div>
+                      @endeach
+                  </div>
+              </div>
+       
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
             <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
@@ -101,21 +113,17 @@
                         <button class="details_button" onclick="window.location.href='details/toppings/{{sorte.id}}'">
                             <span class="details_button_text">Details</span>
                         </button>
-                    </div>
-                    <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
-                    <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
-                     {{csrfField()}}
-                    <input type="hidden" name="id" value="{{ sorte.id }}"> 
-                    <input type="hidden" name="name" value="{{ sorte.name }}"> 
-                    <input type="hidden" name="preis" value="{{ sorte.preis }}">
-                    <label for="anzahl">Anzahl: </label>
-                    <input type="number" name="anzahl" id="anzahl" value="1" min="1">
-                    <button type="submit">Auswählen</button>
-                    </form>
-                </div>
-                @endeach
-            </div>
-        </div>
+                        <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
+                        <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
+                           {{csrfField()}}
+                          <input type="hidden" name="id" value="{{ sorte.id }}"> 
+                          <input type="hidden" name="name" value="{{ sorte.name }}"> 
+                          <input type="hidden" name="preis" value="{{ sorte.preis }}">
+                       </form>
+                      </div>
+                      @endeach
+                  </div>
+              </div>
 
         <div class="deine_kreation">
             <h2 class="überschrift">DEINE KREATION</h2>
@@ -131,13 +139,13 @@
         </div>
 
   <!-- Warenkorb in localStorage speichern -->
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      <!-- let cart = JSON.parse(localStorage.getItem('cart')) || [];
      
     document.querySelectorAll('.auswahl_button').forEach(button) => {
         button.addEventListener('click', function() {
             const productId = this.closest('.pasta_sorten, .soßen_sorten, .toppings_sorten').dataset.id;
             addToCart(produktId);
-        });
+        }); -->
 
     </main>
 

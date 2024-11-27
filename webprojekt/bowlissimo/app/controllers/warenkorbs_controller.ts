@@ -46,9 +46,11 @@ export default class WarenkorbsController {
         }
                         
       // Warenkorb in der Session speichern
-            session.put('warenkorb', warenkorb);
-            return response.redirect('/warenkorb');
+           // session.put('warenkorb', warenkorb);
+           // return response.redirect('/warenkorb');
+           
           }
+
  // Produkt entfernen
  public async entfernen({ request, response, session }: HttpContext) {
   const { id } = request.only(['id']);
