@@ -93,6 +93,7 @@ router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminControlle
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
 router.get('/warenkorb/hinzufuegen/:oberkategorie/:produkt', [WarenkorbsController, 'hinzufuegen'])
 router.post('/warenkorb/update/:produkt', [WarenkorbsController, 'update'])
+router.get('/warenkorb/entfernen/:produkt', [WarenkorbsController, 'entfernen'])
 
 //Route für Datenschutz und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
