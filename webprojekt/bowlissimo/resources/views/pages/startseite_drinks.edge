@@ -42,7 +42,7 @@
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
@@ -64,7 +64,7 @@
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button"> 
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
@@ -88,7 +88,7 @@
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
