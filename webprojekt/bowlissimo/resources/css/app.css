@@ -1,3 +1,5 @@
+/*ALLGEMEIN*/
+
 * {
   margin: 0;
   padding: 0;
@@ -11,20 +13,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.nav_oben {
-  background-color: #FCF8ED;
-}
-
 body {
   background-color: #649e4c;
-}
-
-.inaktiv {
-  color: #649e4c;
-}
-
-.aktiv {
-  color: #FCC21D;
 }
 
 .main {
@@ -36,6 +26,141 @@ body {
   align-items: center;
 }
 
+/*HEADER*/
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #649e4c; /* Grüner Hintergrund für das Logo */
+  padding: 20px 0; /* Abstand um das Logo */
+  position: fixed; /* Fixiert das Logo am oberen Rand */
+  top: 0;
+  width: 100%;
+  z-index: 1001;
+}
+  
+  /* Logo Styling */
+.header img {
+  width: 200px; /* Größe des Logos anpassen */
+  height: auto; /* Höhe automatisch anpassen */
+  margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
+}
+
+
+/*NAVIGATION*/
+
+.nav_oben {
+  background-color: #FCF8ED;
+}
+
+.inaktiv {
+  color: #649e4c;
+}
+
+.aktiv {
+  color: #FCC21D;
+}
+
+.nav_oben {
+  background-color: #FCF8ED;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px 0;
+  position: fixed; /* Fixiert die Navigation oben */
+  top: 85px; /* Setzt sie ganz nach oben */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+/* Desktop-Menü und Flexbox-Einstellungen */
+nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links innerhalb der Menüpunkte */
+nav ul li a {
+  color: #649e4c;
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: color 0.3s ease;
+}
+
+/* Hover-Effekt für Links */
+nav ul li a:hover {
+  color: #FCC21D;
+}
+
+/* Aktiver Menüpunkt */
+nav ul li a.aktiv {
+  font-weight: bold;
+  color: #FCC21D;
+}
+
+/* Verstecktes Checkbox-Element für die Navigation */
+#menu-toggle {
+  display: none;
+}
+
+/* Burger-Button Styling */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: absolute;
+  top: 0px; /* Abstand für bessere Sichtbarkeit */
+  right: 20px;
+  z-index: 1001;
+}
+
+.menu-icon span {
+  display: block;
+  height: 2px;
+  width: 22px;
+  background-color:#FCF8ED;
+  margin: 4px 0;
+  transition: 0.3s ease;
+}
+
+/* Responsive Off-Canvas-Menü */
+@media (max-width: 768px) {
+  /* Verbirgt das normale Menü und zeigt den Burger-Button */
+  .nav_oben ul {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0px;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #FCF8ED;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+  }
+
+  /* Checkbox aktiviert das Menü */
+  #menu-toggle:checked ~ .nav_oben ul {
+      left: 0;
+  }
+
+  /* Burger-Button anzeigen */
+  .menu-icon {
+      display: flex;
+  }
+
+}
+
+/*ÜBERSCHRIFTEN*/
 
 /* Hauptüberschrift und Basispreis nebeneinander */
 .überschrift {
@@ -69,6 +194,106 @@ body {
   color: #FCF8ED;
 }
 
+.nav_oben {
+      background-color: #FCF8ED;
+      align-items: center;
+      justify-content: space-around;
+      padding: 5px 0;
+      position: fixed; /* Fixiert die Navigation oben */
+      top: 85px; /* Setzt sie ganz nach oben */
+      left: 0;
+      width: 100%;
+      z-index: 999;
+  }
+  
+  /* Desktop-Menü und Flexbox-Einstellungen */
+  nav ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+  }
+  
+  /* Links innerhalb der Menüpunkte */
+  nav ul li a {
+      color: #649e4c;
+      text-decoration: none;
+      padding: 10px 20px;
+      transition: color 0.3s ease;
+  }
+  
+  /* Hover-Effekt für Links */
+  nav ul li a:hover {
+      color: #FCC21D;
+  }
+  
+  /* Aktiver Menüpunkt */
+  nav ul li a.aktiv {
+      font-weight: bold;
+      color: #FCC21D;
+  }
+  
+  /* Verstecktes Checkbox-Element für die Navigation */
+  #menu-toggle {
+      display: none;
+  }
+  
+  /* Burger-Button Styling */
+  .menu-icon {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding-top: 25px;
+      padding-left: 10px;
+      padding-right: 10px;
+      position: absolute;
+      top: 0px; /* Abstand für bessere Sichtbarkeit */
+      right: 20px;
+      z-index: 1001;
+  }
+  
+  .menu-icon span {
+      display: block;
+      height: 2px;
+      width: 22px;
+      background-color:#FCF8ED;
+      margin: 4px 0;
+      transition: 0.3s ease;
+  }
+  
+  /* Responsive Off-Canvas-Menü */
+  @media (max-width: 768px) {
+      /* Verbirgt das normale Menü und zeigt den Burger-Button */
+      .nav_oben ul {
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          top: 0px;
+          left: -250px;
+          width: 250px;
+          height: 100%;
+          background-color: #FCF8ED;
+          padding-top: 60px;
+          transition: left 0.3s ease;
+          z-index: 1000;
+      }
+  
+      /* Checkbox aktiviert das Menü */
+      #menu-toggle:checked ~ .nav_oben ul {
+          left: 0;
+      }
+  
+      /* Burger-Button anzeigen */
+      .menu-icon {
+          display: flex;
+      }
+  
+    }
+
+/*STARTSEITEN*/
+
 .pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl, .beilage h2.überschrift_auswahl,
 .pasta h3.überschrift_zusatz, .soßen h3.überschrift_zusatz, .toppings h3.überschrift_zusatz {
   padding-left: 40px;
@@ -85,15 +310,13 @@ h2.überschrift_auswahl {
   padding-left: 40px;
 }
 
-
 h3.überschrift_zusatz {
   font-size: 1rem;
   color: #FCF8ED;
 }
 
-
 /* Linie über den Produkt-Containern */
-.pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
+.produkt_auswahl {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 50px;
@@ -106,7 +329,7 @@ h3.überschrift_zusatz {
   padding: 20px 40px;
 }
 
-.pasta_auswahl::before, .soßen_auswahl::before, .toppings_auswahl::before, .produkt_auswahl::before {
+.produkt_auswahl::before {
   content: "";
   position: absolute;
   top: 0;
@@ -117,8 +340,7 @@ h3.überschrift_zusatz {
   background-color: #FCF8ED; /* Farbe der Linie */
 }
 
-
-.pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
+.produkt_sorten {
   width: 100%;
   max-width: 300px;
   margin: 40px;
@@ -129,7 +351,7 @@ h3.überschrift_zusatz {
 }
 
 /* Container für die Bilder */
-.pasta_sorten, .soßen_sorten, .toppings_sorten, .produkt_sorten {
+.produkt_sorten {
   width: 100%;
   max-width: 300px;
   margin: 0 auto; /* Zentriert den gesamten Container */
@@ -146,9 +368,6 @@ h3.überschrift_zusatz {
   justify-items: center;
 }
 
-.pasta_auswahl,
-.soßen_auswahl,
-.toppings_auswahl,
 .produkt_auswahl {
   position: relative; /* Ermöglicht die Platzierung der Linie mit ::before */
   padding-top: 20px; /* Abstand zur Linie */
@@ -184,7 +403,25 @@ h3.überschrift_zusatz {
   margin: 5px;
 } 
 
-/* Buttons */
+.produkt_preis {
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  color:#f4f4f4;
+}
+
+.produkt_preis_euro {
+  font-size: 1rem;
+  display: inline-flex;
+}
+
+.produkt_preis[data-preis="null"], .produkt_preis_euro[data-preis="null"]{
+  display: none; /* Versteckt sowohl den Preis als auch das €-Symbol */
+}
+
+/*BUTTONS*/
+
 .auswahl_button {
   color: #649e4c;
   padding: 5px 10px;
@@ -218,144 +455,8 @@ h3.überschrift_zusatz {
   font-weight: bold;
 }
 
-/* Grundlegendes Styling für die Navigation */
-.nav_oben {
-    background-color: #FCF8ED;
-    align-items: center;
-    justify-content: space-around;
-    padding: 5px 0;
-    position: fixed; /* Fixiert die Navigation oben */
-    top: 85px; /* Setzt sie ganz nach oben */
-    left: 0;
-    width: 100%;
-    z-index: 999;
-}
-
-/* Desktop-Menü und Flexbox-Einstellungen */
-nav ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* Links innerhalb der Menüpunkte */
-nav ul li a {
-    color: #649e4c;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: color 0.3s ease;
-}
-
-/* Hover-Effekt für Links */
-nav ul li a:hover {
-    color: #FCC21D;
-}
-
-/* Aktiver Menüpunkt */
-nav ul li a.aktiv {
-    font-weight: bold;
-    color: #FCC21D;
-}
-
-/* Verstecktes Checkbox-Element für die Navigation */
-#menu-toggle {
-    display: none;
-}
-
-/* Burger-Button Styling */
-.menu-icon {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding-top: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
-    position: absolute;
-    top: 0px; /* Abstand für bessere Sichtbarkeit */
-    right: 20px;
-    z-index: 1001;
-}
-
-.menu-icon span {
-    display: block;
-    height: 2px;
-    width: 22px;
-    background-color:#FCF8ED;
-    margin: 4px 0;
-    transition: 0.3s ease;
-}
-
-/* Responsive Off-Canvas-Menü */
-@media (max-width: 768px) {
-    /* Verbirgt das normale Menü und zeigt den Burger-Button */
-    .nav_oben ul {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0px;
-        left: -250px;
-        width: 250px;
-        height: 100%;
-        background-color: #FCF8ED;
-        padding-top: 60px;
-        transition: left 0.3s ease;
-        z-index: 1000;
-    }
-
-    /* Checkbox aktiviert das Menü */
-    #menu-toggle:checked ~ .nav_oben ul {
-        left: 0;
-    }
-
-    /* Burger-Button anzeigen */
-    .menu-icon {
-        display: flex;
-    }
-
-  }
-
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #649e4c; /* Grüner Hintergrund für das Logo */
-  padding: 20px 0; /* Abstand um das Logo */
-  position: fixed; /* Fixiert das Logo am oberen Rand */
-  top: 0;
-  width: 100%;
-  z-index: 1001;
-}
-  
-  /* Logo Styling */
-.header img {
-  width: 200px; /* Größe des Logos anpassen */
-  height: auto; /* Höhe automatisch anpassen */
-  margin-bottom: 10px; /* Optionaler Abstand zur Navigation */
-}
-
-.produkt_preis {
-  font-size: 1rem;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 5px;
-  color:#f4f4f4;
-}
-
-.produkt_preis_euro {
-  font-size: 1rem;
-  display: inline-flex;
-}
-
-.produkt_preis[data-preis="null"], .produkt_preis_euro[data-preis="null"]{
-  display: none; /* Versteckt sowohl den Preis als auch das €-Symbol */
-}
-
-/* DETAILANSICHT */
-.product-details {
+ /* DETAILANSICHT */
+ .product-details {
   margin-top: 160px;
   display: flex;
   flex-wrap: wrap; /* Ermöglicht ein Umbruchverhalten bei kleinen Bildschirmen */
@@ -430,8 +531,10 @@ nav ul li a.aktiv {
   }
 }
 
-/*Administratorbereich (schon viel übernommen (gleiche class und id wie bei startseite*/
+/*ADMINISTRATORBEREICH*/
 
+/*Administratorbereich (schon viel übernommen (gleiche class und id wie bei startseite*/
+  
 .bearbeiten_button {
   color: #649e4c;
   padding: 5px 10px;

@@ -39,9 +39,9 @@
         <div class="pasta">
             <h2 class="überschrift_auswahl">NUDELN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
-            <div class="pasta_auswahl">
+            <div class="produkt_auswahl">
                 @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
@@ -69,9 +69,9 @@
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
-            <div class="soßen_auswahl">
-                @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+            <div class="produkt_auswahl">
+                @each (sorte in soßen)
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
@@ -98,9 +98,9 @@
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
             <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
-            <div class="toppings_auswahl">
-                @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+            <div class="produkt_auswahl">
+                @each (sorte in toppings)
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
