@@ -8,13 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
-<<<<<<< HEAD
 import db from '@adonisjs/lucid/services/db'
-import auth from '@adonisjs/auth/services/auth'
-import admin from '@adonisjs/admin/services/admin'
-=======
-import db from "@adonisjs/lucid/services/db"
->>>>>>> 2282907e8bae6ce6d8a0052348a0abded52b715a
 
 //Contoller (in Route) importieren
 const ProduktController = () => import('#controllers/produkt_controller')
@@ -97,8 +91,7 @@ router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminControlle
 
 // Routen für den Warenkorb -> WarenkorbsController
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
-router.post('/warenkorb/hinzufuegen', [WarenkorbsController, 'hinzufuegen'])
-router.post('/warenkorb/entfernen', [WarenkorbsController, 'entfernen']); // Produkt entfernen
+router.get('/warenkorb/hinzufuegen/:produkt', [WarenkorbsController, 'hinzufuegen'])
 
 
 //Route für Datenschutz und Impressum -> SonstigesController
