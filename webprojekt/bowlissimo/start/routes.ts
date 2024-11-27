@@ -8,7 +8,13 @@
 */
 
 import router from '@adonisjs/core/services/router'
+<<<<<<< HEAD
+import db from '@adonisjs/lucid/services/db'
+import auth from '@adonisjs/auth/services/auth'
+import admin from '@adonisjs/admin/services/admin'
+=======
 import db from "@adonisjs/lucid/services/db"
+>>>>>>> 2282907e8bae6ce6d8a0052348a0abded52b715a
 
 //Contoller (in Route) importieren
 const ProduktController = () => import('#controllers/produkt_controller')
