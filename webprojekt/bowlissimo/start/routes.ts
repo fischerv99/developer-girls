@@ -8,7 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import db from "@adonisjs/lucid/services/db'
+import db from '@adonisjs/lucid/services/db'
 import auth from '@adonisjs/auth/services/auth'
 import admin from '@adonisjs/admin/services/admin'
 
