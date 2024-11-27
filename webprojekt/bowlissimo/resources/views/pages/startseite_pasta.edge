@@ -102,16 +102,6 @@
                             <span class="details_button_text">Details</span>
                         </button>
                     </div>
-                    <!-- Funktion zum Hinzufügen eines Produktes in den Warenkorb -->
-                    <form action="/warenkorb/hinzufuegen" method="post" enctype="application/x-www-form-urlencoded">
-                     {{csrfField()}}
-                    <input type="hidden" name="id" value="{{ sorte.id }}"> 
-                    <input type="hidden" name="name" value="{{ sorte.name }}"> 
-                    <input type="hidden" name="preis" value="{{ sorte.preis }}">
-                    <label for="anzahl">Anzahl: </label>
-                    <input type="number" name="anzahl" id="anzahl" value="1" min="1">
-                    <button type="submit">Auswählen</button>
-                    </form>
                 </div>
                 @endeach
             </div>

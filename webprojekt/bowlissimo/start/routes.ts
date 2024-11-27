@@ -91,8 +91,8 @@ router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminControlle
 
 // Routen für den Warenkorb -> WarenkorbsController
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
-router.get('/warenkorb/hinzufuegen/:produkt', [WarenkorbsController, 'hinzufuegen'])
-
+router.get('/warenkorb/hinzufuegen/:oberkategorie/:produkt', [WarenkorbsController, 'hinzufuegen'])
+router.post('/warenkorb/update/:produkt', [WarenkorbsController, 'update'])
 
 //Route für Datenschutz und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
