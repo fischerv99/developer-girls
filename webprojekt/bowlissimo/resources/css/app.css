@@ -515,7 +515,7 @@ h3.überschrift_zusatz {
 
 
 /*IMPRESSUM & DATENSCHUTZ*/
-.impressum {
+.impressum, .datenschutz {
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
   color: #fff; /* Weiße Schriftfarbe */
@@ -524,23 +524,26 @@ h3.überschrift_zusatz {
   margin-left: 80px; /* Verschiebt den Container nach rechts */
 }
 
-.impressum h1 {
+.impressum h1, .datenschutz h1 {
   font-family: fantasy; 
   font-size: 32px;
   color: #FCF8ED;
 }
 
-.impressum h2 {
+.impressum h2, .datenschutz h2 {
 font-family: fantasy; 
 font-size: 20px;
 }
 
-
 /* Textabschnitte */
-.impressum p {
+.impressum p, .datenschutz p {
   margin-bottom: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
+
+
+
+
 
 /* FOOTER */
 footer {
