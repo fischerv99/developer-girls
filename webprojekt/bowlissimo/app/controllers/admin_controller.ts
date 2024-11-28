@@ -1,20 +1,24 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import db from "@adonisjs/lucid/services/db"
-import { cuid } from '@adonisjs/core/helpers'
+import db from "@adonisjs/lucid/services/db" // Import für Datenbankzugriffe
+import { cuid } from '@adonisjs/core/helpers'  // Generiert eindeutige IDs
 
 
 
 export default class AdminController {
-    public async login ({ view }: HttpContext) {
-        return view.render('pages/administratorbereich_login')
-    }
 
-    public async login2 ({ view, request, response }: HttpContext) {
+      // Zeigt die Login-Seite für Administratoren an
+    public async login ({ view }: HttpContext) {
+        return view.render('pages/administratorbereich_login') // Rendert die Login-Ansicht
+    }
+    // Verarbeitet Login-Daten und überprüft Administrator-Zugang
+    public async login2 ({ view, request, response, session }: HttpContext) {
         const nutzername = request.input('nutzername');
         const passwort = request.input('passwort'); //Nutzername und Passwort aus dem Request holen und in einzelnen Konstanten speichern
       
+        // Holt Administrator-Daten aus der Datenbank basierend auf der ID (Nutzername)        
         const administrator = await db.from('administrator').where('administrator_id', nutzername).first() //Administrator aus der Datenbank holen
       
+        // Überprüft, ob die Felder leer sind, und gibt eine Fehlermeldung zurück
         if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
           const error = 'Formular-Fehler'
           return view.render('pages/administratorbereich_login', {error})
@@ -25,43 +29,56 @@ export default class AdminController {
           return view.render('pages/administratorbereich_login', {error}) 
         }
       
+        // Überprüft, ob die Anmeldedaten korrekt sind
         if (!administrator || administrator.passwort !== passwort) { //Falls der Administrator nicht existiert oder das Passwort falsch ist
           const error = 'Falsche Anmeldedaten'
           return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
         }
         else {
-          return response.redirect('administratorbereich/pasta') //Weiter zum Administratorbereich 
+          // Benutzer-ID in die Session speichern (27.11)
+          session.put('administrator_id', administrator.administrator_id);
+          await session.commit();
+        
+          // Überprüfe, ob die Session funktioniert (27.11)
+          console.log('Session Value:', session.get('administrator_id')); // Debug: Zeigt die gespeicherte ID in der Konsole
+
+          // Leitet zum Administratorbereich weiter, wenn die Anmeldung erfolgreich ist
+          return response.redirect('administratorbereich/pasta')
         }
     }
 
+    // Lädt Daten für Pasta, Soßen und Toppings und zeigt sie im Adminbereich an
     public async pasta ({ view }: HttpContext) {
-        const pasta = await db.from('pasta').select('*')  
-        const soßen = await db.from('saucen').select('*')
-        const toppings = await db.from('toppings').select('*')
+        const pasta = await db.from('pasta').select('*')  // Alle Pastadaten holen
+        const soßen = await db.from('saucen').select('*') // Alle Soßendaten holen
+        const toppings = await db.from('toppings').select('*') // Alle Toppings holen
+        // Rendert die Pasta-Verwaltungsseite mit den geladenen Daten
         return view.render('pages/administratorbereich_pasta', { pasta, soßen, toppings })
     }
-
+    // Lädt Getränkedaten und zeigt sie im Adminbereich an
     public async getraenke ({ view }: HttpContext) {
-        const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie') 
-        const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk' )
-        const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 'cocktail')
+        const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie') // Nur Smoothies laden
+        const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk' )// Erfrischungsgetränke laden
+        const alkoholfreie_cocktails = await db.from('getraenke').select('*').where('art', 'cocktail')  // Cocktails laden
+        // Rendert die Getränke-Verwaltungsseite
         return view.render('pages/administratorbereich_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_cocktails })
     }
 
+    // Lädt Beilagen-Daten wie Salate und Suppen und zeigt sie im Adminbereich an
     public async beilagen ({ view }: HttpContext) {
         const salate = await db.from('beilagen').select('*').where('art', 'salat') 
         const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
         return view.render('pages/administratorbereich_beilagen', { salate, suppen })
     }
-
+    // Zeigt das Formular zum Hinzufügen eines neuen Produkts
     public async hinzufuegen ({ view, params }: HttpContext) {
-        const { oberkategorie, unterkategorie } = params;
+        const { oberkategorie, unterkategorie } = params; // Extrahiert Kategorien aus den URL-Parametern
         // Rendert die Seite mit dem Formular zum Hinzufügen
         return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  
     }
-
+    //?????
     public async hinzufuegen2 ({ request, view, response, params }: HttpContext) {  
-        let { oberkategorie } = params;
+        let { oberkategorie } = params; 
         let { unterkategorie } = params;
       
         //Bild 
@@ -72,7 +89,7 @@ export default class AdminController {
         return response.redirect('/administratorbereich/pasta');
       }
       
-        //Bild_pfad erstellen                           
+      // Generiert einen eindeutigen Dateipfad und URL für das Bild                       
       const key = `uploads/${cuid()}.${image.extname}`;
       const url = `http://localhost:3333/storage/${key}`;
       
@@ -126,23 +143,30 @@ export default class AdminController {
         }
       
       //Wichtig sind schräge Anführungszeichen, da sonst die Variable nicht erkannt wird
+      // Weiterleitung zurück zur Pasta-Seite
         return response.redirect(`/administratorbereich/pasta`);
       }
-
+    // Lädt ein bestimmtes Produkt zur Bearbeitung
       public async bearbeiten ({ view, params }: HttpContext) {
+
         // Kategorie und ID aus params extrahieren
         const { oberkategorie, id } = params; 
       
         // Produkt aus der Datenbank holen
         const produkt = await db.from(oberkategorie).where('id', id).first(); 
       
+        console.log('Oberkategorie:', oberkategorie); // Debug(27.11)
+        console.log('ID:', id); // Debug(27.11)
+
         // Falls das Produkt nicht gefunden wird
         if (!produkt) {
-          return view.render('errors/not-found'); 
+          return view.render('errors/not-found');
+          console.log("Produkt nicht gefunden");// Debug (27.11)
         }
-      
-        // Produkt und Kategorie an die View übergeben
-        return view.render('pages/administratorbereich_bearbeiten', { produkt, oberkategorie }); 
+
+        // Wenn das Produkt gefunden wurde: Produkt und Kategorie an die View übergeben
+        return view.render('pages/administratorbereich_bearbeiten', { produkt, oberkategorie });
+ 
     }
 
      public async bearbeiten2 ({ request, response, params }: HttpContext) {
@@ -226,4 +250,15 @@ export default class AdminController {
       
         return response.redirect(`/administratorbereich/pasta`);
       }
+
+
+    // Beim Logout
+    public async logout({ session, response }: HttpContext) {
+      // Löscht alle Session-Daten
+      session.clear();
+      await session.commit(); // Speichert die Änderungen
+  
+      console.log('Administrator wurde abgemeldet'); // Debugging-Info
+      return response.redirect('/startseite_pasta'); // Zur Startseite (unangemeldet) zurück
+  }
 }
