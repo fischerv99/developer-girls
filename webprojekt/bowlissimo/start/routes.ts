@@ -12,10 +12,12 @@ import db from '@adonisjs/lucid/services/db'
 
 //Contoller (in Route) importieren
 const ProduktController = () => import('#controllers/produkt_controller')
+const KreationsController = () => import('#controllers/kreations_controller')
 const UsersController = () => import('#controllers/users_controller')
 const AdminController = () => import('#controllers/admin_controller')
 const WarenkorbsController = () => import('#controllers/warenkorbs_controller')
 const SonstigesController = () => import('#controllers/sonstiges_controller') 
+
 
 
 
@@ -27,7 +29,10 @@ router.get('/startseite_beilagen', [ProduktController, 'startseite_beilagen'])
   // Detailansicht für ein Produkt (auch für angemeldete Kunden)
 router.get('/details/:kategorie/:id', [ProduktController, 'details'])
 
-
+//Routen für Kreationen (Kunde nicht angemeldet und angemeldet) -> KreationController
+router.post('/neue_kreation', [KreationsController, 'neue_kreation'])
+router.post('/update_kreatio_sosse', [KreationsController, 'update_kreation_sosse'])
+router.post('/update_kreation_toppings', [KreationsController, 'update_kreation_topping'])
 
 //Routen für angemeldete Startseiten (Kunde ist angemeldet), Registriert sich/einloggen -> UsersController
  // Seiten momentan provisorisch ans nav gebunden

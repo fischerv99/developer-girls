@@ -46,9 +46,11 @@
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
+                        <form action="/neue_kreation" method="post" enctype="application/x-www-form-urlencoded">
+                           {{csrfField()}}
+                           <input type="hidden" name="nudelsorte" value="{{ sorte.id }}">
+                           <button class="auswahl_button" type="submit" >Auswählen</button>
+                        </form>
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
                         <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'"> 
                             <span class="details_text">Details</span>
@@ -69,9 +71,11 @@
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="auswahl_button_text">Auswählen</span>
-                        </button>
+                        <form action="/update_kreatio_sosse" method="post" enctype="application/x-www-form-urlencoded">
+                            {{csrfField()}}
+                            <input type="hidden" name="sossensorte" value="{{ sorte.id }}">
+                            <button class="auswahl_button" type="submit" >Auswählen</button>
+                         </form>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
                         <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
@@ -92,9 +96,11 @@
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
-                            <span class="details_button_text">Auswählen</span>
-                        </button>
+                        <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
+                            {{csrfField()}}
+                            <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
+                            <button class="auswahl_button" type="submit" >Auswählen/ Löschen</button>
+                         </form>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
                         <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
@@ -110,7 +116,7 @@
         <div class="deine_kreation">
             <h2 class="überschrift">DEINE KREATION</h2>
             <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
-            <div class="deine_kreation_bilder">
+            <div class="deine_kreation_bilder"> 
             </div>
         </div>
 
@@ -118,6 +124,8 @@
             <button id="zu_favoriten_hinzufügen" >
                 <span id="zu_favoriten_hinzufügen_text">ZU FAVORITEN HINZUFÜGEN</span>
             </button>
+            <button id="zum_warenkorb_hinzufügen" >
+                <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
         </div>
     </main>
 

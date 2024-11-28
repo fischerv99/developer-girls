@@ -17,7 +17,7 @@
   @endif
 
 
-  <form action="/login" method="POST">
+  <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
     {{csrfField()}}
     <label for="nutzername">Nutzername:</label>
     <input type="text" id="nutzername" name="nutzername" required>

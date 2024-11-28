@@ -9,11 +9,9 @@ export default class ProduktesController {
         const toppings = await db.from('toppings').select('*')
 
   //Anzahl der Produkte im Warenkorb berechnen
-  const cartItems = session.get('cartItems', [])
-  const cartCount = cartItems.length
 
    // View rendern und Daten übergeben
-  return view.render('pages/startseite_pasta', { pasta, soßen, toppings, cartCount })
+  return view.render('pages/startseite_pasta', { pasta, soßen, toppings })
 }
 
 public async startseite_pasta({ view, session }: HttpContext) {
@@ -21,10 +19,30 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
-  const cartItems = session.get('cartItems', [])
-  const cartCount = cartItems.length
+  //Aktuelle Kreation anzeigen
+  const aktuelle_kreation = await db.from('kreation')
+                                    .where('session_id', session.sessionId )
+                                    .where('status', 'nicht_warenkorb')
+                                    .first()
+  console.log(aktuelle_kreation)
 
-  return view.render('pages/startseite_pasta', { pasta, soßen, toppings, cartCount })
+  //Alle ids speichern der Pasta
+  //Alle ids speichern der Soßen
+  
+  //Zugehörige Toppings der Kreation abrufen
+    //Dazu zugehörige kreation_id abrufen
+  const aktuelle_kreation_id = aktuelle_kreation.id
+
+  const kreation_toppings = await db.from('kreation_toppings')
+                                    .where('kreation_id', aktuelle_kreation_id)
+                                    .select('*')
+  
+  //Alle ids speichern der Toppings
+
+
+    //Anzahl der Produkte im Warenkorb berechnen
+
+  return view.render('pages/startseite_pasta', { pasta, soßen, toppings})
 }
 
 public async startseite_getraenke({ view }: HttpContext) {
