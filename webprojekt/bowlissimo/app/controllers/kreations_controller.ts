@@ -16,7 +16,6 @@ export default class KreationsController {
             console.log('neue Kreation')
         await db.table('kreation')
                 .insert({ pasta_id: nudelsorte,
-                          name: "Pasta-Bowl",
                           id: Math.abs(Math.floor(Math.random() * 1_000_000)),
                           status: "nicht_warenkorb",
                           preis: 5.99,

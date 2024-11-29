@@ -26,7 +26,7 @@
                 <li><a href="/login" class="inaktiv">
                     <img src="/storage/profil.png" alt="Logo" style="width: 40px; height: 40px;">
                 </a></li>   
-                <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
+                <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb ({{anzahl_warenkorb}})</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
             </ul>
         </nav>
     </header>
@@ -122,7 +122,7 @@
             @if (aktuelle_pasta) 
                 <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
                 <div class="favoriten_button">
-                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/kreation/{{aktuelle_kreation.id}}'">
+                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{aktuelle_kreation.id}}'">
                         <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
                 </div>
                 <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">

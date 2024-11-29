@@ -70,7 +70,14 @@ export default class WarenkorbsController {
                            menge: 1
                   })
                 } }
-           
+           //Wenn eine Kreation hinzugefügt wird muss status geandert ewrden
+            if (oberkategorie === 'kreation') {
+              await db.from("kreation")
+                        .where("session_id", session.sessionId)
+                        .andWhere("status", "nicht_warenkorb")
+                        .update({ status: "im_warenkorb"})
+            }
+
           //Zu Warenkorb
           return response.redirect('/warenkorb');
       } 

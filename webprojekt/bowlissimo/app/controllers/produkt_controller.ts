@@ -9,15 +9,29 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
-  //Aktuelle Kreation anzeigen
+  //Aktuelle Anzahl der Produkte im Warenkorb berechnen
+    //Dazu Warenkorb_id extrahieren
+      const warenkorb_id = await db.from('warenkorb_bestellung')
+                                   .where('session_id', session.sessionId)
+                                   .first()
+
+  const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
+                                  .where('warenkorb_id', warenkorb_id.id)
+                                  .count('*')
+  console.log(anzahl_warenkorb_abrufen)
+  //ergebnis ist im falschen format: { 'count(*)': 5 }
+  const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+  
+  //Aktuelle Kreation anzeigen                                
   const aktuelle_kreation = await db.from('kreation')
-                                    .where('session_id', session.sessionId )
+                                    .where('session_id', session.sessionId)
                                     .where('status', 'nicht_warenkorb')
-                                    .first()
+                                    .first();
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -27,7 +41,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -47,7 +61,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -57,25 +71,51 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb })
               }
               
             } 
 } }
 
-public async startseite_getraenke({ view }: HttpContext) {
+public async startseite_getraenke({ view, session }: HttpContext) {
   const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
   const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
   const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
 
-  return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
+  //Aktuelle Anzahl der Produkte im Warenkorb berechnen
+    //Dazu Warenkorb_id extrahieren
+    const warenkorb_id = await db.from('warenkorb_bestellung')
+                                 .where('session_id', session.sessionId)
+                                 .first()
+
+    const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
+                                             .where('warenkorb_id', warenkorb_id.id)
+                                             .count('*')
+    console.log(anzahl_warenkorb_abrufen)
+    //ergebnis ist im falschen format: { 'count(*)': 5 }
+    const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+  return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb })
 }
 
-public async startseite_beilagen({ view }: HttpContext) {
+public async startseite_beilagen({ view, session }: HttpContext) {
   const salate = await db.from('beilagen').select('*').where('art', 'salat')
   const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
+  
+  //Aktuelle Anzahl der Produkte im Warenkorb berechnen
+    //Dazu Warenkorb_id extrahieren
+    const warenkorb_id = await db.from('warenkorb_bestellung')
+                                 .where('session_id', session.sessionId)
+                                 .first()
 
-  return view.render('pages/startseite_beilagen', { salate, suppen })
+    const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
+                                             .where('warenkorb_id', warenkorb_id.id)
+                                             .count('*')
+    console.log(anzahl_warenkorb_abrufen)
+    //ergebnis ist im falschen format: { 'count(*)': 5 }
+    const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+  return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb })
 }
 
 public async details({ view, params }: HttpContext) {
