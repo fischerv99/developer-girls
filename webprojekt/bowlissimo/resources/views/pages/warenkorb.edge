@@ -13,7 +13,11 @@
         @if (ausgewaehlte_produkte)
             @each (produkt in ausgewaehlte_produkte)
                 <div class="produkt">
-                    <h2> {{ produkt.produkt }}</h2>
+                    @if (typeof produkt.produkt === 'number')
+                        <h2>Pasta-Bowl</h2>
+                    @else
+                        <h2>{{ produkt.produkt }}</h2>
+                    @endif
                     <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
                     <p>  {{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
 

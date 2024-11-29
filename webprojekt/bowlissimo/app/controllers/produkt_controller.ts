@@ -3,16 +3,6 @@ import db from "@adonisjs/lucid/services/db"
 
 
 export default class ProduktesController {
-    public async start({ view, session }: HttpContext) {
-        const pasta = await db.from('pasta').select('*')
-        const soßen = await db.from('saucen').select('*')
-        const toppings = await db.from('toppings').select('*')
-
-  //Anzahl der Produkte im Warenkorb berechnen
-
-   // View rendern und Daten übergeben
-  return view.render('pages/startseite_pasta', { pasta, soßen, toppings })
-}
 
 public async startseite_pasta({ view, session }: HttpContext) {
   const pasta = await db.from('pasta').select('*')
@@ -24,7 +14,6 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                     .where('session_id', session.sessionId )
                                     .where('status', 'nicht_warenkorb')
                                     .first()
-  console.log(aktuelle_kreation) 
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   if (!aktuelle_kreation) {
@@ -38,7 +27,8 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation })
+
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
           //id der Soßen speichern
@@ -57,7 +47,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -67,7 +57,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation })
               }
               
             } 

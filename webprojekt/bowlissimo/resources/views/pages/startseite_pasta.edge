@@ -122,7 +122,7 @@
             @if (aktuelle_pasta) 
                 <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
                 <div class="favoriten_button">
-                    <button id="zum_warenkorb_hinzufügen" >
+                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/kreation/{{aktuelle_kreation.id}}'">
                         <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
                 </div>
                 <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">

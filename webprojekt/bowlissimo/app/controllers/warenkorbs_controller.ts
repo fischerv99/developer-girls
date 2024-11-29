@@ -9,7 +9,7 @@ export default class WarenkorbsController {
       //alle id der warenkorb_bestellung abrufen, welche zur session gehört -> Liste von warenkorb_bestellung-Einträgen zurückgeben, die der session_id entsprechen
       const warenkorb_bestellungen = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('*');
 
-      //alle ausgewaehleten produkte abrufen, welche zu der warenkorb_estellung gehören
+      //alle ausgewaehleten produkte abrufen, welche zu der warenkorb_bestellung gehören
         //Id der warenkorb_bestellung abrufen
         const warenkorb_bestellung_ids = warenkorb_bestellungen.map((warenkorb_bestellung) => warenkorb_bestellung.id);
         //zuürck bekommt man liste mit allen ids, die zur session gehören
@@ -44,9 +44,6 @@ export default class WarenkorbsController {
                             in_bestellung: false,
                             id: Math.abs(Math.floor(Math.random() * 1_000_000)) // Generate ID in JS
                     })
-
-            //und in ausgewaehlte Produkt Tabelle
-            
                 } else {
           
            // Überprüfen, ob das Produkt bereits im Warenkorb ist
