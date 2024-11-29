@@ -515,7 +515,7 @@ h3.überschrift_zusatz {
 
 
 /*IMPRESSUM & DATENSCHUTZ*/
-.impressum {
+.impressum, .datenschutz, .warenkorb{
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
   color: #fff; /* Weiße Schriftfarbe */
@@ -524,23 +524,34 @@ h3.überschrift_zusatz {
   margin-left: 80px; /* Verschiebt den Container nach rechts */
 }
 
-.impressum h1 {
+.impressum h1, .datenschutz h1, .warenkorb h1 {
   font-family: fantasy; 
   font-size: 32px;
   color: #FCF8ED;
 }
 
-.impressum h2 {
+.impressum h2, .datenschutz h2, .warekorb h2 {
 font-family: fantasy; 
 font-size: 20px;
 }
 
-
 /* Textabschnitte */
-.impressum p {
+.impressum p, .datenschutz p, .warenkorb p{
   margin-bottom: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
+
+
+/* Warenkorb */
+.warenkorb-content {
+  padding-top: 8rem; /* Abstand zum Titel */
+}
+
+.warenkorb .produkt {
+  margin-bottom: 2rem; /* Abstand zwischen den Produkten */
+}
+
+
 
 /* FOOTER */
 footer {
@@ -583,26 +594,3 @@ footer * {
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
 }
-
-@media (max-width: 768px) {
-  footer {
-      flex-direction: column; /* Ordnet die Inhalte vertikal an */
-      align-items: center; /* Zentriert die Inhalte horizontal */
-      text-align: center; /* Zentriert den Text */
-      padding: 20px 10px; /* Weniger Padding, damit es kompakter ist */
-  }
-
-  footer .footer-logo {
-      margin-bottom: 10px; /* Abstand unter dem Logo */
-  }
-
-  footer .footer-links {
-      margin-left: 0; /* Entfernt das große linke Margin */
-      margin-top: 10px; /* Etwas Abstand oben hinzufügen */
-  }
-
-  footer a {
-      margin: 5px; /* Weniger Abstand zwischen Links */
-  }
-}
-

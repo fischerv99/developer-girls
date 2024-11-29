@@ -7,29 +7,82 @@
     <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 <body>
-    
-    <h1>Warenkorb</h1>
 
+   <header class="header">    
+     @include('pages/partials/header')   
+   </header>
+ 
+<main class="warenkorb"> <!-- Der Warenkorb-Bereich -->
+    <h1 class="page-title">Warenkorb</h1> <!-- Überschrift für den Warenkorb -->
+
+    <div class="warenkorb-content"> <!-- Der Inhalt des Warenkorbs -->
         @if (ausgewaehlte_produkte)
             @each (produkt in ausgewaehlte_produkte)
                 <div class="produkt">
-                    <h2> {{ produkt.produkt }}</h2>
-                    <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
-                    <p>  {{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
+                    <h2>{{ produkt.produkt }}</h2> <!-- Produktname -->
+                    <p>{{ (produkt.preis * produkt.menge).toFixed(2) }} €</p> <!-- Preis für das Produkt -->
 
-                    <form action="/warenkorb/update/{{produkt.produkt}}" method="post" enctype="application/x-www-form-urlencoded">
-                        {{csrfField()}}
-                        <label for="menge">Menge:</label>
-                        <input type="number" id="menge" name="menge" value="{{produkt.menge}}" min="1" step="1" pattern="\d*" onchange="this.form.submit()">
+                    <form action="/warenkorb/menge/erhoehen/{{ produkt.produkt }}" method="POST">
+                        {{ csrfField() }}
+                        <button class="menge-erhoehen" data-produkt="{{ produkt.produkt }}">+</button>
+                        <span class="menge">{{ produkt.menge }}</span>
+                        <button class="menge-verringern" data-produkt="{{ produkt.produkt }}">-</button>
                     </form>
-                    <button onclick="window.location.href='/warenkorb/entfernen/{{produkt.produkt}}'">Entfernen</button>
+                    <button onclick="window.location.href='/warenkorb/entfernen/{{produkt.produkt}}'">Entfernen</button> <!-- Entfernen des Produkts -->
                 </div>
             @endeach
-            <p>Gesamtpreis: {{ gesamtpreis }} €</p>
-    @else
-        <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
-    @endif
+            <p>Gesamtpreis: {{ gesamtpreis }} €</p> <!-- Gesamtpreis anzeigen -->
+        @else
+            <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p> <!-- Falls der Warenkorb leer ist -->
+        @endif
+    </div>
+</main>
+
+     <script>
+        document.querySelectorAll('.menge-erhoehen').forEach(button => {
+            button.addEventListener('click', function() {
+                const produkt = this.getAttribute('data-produkt');
+                updateMenge(produkt, 1); // Menge um 1 erhöhen
+            });
+        });
+    
+        document.querySelectorAll('.menge-verringern').forEach(button => {
+            button.addEventListener('click', function() {
+                const produkt = this.getAttribute('data-produkt');
+                updateMenge(produkt, -1); // Menge um 1 verringern
+            });
+        });
+    
+        function updateMenge(produkt, delta) {
+            const url = `/warenkorb/menge/update/${produkt}`;
+            const formData = new FormData();
+            formData.append('menge', delta); // Delta (1 oder -1) für die Mengenänderung
+    
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // CSRF-Token korrekt übergeben
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.menge !== undefined) {
+                    // Menge im UI aktualisieren
+                    const span = document.querySelector(`span[data-produkt='${produkt}']`);
+                    span.innerText = data.menge;
+                } else {
+                    console.error('Fehler beim Aktualisieren der Menge:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Fehler beim Aktualisieren der Menge:', error);
+            });
+        }
+    </script>
 
 
+
+ </main>
 </body>
 </html>

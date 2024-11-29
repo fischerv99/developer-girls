@@ -75,24 +75,70 @@ export default class WarenkorbsController {
           return response.redirect('/warenkorb');
       } 
 
- // Produktmenge updaten
-      public async update ({ response, session, request, params }: HttpContext) {
-          const { produkt } = params
-          const { menge } = request.all()
+// Menge erhöhen
+  // Menge erhöhen
+  public async erhoehen({ response, session, params }: HttpContext) {
+    const { produkt } = params;
 
-          //In warenkorb_bestellung id abrufen mit aktueller session 
-          const warenkorb_bestellung_id = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('id').first();
-          // warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
-          const warenkorb_bestellung_id_format  = warenkorb_bestellung_id.id;
+    // Warenkorb-Bestellung abrufen
+    const warenkorb_bestellung_id = await db.from('warenkorb_bestellung')
+      .where('session_id', session.sessionId)
+      .select('id')
+      .first();
+  
+    if (!warenkorb_bestellung_id) {
+      return response.status(400).json({ error: 'Warenkorb nicht gefunden' });
+    }
 
-          //In ausgewaehltes_produkt steht aktuelle Menge
-          await db.from('ausgewaehltes_produkt').where('warenkorb_id', warenkorb_bestellung_id_format).andWhere('produkt', produkt)
-                  .update({menge: menge
-                           });
+    const warenkorb_bestellung_id_format = warenkorb_bestellung_id.id;
 
-          //Zu Warenkorb
-          return response.redirect('/warenkorb');
-      }
+    // Menge erhöhen
+    await db.from('ausgewaehltes_produkt')
+      .where('warenkorb_id', warenkorb_bestellung_id_format)
+      .andWhere('produkt', produkt)
+      .increment('menge', 1);
+
+    // Aktuelles Produkt abrufen
+    const aktualisiertesProdukt = await db.from('ausgewaehltes_produkt')
+      .where('warenkorb_id', warenkorb_bestellung_id_format)
+      .andWhere('produkt', produkt)
+      .first();
+
+    // Rückgabe der neuen Menge als JSON
+    return response.json({ menge: aktualisiertesProdukt.menge });
+  }
+
+  // Menge verringern
+  public async verringern({ response, session, params }: HttpContext) {
+    const { produkt } = params;
+  
+    const warenkorb_bestellung_id = await db.from('warenkorb_bestellung')
+      .where('session_id', session.sessionId)
+      .select('id')
+      .first();
+  
+    if (!warenkorb_bestellung_id) {
+      return response.status(400).json({ error: 'Warenkorb nicht gefunden' });
+    }
+  
+    const warenkorb_bestellung_id_format = warenkorb_bestellung_id.id;
+  
+    // Menge verringern
+    await db.from('ausgewaehltes_produkt')
+      .where('warenkorb_id', warenkorb_bestellung_id_format)
+      .andWhere('produkt', produkt)
+      .decrement('menge', 1);
+  
+    // Aktuelles Produkt abrufen
+    const aktualisiertesProdukt = await db.from('ausgewaehltes_produkt')
+      .where('warenkorb_id', warenkorb_bestellung_id_format)
+      .andWhere('produkt', produkt)
+      .first();
+  
+    // Rückgabe der neuen Menge als JSON
+    return response.json({ menge: aktualisiertesProdukt.menge });
+  }
+
 
  // Produkt löschen
       public async entfernen ({ response, session, params }: HttpContext) {
