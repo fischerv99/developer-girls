@@ -30,7 +30,7 @@ export default class KreationsController {
         }
        
         // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-        return response.redirect ('/startseite_pasta')
+        return response.redirect ('/')
     }
 
     //Wenn Nutzer eine Soße auswählt, wird die Kreation aktualisiert
@@ -41,35 +41,67 @@ export default class KreationsController {
         const aktuelle_kreation = await db.from('kreation')
                                           .where('session_id', session.sessionId)
                                           .andWhere('status', 'nicht_warenkorb')
+                                          .first()
 
         if (!aktuelle_kreation) {
-            //Wenn keine Kreation existiert, dann ist es nicht möglich, eine Soße auszuwählen
-            return response.redirect('/startseite_pasta')
+            //Wenn keine Kreation existiert, dann ist es nicht möglich, eine Soße auszuwählen  
+            return response.redirect('/') 
         } else {
-            //Aktuelle Kreation updaten
-            await db.from('kreation')
-                  .where('session_id', session.sessionId)
-                  .andWhere('status', 'nicht_warenkorb')
-                  .update({ sossen_id: sossensorte })
+            //Preis der neuen Sosse ausfindig machen
+            const preis_sosse = await db.from("saucen")
+                                        .where('id', sossensorte)
+                                        .select('preis')
+                                        .first ()
 
+            // Initialisiere neuen Preis mit dem aktuellen Preis der Kreation
+                let neuer_preis = aktuelle_kreation.preis;
+
+            // Überprüfen, ob bereits eine Soße ausgewählt wurde
+            if (aktuelle_kreation.sossen_id) {
+                // Preis der alten Soße abrufen
+                const alte_sosse = await db .from("saucen")
+                                            .where("id", aktuelle_kreation.sossen_id)
+                                            .select("preis")
+                                            .first();
+
+                // Preis der alten Soße abziehen
+                    neuer_preis -= alte_sosse.preis;
+            }
+
+                // Preis der neuen Soße hinzufügen
+                    neuer_preis += preis_sosse.preis;
+
+                // Aktuelle Kreation updaten
+                await db.from("kreation")
+                        .where("session_id", session.sessionId)
+                        .andWhere("status", "nicht_warenkorb")
+                        .update({sossen_id: sossensorte,
+                                 preis: neuer_preis,
+  });
             // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-            return response.redirect('/startseite_pasta')
+            return response.redirect('/')
         }
     }
 
     public async update_kreation_topping({ session, response, request }: HttpContext) {
         //Ausgewähltes Topping abrufen
         const topping = request.input('toppingsorte')
+        console.log(topping)
 
         //Überprüfen, ob schon eine aktuelle Kreation existiert -> sprich, ob schon Nudelsorte ausgewählt wurde
         const aktuelle_kreation = await db.from('kreation')
                                           .where('session_id', session.sessionId)
                                           .andWhere('status', 'nicht_warenkorb')
+                                          .first()
         
         if (!aktuelle_kreation) {
-            //Wenn keine Kreation existiert, dann ist es nicht möglich, ein Topping auszuwählen
-            return response.redirect('pages/startseite_pasta')
-        } 
+            //Wenn keine Kreation existiert (keine pasta ausgewählt), dann ist es nicht möglich, ein Topping auszuwählen
+            return response.redirect('/')
+        } if (!aktuelle_kreation.sossen_id) {
+            //Wenn keine sosse ausgewählt, dann ist es nicht möglich ein Topping auszuwählen
+            return response.redirect('/')
+
+        }
         else {
             //Überprüfen, ob das Topping schon in der Kreation vorhanden ist
               //Dafür aktuelle kreartion_id abrufen
@@ -93,6 +125,17 @@ export default class KreationsController {
                                 .insert({ topping_id: topping,
                                           kreation_id: kreation_id_format
                       })
+                      //Der Preis der Kreation wird geupdatet
+                        //Preis des neuen Toppings ermitteln
+                        const preis_topping = await db.from("toppings")
+                                        .where('id', topping)
+                                        .select('preis')
+                                        .first ()
+
+                        //Neuen Presi in Tabelle Kreation updaten
+                        await db.from("kreation").where("session_id", session.sessionId)
+                                                 .andWhere("status", "nicht_warenkorb")
+                                                 .update({preis: aktuelle_kreation.preis + preis_topping.preis})
                     }
                     else {
                     //Wenn Topping schon in Kreation vorhanden ist, dann wird es gelöscht
@@ -100,10 +143,21 @@ export default class KreationsController {
                                 .where('kreation_id', kreation_id_format)
                                 .andWhere('topping_id', topping)
                                 .delete()
+
+                    //Der Preis in Tabelle Kreation muss wieder weniger werden
+                    const preis_topping = await db.from("toppings")
+                                        .where('id', topping)
+                                        .select('preis')
+                                        .first ()
+
+                    //Neuen Presi in Tabelle Kreation updaten
+                    await db.from("kreation").where("session_id", session.sessionId)
+                                             .andWhere("status", "nicht_warenkorb")
+                                             .update({preis: aktuelle_kreation.preis - preis_topping.preis})
                     }
         
         // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-        return response.redirect('/startseite_pasta')
+        return response.redirect('/')
             }
     }
         }
