@@ -259,6 +259,6 @@ export default class AdminController {
       await session.commit(); // Speichert die Änderungen
   
       console.log('Administrator wurde abgemeldet'); // Debugging-Info
-      return response.redirect('/startseite_pasta'); // Zur Startseite (unangemeldet) zurück
+      return response.redirect('/'); // Zur Startseite (unangemeldet) zurück
   }
 }

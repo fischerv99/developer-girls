@@ -11,7 +11,7 @@ export default class UsersController {
         const cartItems = session.get('cartItems', [])
         const cartCount = cartItems.length
       
-        return view.render('pages/kunde_pasta.edge', { pasta, soßen, toppings, cartCount })
+        return view.render('pages/kunde_pasta', { pasta, soßen, toppings, cartCount })
   
 }
 public async startseite_getraenke_logged({ view, session }: HttpContext) {

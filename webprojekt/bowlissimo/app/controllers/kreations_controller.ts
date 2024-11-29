@@ -30,7 +30,7 @@ export default class KreationsController {
         }
        
         // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-        return response.redirect ('/startseite_pasta')
+        return response.redirect ('/')
     }
 
     //Wenn Nutzer eine Soße auswählt, wird die Kreation aktualisiert
@@ -41,10 +41,11 @@ export default class KreationsController {
         const aktuelle_kreation = await db.from('kreation')
                                           .where('session_id', session.sessionId)
                                           .andWhere('status', 'nicht_warenkorb')
+                                          .first()
 
         if (!aktuelle_kreation) {
             //Wenn keine Kreation existiert, dann ist es nicht möglich, eine Soße auszuwählen
-            return response.redirect('/startseite_pasta')
+            return response.redirect('/')
         } else {
             //Aktuelle Kreation updaten
             await db.from('kreation')
@@ -53,7 +54,7 @@ export default class KreationsController {
                   .update({ sossen_id: sossensorte })
 
             // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-            return response.redirect('/startseite_pasta')
+            return response.redirect('/')
         }
     }
 
@@ -65,10 +66,11 @@ export default class KreationsController {
         const aktuelle_kreation = await db.from('kreation')
                                           .where('session_id', session.sessionId)
                                           .andWhere('status', 'nicht_warenkorb')
+                                          .first()
         
         if (!aktuelle_kreation) {
             //Wenn keine Kreation existiert, dann ist es nicht möglich, ein Topping auszuwählen
-            return response.redirect('pages/startseite_pasta')
+            return response.redirect('/')
         } 
         else {
             //Überprüfen, ob das Topping schon in der Kreation vorhanden ist
@@ -103,7 +105,7 @@ export default class KreationsController {
                     }
         
         // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-        return response.redirect('/startseite_pasta')
+        return response.redirect('/')
             }
     }
         }

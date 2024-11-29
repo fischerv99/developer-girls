@@ -22,8 +22,7 @@ const SonstigesController = () => import('#controllers/sonstiges_controller')
 
 
 //Routen für Startseiten (Kunde nicht angemeldet) -> ProduktController
-router.get('/', [ProduktController, 'start'])
-router.get('/startseite_pasta', [ProduktController, 'startseite_pasta'])
+router.get('/', [ProduktController, 'startseite_pasta'])
 router.get('/startseite_drinks', [ProduktController, 'startseite_getraenke'])
 router.get('/startseite_beilagen', [ProduktController, 'startseite_beilagen'])
   // Detailansicht für ein Produkt (auch für angemeldete Kunden)

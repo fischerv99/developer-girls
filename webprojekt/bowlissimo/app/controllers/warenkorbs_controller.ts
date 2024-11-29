@@ -44,12 +44,15 @@ export default class WarenkorbsController {
                             in_bestellung: false,
                             id: Math.abs(Math.floor(Math.random() * 1_000_000)) // Generate ID in JS
                     })
-                }
+
+            //und in ausgewaehlte Produkt Tabelle
+            
+                } else {
           
            // Überprüfen, ob das Produkt bereits im Warenkorb ist
              const vorhandenes_produkt = await db.from('ausgewaehltes_produkt').where('produkt', produkt).andWhere('warenkorb_id', warenkorb.id).first();                   
-
-            if (vorhandenes_produkt) {
+              
+             if (vorhandenes_produkt) {
                 // Menge des vorhandenen Produkts erhöhen
                 await db.from('ausgewaehltes_produkt').where('produkt', produkt).update({ menge: vorhandenes_produkt.menge + 1 });
               } else {
@@ -69,7 +72,7 @@ export default class WarenkorbsController {
                            warenkorb_id: warenkorb_bestellung_id_format,
                            menge: 1
                   })
-                }
+                } }
            
           //Zu Warenkorb
           return response.redirect('/warenkorb');
