@@ -184,7 +184,7 @@ nav ul li a.aktiv {
 }
   
 /* Überschriften und Zusatztext für "NUDELN" und "SOẞEN" */
-.pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen {
+.pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen, .smoothies, .alkoholfreie_cocktails {
     width: 100%;
     padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
     color: #FCF8ED;
@@ -233,7 +233,7 @@ h3.überschrift_zusatz {
     top: 0;
     left: 40px; /* Gleicher linker Abstand wie die Überschriften */
     right: 40px; /* Optional: rechter Abstand für Symmetrie */
-    width: calc(100%-80px);
+    width: calc(100% - 80px);
     height: 2px;
     background-color: #FCF8ED; /* Farbe der Linie */
 }
@@ -369,6 +369,41 @@ h3.überschrift_zusatz {
   color: #FCC21D;
 }
 
+.bearbeiten_button {
+  display: block;
+  text-align: center;
+  width: 100%;
+  color: #f4f4f4;
+  background-color: transparent;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bearbeiten_button:hover {
+  color: #FCC21D;
+  font-weight: bold;
+}
+
+.hinzufügen_button {
+  color: #649e4c;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hinzufügen_button:hover {
+  background-color: #ececec;
+  font-weight: bold;
+}
+
+
 /* DETAILANSICHT */
 .product-details {
   margin-top: 160px;
@@ -481,37 +516,6 @@ h3.überschrift_zusatz {
 
 /*ADMINISTRATORBEREICH*/
 
-.bearbeiten_button {
-  color: #649e4c;
-  padding: 5px 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f4f4f4;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.bearbeiten_button:hover {
-  background-color: #ececec;
-  font-weight: bold;
-}
-
-.hinzufügen_button {
-  color: #649e4c;
-  padding: 5px 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f4f4f4;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.hinzufügen_button:hover {
-  background-color: #ececec;
-  font-weight: bold;
-}
 
 
 /*IMPRESSUM & DATENSCHUTZ*/

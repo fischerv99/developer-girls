@@ -12,10 +12,13 @@
 
 
     <main>
-        <div class="produkt-details">
-            <h1>{{ produkt.id }}</h1> <!-- Name des Produkts -->
+        <div class="product-details">
+            <h1 class="details_überschrift">{{ produkt.id }}</h1> <!-- Name des Produkts -->
+            <button class="zurück_button" onclick="window.history.back();">
+                <span class="zurück_button_text">Zurück</span>
+            </button>   
             
-            <div class="produkt-image">
+            <div class="product-image">
                 <img src="{{ produkt.bild }}" alt="{{ produkt.id }} Bild"> <!-- Bild des Produkts -->
             </div>
     

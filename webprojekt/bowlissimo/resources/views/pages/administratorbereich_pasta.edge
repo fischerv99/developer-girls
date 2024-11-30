@@ -33,10 +33,10 @@
         </div>
         <div class="pasta">
             <h2 class="überschrift_auswahl">NUDELN</h2>
-            <div class="pasta_auswahl">
+            <div class="produkt_auswahl">
 
                 @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
@@ -55,14 +55,15 @@
 
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
-            <div class="soßen_auswahl">
+            <div class="produkt_auswahl">
 
                 @each (sorte in soßen)
-                <div class="soßen_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
                         <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/saucen/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>  
@@ -77,21 +78,22 @@
 
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
-            <div class="toppings_auswahl">
-
+            <div class="produkt_auswahl">
                 @each (sorte in toppings)
-                <div class="toppings_produkte" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <h5 class="produkt_preis">{{ sorte.preis }}</h5>
+                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
                         <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/toppings/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button>  
                     </div>
-                @endeach
                 </div>
+                @endeach
             </div>
+        </div>
             <button class="hinzufügen_button" onclick="window.location.href='/administratorbereich/hinzufuegen/toppings/topping'">
                 <span class="hinzufügen_button_text">Topping hinzufügen</span>
             </button>

@@ -32,58 +32,66 @@
         <div class="überschrift">
             <h1>DRINKS</h1>
         </div>
-        <div class="smoothies">
-            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
-            <div class="smoothie_auswahl">
-                @each (sorte in smoothies)
-                <div class="smoothie_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
-                </div>          
-                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
+        <div class="erfrischungsgetränke">
+            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
+            <div class="produkt_auswahl">
+                @each (sorte in erfrischungsgetränke)
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <h4 class="produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro">€</p>
                         <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getraenke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button> 
                     </div>
                 </div>
-            @endeach
+                @endeach
             </div>
-            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/smoothie'"> 
+            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/erfrischungsgetraenk'">                 
                 <span class="hinzufügen_button_text">Smoothie hinzufügen</span>
             </button>
         </div>
+     
 
-        <div class="erfrischungsgetränke">
-            <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
-            <div class="erfrischungsgetränke_auswahl">
-                @each (sorte in erfrischungsgetränke)
-                <div class="erfrischungsgetränk_sorten" data-id="{{ sorte.setränk_id }}">
-                </div>
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id}} in Herzform." width="200" height="200">
-                        <h4 class="produkt_id">{{ sorte.id }}</h4>
+        <div class="smoothies">
+            <h2 class="überschrift_auswahl">SMOOTHIES</h2>
+            <div class="produkt_auswahl">
+                @each (sorte in smoothies)
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
+                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                    <div class="auswahl">
+                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
                         <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro">€</p>
                         <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getraenke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button> 
                     </div>
-                @endeach
                 </div>
+                @endeach
             </div>
-            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/erfrischungsgetraenk'"> <!--Pfad zu administrator_hinzufügen-->
+            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/smoothie'"> <!--Pfad zu administrator_hinzufügen-->
                 <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
             </button>
         </div>
 
         <div class="alkoholfreie_cocktails">
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
+<<<<<<< Updated upstream
             <div class="cocktails_auswahl" >
 
+=======
+            <div class="produkt_auswahl">
+>>>>>>> Stashed changes
                 @each (sorte in alkoholfreie_getränke)
-                <div class="cocktails_sorten" data-id="{{ sorte.getränke_id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
-                </div>
+                    <div class="auswahl">
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
                         <button class="bearbeiten_button" onclick="window.location.href='/administratorbereich/bearbeiten/getraenke/{{sorte.id}}'">
                             <span class="bearbeiten_button_text">Bearbeiten</span>
                         </button> 
@@ -91,11 +99,10 @@
                 </div> 
                 @endeach
             </div>
-            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/cocktail'"> 
-                <span class="hinzufügen_button_text">Cocktail hinzufügen</span>
+            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/cocktail'"> <!--Pfad zu administrator_hinzufügen-->
+                <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
             </button>
         </div>
-
     </main>
 
     <footer>
