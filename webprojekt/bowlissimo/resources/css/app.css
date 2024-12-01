@@ -11,11 +11,16 @@ body {
   height: 100%;
   width: 100%;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+  
 }
 
 body {
   background-color: #649e4c;
 }
+
 .main {
   display: flex;
   padding-top: 150px;
@@ -58,11 +63,21 @@ body {
 
 .nav_oben {
   background-color: #FCF8ED;
-  align-items: center;
-  justify-content: space-around;
-  padding: 5px 0;
-  position: fixed; /* Fixiert die Navigation oben */
-  top: 85px; /* Position direkt unter dem Header */
+  padding-top: 25px;
+  position: fixed; 
+  top: 85px; 
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  border: none;
+  box-shadow: none;
+}
+
+.nav_oben_ohne_log {
+  background-color: #FCF8ED;
+  padding-top: 5px;
+  position: fixed; 
+  top: 85px; 
   left: 0;
   width: 100%;
   z-index: 999;
@@ -162,6 +177,7 @@ nav ul li a.aktiv {
 .überschrift {
     width: 100%;
     display: flex;
+    font-family: fantasy;
     align-items: center;
     color: #FCF8ED;
     padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
@@ -206,12 +222,10 @@ h2.überschrift_auswahl {
     padding-left: 40px;
 }
   
-  
 h3.überschrift_zusatz {
     font-size: 1rem;
     color: #FCF8ED;
 }
-  
   
 /* Linie über den Produkt-Containern */
 .pasta_auswahl, .soßen_auswahl, .toppings_auswahl, .produkt_auswahl {
@@ -359,14 +373,15 @@ h3.überschrift_zusatz {
   font-size: 14px;
   border: none;
   background-color: transparent;
+  padding-left: 40px;
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
-  text-align: right; /* Inhalt im Button rechtsbündig */
-  margin-left: auto; /* Verschiebt den Button nach rechts */
+  text-align: left;
 }
 
 .zurück_button:hover {
   color: #FCC21D;
+  font-weight: bold;
 }
 
 .bearbeiten_button {
@@ -394,8 +409,14 @@ h3.überschrift_zusatz {
   border: none;
   border-radius: 6px;
   background-color: #f4f4f4;
-  margin-top: 10px;
+  margin: 10px;
   cursor: pointer;
+}
+
+.hinzufügen_button_mittig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hinzufügen_button:hover {
@@ -403,6 +424,58 @@ h3.überschrift_zusatz {
   font-weight: bold;
 }
 
+.einloggen_button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #f4f4f4;
+  background-color: #649e4c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.einloggen_button:hover {
+  color:#FCC21D;
+}
+
+.keinkonto_text {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  color:#f4f4f4;
+}
+
+.keinkonto_text .registrieren_button {
+  color: #f4f4f4;
+  text-decoration: underline;
+}
+
+.keinkonto_text .registrieren_button:hover {
+  color:#FCC21D;
+  font-weight: bold;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color:#f4f4f4;
+  border: none; /* Kein Rahmen */
+  border-radius: 5px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeigt Klickbarkeit an */
+  background-color:transparent;
+}
+
+button[type="submit"]:hover {
+  color:#FCC21D;
+}
+
+.einloggen_button {
+  color: #f4f4f4;
+  text-decoration: underline;
+}
 
 /* DETAILANSICHT */
 .product-details {
@@ -514,9 +587,6 @@ h3.überschrift_zusatz {
   text-align: center;
 }
 
-/*ADMINISTRATORBEREICH*/
-
-
 
 /*IMPRESSUM & DATENSCHUTZ*/
 .impressum, .datenschutz, .warenkorb{
@@ -545,7 +615,6 @@ font-size: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
 
-
 /* Warenkorb */
 .warenkorb-content {
   padding-top: 8rem; /* Abstand zum Titel */
@@ -554,7 +623,6 @@ font-size: 20px;
 .warenkorb .produkt {
   margin-bottom: 2rem; /* Abstand zwischen den Produkten */
 }
-
 
 
 /* FOOTER */
@@ -566,12 +634,10 @@ footer {
   font-size: 14px;              /* Schriftgröße */
 }
 
-
 footer .footer-logo {
   max-height: 40px;  /* Maximale Höhe des Logos */
   margin-top: 5px;   /* Abstand zwischen Logo und Linie */     
 }
-
 
 footer .footer-links {
   text-align: right;    /* Links nach rechts verschieben */
@@ -597,4 +663,52 @@ footer * {
   margin: 0;
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
+}
+
+
+/* LOG IN SEITE */
+
+.login_form {
+  background-color: transparent;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+}
+
+.login_form .login_überschrift {
+  display: block;
+  font-size: 16px;
+  color: #f4f4f4;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.login_form input[type="text"],
+.login_form input[type="password"],
+.login_form input[type="email"],
+.login_form input[type="integer"],
+.login_form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* REGISTRIEREN */
+.registrieren_text {
+  color:#f4f4f4;
+  font-size: 15px;
+  padding-left: 40px;
+}
+
+#bezahlart {
+  cursor:pointer;
+}
+
+#schon_ein_konto {
+  padding-bottom: 20px;
 }

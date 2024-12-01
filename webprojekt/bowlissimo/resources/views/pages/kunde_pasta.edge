@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bowlissimo</title>
-    <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 
 <body>
@@ -25,8 +25,11 @@
                 <li><a href="/startseite/:kunde/Pasta" class="aktiv">PASTA-BOWLS</a></li>
                 <li><a href="/startseite/:kunde/Drinks" class="inaktiv">DRINKS</a></li>
                 <li><a href="/startseite/:kunde/Beilagen" class="inaktiv">BEILAGEN</a></li>
-                <li><a href="/favoriten" class="inaktiv">
-                    <img src="\storage\herz.png" alt="Logo" style="width: 40px; height: 40px;"></a></li>   
+                <li>
+                    <a href="/favoriten" class="inaktiv">
+                        <img src="/storage/herz.png" alt="Logo" style="width: 25px; height: 25px;">
+                    </a>
+                </li>   
                 <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
                 <li><a href="/" class="inaktiv">Logout</a></li>
             </ul>
@@ -41,10 +44,10 @@
         <div class="pasta">
             <h2 class="überschrift_auswahl">NUDELN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
-            <div class="pasta_auswahl">
+            <div class="produkt_auswahl">
 
                 @each (sorte in pasta)
-                <div class="pasta_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                     <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
                     <div class="auswahl">
@@ -65,10 +68,10 @@
         <div class="soßen">
             <h2 class="überschrift_auswahl">SOẞEN</h2>
             <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
-            <div class="soßen_auswahl">
+            <div class="produkt_auswahl">
 
                 @each (sorte in soßen)
-                <div class="soßen_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">
@@ -88,9 +91,9 @@
         <div class="toppings">
             <h2 class="überschrift_auswahl">TOPPINGS</h2>
             <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
-            <div class="toppings_auswahl">
+            <div class="produkt_auswahl">
                 @each (sorte in toppings)
-                <div class="toppings_sorten" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
                         <button class="auswahl_button">

@@ -8,26 +8,32 @@
 </head>
 <body>
 
-  @include('pages/partials/header')
+  <header class="header">
+   @include('pages/partials/header')
+  </header>
 
-  <h1>Login</h1>
+  <main class="main">
+    <h1 class="überschrift">Login</h1>
+    <button class="zurück_button" onclick="window.history.back();">
+      <span class="zurück_button_text">Zurück</span>
+    </button>   
 
-   @if (error != undefined)
-    Fehler: {{ error }}
-  @endif
+    @if (error != undefined)
+      Fehler: {{ error }}
+    @endif
 
-
-  <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
-    {{csrfField()}}
-    <label for="nutzername">Nutzername:</label>
-    <input type="text" id="nutzername" name="nutzername" required>
+      <form action="/login" method="post" enctype="application/x-www-form-urlencoded" class="login_form">
+        {{csrfField()}}
+        <label for="nutzername" class="login_überschrift">Nutzername:</label>
+        <input type="text" id="nutzername" name="nutzername" required>
     
-    <label for="passwort">Passwort:</label>
-    <input type="password" id="passwort" name="passwort" required>
+        <label for="passwort" class="login_überschrift">Passwort:</label>
+        <input type="password" id="passwort" name="passwort" required>
     
-    <button type="submit">Einloggen</button>
-  </form>
-  <p>Noch kein Konto? <a href="/register">Registrieren</a></p>
+        <button type="submit" class="einloggen_button">Einloggen</button>
+      </form>
+      <p class="keinkonto_text">Noch kein Konto? <a href="/register" class="registrieren_button">Registrieren</a></p>
+  </main>
 </body>
 
 <footer>

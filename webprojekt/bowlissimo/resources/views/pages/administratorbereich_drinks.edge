@@ -49,9 +49,11 @@
                 </div>
                 @endeach
             </div>
-            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/erfrischungsgetraenk'">                 
-                <span class="hinzufügen_button_text">Smoothie hinzufügen</span>
-            </button>
+            <div class="hinzufügen_button_mittig">
+                <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/erfrischungsgetraenk'">                 
+                    <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
+                </button>
+            </div>
         </div>
      
 
@@ -72,19 +74,17 @@
                 </div>
                 @endeach
             </div>
-            <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/smoothie'"> <!--Pfad zu administrator_hinzufügen-->
-                <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
-            </button>
+            <div class="hinzufügen_button_mittig">
+                <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/smoothie'"> <!--Pfad zu administrator_hinzufügen-->
+                    <span class="hinzufügen_button_text">Smoothie hinzufügen</span>
+                </button>
+            </div>
         </div>
 
         <div class="alkoholfreie_cocktails">
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
-<<<<<<< Updated upstream
-            <div class="cocktails_auswahl" >
 
-=======
             <div class="produkt_auswahl">
->>>>>>> Stashed changes
                 @each (sorte in alkoholfreie_getränke)
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
@@ -99,8 +99,9 @@
                 </div> 
                 @endeach
             </div>
+            <div class="hinzufügen_button_mittig"
             <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/cocktail'"> <!--Pfad zu administrator_hinzufügen-->
-                <span class="hinzufügen_button_text">Erfrischungsgetränk hinzufügen</span>
+                <span class="hinzufügen_button_text">Alkoholfreien Cocktail hinzufügen</span>
             </button>
         </div>
     </main>

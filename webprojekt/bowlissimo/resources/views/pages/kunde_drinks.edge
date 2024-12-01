@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bowlissimo</title>
-    <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                 <li><a href="/startseite/:kunde/Drinks" class="aktiv">DRINKS</a></li>
                 <li><a href="/startseite/:kunde/Beilagen" class="inaktiv">BEILAGEN</a></li>
                 <li><a href="/favoriten" class="inaktiv">
-                    <img src="\storage\herz.png" alt="Logo" style="width: 40px; height: 40px;">
+                    <img src="/storage/herz.png" alt="Logo" style="width: 35px; height: 35px;">
                 </a></li>   
                 <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb (0)</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
                 <li><a href="/" class="inaktiv">Logout</a></li>
@@ -32,19 +32,24 @@
         </nav>        
     </header>
 
-    <main>
+    <main class="main">
+        <div class="überschrift">
+            <h1>GETRÄNKE</h1>
+        </div>
         <div class="erfrischungsgetränke">
             <h2 class="überschrift_auswahl">ERFRISCHUNGSGETRÄNKE</h2>
             <div class="produkt_auswahl">
                 @each (sorte in erfrischungsgetränke)
-                <div class="produkt_sorte" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/getraenke/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                        <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro">€</p>
+                        <button class="details_button" onclick="window.location.href='/details/getraenke/{{ sorte.id }}'">
                             <span class="details_button_text">Details</span>
                         </button>
                     </div>
@@ -57,14 +62,16 @@
             <h2 class="überschrift_auswahl">SMOOTHIES</h2>
             <div class="produkt_auswahl">
                 @each (sorte in smoothies)
-                <div class="produkt_sorte" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button"> 
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/getraenke/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                        <p class="produkt_preis">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro">€</p>
+                        <button class="details_button" onclick="window.location.href='/details/getraenke/{{ sorte.id }}'">
                             <span class="details_button_text">Details</span>
                         </button>
                     </div>
@@ -73,20 +80,20 @@
             </div>
         </div>
 
-        
-
         <div class="alkoholfreie_cocktails">
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
             <div class="produkt_auswahl">
                 @each (sorte in alkoholfreie_getränke)
-                <div class="produkt_sorte" data-id="{{ sorte.id }}">
+                <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
-                        <button class="auswahl_button">
+                        <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/getraenke/{{sorte.id}}'">
                             <span class="auswahl_button_text">Auswählen</span>
                         </button>
                         <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick="window.location.href='/details/{{ sorte.kategorie }}/{{ sorte.id }}'">
+                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
+                        <button class="details_button" onclick="window.location.href='/details/getraenke/{{ sorte.id }}'">
                             <span class="details_button_text">Details</span>
                         </button>
                     </div>
@@ -94,7 +101,6 @@
                 @endeach
             </div>
         </div>
-
     </main>
 
     <footer>
