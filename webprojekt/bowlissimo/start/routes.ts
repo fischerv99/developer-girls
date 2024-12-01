@@ -83,7 +83,9 @@ router.post('/administratorbereich_login', [AdminController, 'login2'])
 router.get('/administratorbereich/pasta', [AdminController, 'pasta'])
 router.get('/administratorbereich/getraenke', [AdminController, 'getraenke'])
 router.get('/administratorbereich/beilagen', [AdminController, 'beilagen'])
- //Hinzufügen eines neuen Produkts
+router.get('/administratorbereich/logout', [AdminController, 'logout'])
+
+//Hinzufügen eines neuen Produkts
 router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', [AdminController, 'hinzufuegen'])
 router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', [AdminController, 'hinzufuegen2'])
  //Bearbeiten eines Produkts-> id noch ändern können?
