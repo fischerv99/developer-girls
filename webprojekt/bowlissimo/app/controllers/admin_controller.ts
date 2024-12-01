@@ -42,6 +42,9 @@ export default class AdminController {
           // Überprüfe, ob die Session funktioniert (27.11)
           console.log('Session Value:', session.get('administrator_id')); // Debug: Zeigt die gespeicherte ID in der Konsole
 
+          // Speichere die Aktivität, siehe Methode addActivity
+          this.addActivity(session, 'Admin hat sich eingeloggt');
+
           // Leitet zum Administratorbereich weiter, wenn die Anmeldung erfolgreich ist
           return response.redirect('administratorbereich/pasta')
         }
@@ -141,7 +144,10 @@ export default class AdminController {
                            bild: url,
                           });
         }
-      
+
+      // Speichere die Aktivität
+      this.addActivity(session, `Produkt "${produktName}" in Kategorie "${oberkategorie}" hinzugefügt`);
+
       //Wichtig sind schräge Anführungszeichen, da sonst die Variable nicht erkannt wird
       // Weiterleitung zurück zur Pasta-Seite
         return response.redirect(`/administratorbereich/pasta`);
@@ -246,8 +252,11 @@ export default class AdminController {
         const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
       
         // Produkt aus der Datenbank löschen
-        await db.from(oberkategorie).where('id', id).delete(); 
-      
+        await db.from(oberkategorie).where('id', id).delete();
+
+        // Speichere die Aktivität
+        this.addActivity(session, `Produkt mit ID "${id}" aus Kategorie "${oberkategorie}" gelöscht`);
+
         return response.redirect(`/administratorbereich/pasta`);
       }
 
@@ -261,4 +270,23 @@ export default class AdminController {
       console.log('Administrator wurde abgemeldet'); // Debugging-Info
       return response.redirect('/'); // Zur Startseite (unangemeldet) zurück
   }
+
+
+      // Private Methode zur Speicherung von Admin-Aktivitäten (28.11)
+    private addActivity(session: HttpContext['session'], activity: string) {
+      // Hole das bestehende Aktivitäten-Array aus der Session.
+      // Falls es noch nicht existiert, wird ein leeres Array initialisiert.
+      const activities = session.get('activities') || [];
+
+      // Füge eine neue Aktivität zum Aktivitäten-Array hinzu.
+      activities.push({
+          activity, // Die Beschreibung der Aktivität (z. B. "Produkt hinzugefügt").
+          timestamp: new Date().toISOString(), // Der aktuelle Zeitstempel im ISO-Format.
+      });
+
+      // Aktualisiere das Aktivitäten-Array in der Session.
+      session.put('activities', activities);
+      console.log(activities);
+    }
+
 }
