@@ -112,29 +112,37 @@
                 @endeach
             </div>
         </div>
-
+        <script src="/resources/js/kreation.js" defer></script>
         <div class="deine_kreation">
             <h2 class="überschrift">DEINE KREATION</h2>
-            <div class="deine_kreation_bilder"> 
             @if (!aktuelle_pasta)
                 <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
             @endif
             @if (aktuelle_pasta) 
                 <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
-                <div class="favoriten_button">
-                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{aktuelle_kreation.id}}'">
-                        <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+            <div class="deine_kreation_bilder"> 
+                <div class="kreation_pasta">
+                    <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
                 </div>
-                <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
             @endif
             @if (aktuelle_soße)
-            <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
+            <div class="kreation_soße">
+                <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" class="kreation_soße_bild" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
+            </div>
             @endif
-            @if (aktuelle_toppings)
-                @each (sorte in aktuelle_toppings)
-                <img src="{{sorte.bild}}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
+            <div class="kreation_toppings_wrapper">
+                @if (aktuelle_toppings)
+                    @each (sorte in aktuelle_toppings)
+                    <div class="kreation_toppings">
+                        <img src="{{sorte.bild}}" alt="{{ sorte.id }}" class="kreation_toppings_bild" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
+                    </div>
                 @endeach
+            </div>
             @endif
+            </div>
+            <div class="favoriten_button">
+                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{aktuelle_kreation.id}}'">
+                    <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
             </div>
         </div>
     </main>

@@ -457,7 +457,7 @@ h3.überschrift_zusatz {
   font-weight: bold;
 }
 
-button[type="submit"] {
+.login_form button[type="submit"] {
   width: 100%;
   padding: 12px;
   font-size: 16px;
@@ -468,13 +468,29 @@ button[type="submit"] {
   background-color:transparent;
 }
 
-button[type="submit"]:hover {
+.login_form button[type="submit"]:hover {
   color:#FCC21D;
 }
 
 .einloggen_button {
   color: #f4f4f4;
   text-decoration: underline;
+}
+
+#zum_warenkorb_hinzufügen {
+  color: #649e4c;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#zum_warenkorb_hinzufügen:hover {
+  background-color: #ececec;
+  font-weight: bold;
 }
 
 /* DETAILANSICHT */
@@ -711,4 +727,69 @@ footer * {
 
 #schon_ein_konto {
   padding-bottom: 20px;
+}
+
+/* KREATIONEN */
+.deine_kreation {
+  text-align: center;
+}
+
+.deine_kreation_bilder {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.kreation_pasta {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.kreation_pasta_bild {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.kreation_soße {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  z-index: 2;
+  right: 45%; /* Verschiebt die Soße horizontal */
+  top: 45%; /* Positioniert sie näher an der Pasta */
+  transform: translate(50%, -50%); /* Überlappung nach rechts oben */
+}
+
+.kreation_soße_bild {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px white;
+}
+
+
+.kreation_toppings_wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+}
+
+.kreation_toppings {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+
+.kreation_toppings_bild {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
