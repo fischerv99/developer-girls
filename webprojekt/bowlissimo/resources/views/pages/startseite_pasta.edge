@@ -141,8 +141,14 @@
             @endif
             </div>
             <div class="favoriten_button">
-                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{aktuelle_kreation.id}}'">
+                @if (aktuelle_kreation)
+                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
                     <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+                </button>
+@else
+    <p>Keine Kreation ausgewählt</p>
+@endif
+
             </div>
         </div>
     </main>
