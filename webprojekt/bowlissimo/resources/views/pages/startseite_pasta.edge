@@ -32,123 +32,147 @@
     </header>
 
     <main class="main">
-        <div class="überschrift">
-            <h1>CREATE YOUR OWN PASTA</h1>
-            <h2 class="überschrift_zusatz">- BASISPREIS: 5,99€</h2>
-        </div>
-        <div class="pasta">
-            <h2 class="überschrift_auswahl">NUDELN</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
-            <div class="produkt_auswahl">
+        <div class="produkt_darstellung">
+            <div class="überschrift">
+                <h1>CREATE YOUR OWN PASTA</h1>
+                <h2 class="überschrift_zusatz">- BASISPREIS: 5,99€</h2>
+            </div>
+            <div class="pasta">
+                <h2 class="überschrift_auswahl">NUDELN</h2>
+                <h3 class="überschrift_zusatz">- WÄHLE DEINE LIEBLINGSPASTA</h3>
+                <div class="produkt_auswahl">
 
-                @each (sorte in pasta)
-                <div class="produkt_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
-                    <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
-                    <div class="auswahl">
-                        <form action="/neue_kreation" method="post" enctype="application/x-www-form-urlencoded">
-                           {{csrfField()}}
-                           <input type="hidden" name="nudelsorte" value="{{ sorte.id }}">
-                           <button class="auswahl_button" type="submit" >Auswählen</button>
-                        </form>
-                        <h4 class= "produkt_id">{{ sorte.id }}</h4>
-                        <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'"> 
-                            <span class="details_text">Details</span>
-                        </button>
+                    @each (sorte in pasta)
+                    <div class="produkt_sorten" data-id="{{ sorte.id }}">
+                        <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
+                        <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
+                        <div class="auswahl">
+                            <form action="/neue_kreation" method="post" enctype="application/x-www-form-urlencoded">
+                                {{csrfField()}}
+                                <input type="hidden" name="nudelsorte" value="{{ sorte.id }}">
+                                <button class="auswahl_button" type="submit" >Auswählen</button>
+                            </form>
+                            <h4 class= "produkt_id">{{ sorte.id }}</h4>
+                            <button class="details_button" onclick="window.location.href= 'details/pasta/{{sorte.id}}'"> 
+                                <span class="details_text">Details</span>
+                            </button>
+                        </div>
                     </div>
+                    @endeach
+
                 </div>
-                @endeach
-
             </div>
-        </div>
 
-        <div class="soßen">
-            <h2 class="überschrift_auswahl">SOẞEN</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
-            <div class="produkt_auswahl">
+            <div class="soßen">
+                <h2 class="überschrift_auswahl">SOẞEN</h2>
+                <h3 class="überschrift_zusatz">- WÄHLE EINE SOẞE DAZU</h3>
+                <div class="produkt_auswahl">
 
-                @each (sorte in soßen)
-                <div class="produkt_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
-                    <div class="auswahl">
-                        <form action="/update_kreatio_sosse" method="post" enctype="application/x-www-form-urlencoded">
-                            {{csrfField()}}
-                            <input type="hidden" name="sossensorte" value="{{ sorte.id }}">
-                            <button class="auswahl_button" type="submit" >Auswählen</button>
-                         </form>
-                        <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
-                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
-                        <button class="details_button" onclick="window.location.href= `/details/saucen/{{ sorte.id }}`"> 
-                            <span class="details_text">Details</span>
-                        </button>
+                    @each (sorte in soßen)
+                    <div class="produkt_sorten" data-id="{{ sorte.id }}">
+                        <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                        <div class="auswahl">
+                            <form action="/update_kreatio_sosse" method="post" enctype="application/x-www-form-urlencoded">
+                                {{csrfField()}}
+                                <input type="hidden" name="sossensorte" value="{{ sorte.id }}">
+                                <button class="auswahl_button" type="submit" >Auswählen</button>
+                            </form>
+                            <h4 class="produkt_id">{{ sorte.id }}</h4>
+                            <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                            <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
+                            <button class="details_button" onclick="window.location.href= `/details/saucen/{{ sorte.id }}`"> 
+                                <span class="details_text">Details</span>
+                            </button>
+                        </div>
                     </div>
+                    @endeach
                 </div>
-                @endeach
             </div>
-        </div>
 
-        <div class="toppings">
-            <h2 class="überschrift_auswahl">TOPPINGS</h2>
-            <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
-            <div class="produkt_auswahl">
-                @each (sorte in toppings)
-                <div class="produkt_sorten" data-id="{{ sorte.id }}">
-                    <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
-                    <div class="auswahl">
-                        <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
-                            {{csrfField()}}
-                            <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
-                            <button class="auswahl_button" type="submit" >Auswählen/ Löschen</button>
-                         </form>
-                        <h4 class="produkt_id">{{ sorte.id }}</h4>
-                        <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
-                        <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
-                        <button class="details_button" onclick="window.location.href='details/toppings/{{sorte.id}}'">
-                            <span class="details_button_text">Details</span>
-                        </button>
+            <div class="toppings">
+                <h2 class="überschrift_auswahl">TOPPINGS</h2>
+                <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
+                <div class="produkt_auswahl">
+                    @each (sorte in toppings)
+                    <div class="produkt_sorten" data-id="{{ sorte.id }}">
+                        <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
+                        <div class="auswahl">
+                            <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
+                                {{csrfField()}}
+                                <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
+                                <button class="auswahl_button" type="submit" >Auswählen/ Löschen</button>
+                            </form>
+                            <h4 class="produkt_id">{{ sorte.id }}</h4>
+                            <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
+                            <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
+                            <button class="details_button" onclick="window.location.href='details/toppings/{{sorte.id}}'">
+                                <span class="details_button_text">Details</span>
+                            </button>
+                        </div>
                     </div>
+                    @endeach
                 </div>
-                @endeach
             </div>
+            <script src="/resources/js/kreation.js" defer></script>
+            <div class="deine_kreation">
+                <h2 class="überschrift">DEINE KREATION</h2>
+                @if (!aktuelle_pasta)
+                    <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
+                @endif
+                @if (aktuelle_pasta) 
+                    <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
+                <div class="deine_kreation_bilder"> 
+                    <div class="kreation_pasta">
+                        <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
+                    </div>
+                @endif
+                @if (aktuelle_soße)
+                <div class="kreation_soße">
+                    <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" class="kreation_soße_bild" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
+                </div>
+                @endif
+                <div class="kreation_toppings_wrapper">
+                    @if (aktuelle_toppings)
+                        @each (sorte in aktuelle_toppings)
+                        <div class="kreation_toppings">
+                            <img src="{{sorte.bild}}" alt="{{ sorte.id }}" class="kreation_toppings_bild" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
+                        </div>
+                    @endeach
+                </div>
+                @endif
+                </div>
+                <div class="favoriten_button">
+                    @if (aktuelle_kreation)
+                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
+                        <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+                    </button>
+                    @else
+                        <p>Keine Kreation ausgewählt</p>
+                    @endif
+                </div>
+           </div>
         </div>
-        <script src="/resources/js/kreation.js" defer></script>
-        <div class="deine_kreation">
-            <h2 class="überschrift">DEINE KREATION</h2>
-            @if (!aktuelle_pasta)
-                <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
-            @endif
-            @if (aktuelle_pasta) 
-                <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
-            <div class="deine_kreation_bilder"> 
-                <div class="kreation_pasta">
-                    <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
+        <div class="warenkorb_hellgrün">
+            <h1 class="überschrift">Warenkorb</h1>
+            <div class="warenkorb_seite">
+                <div class="warenkorb_container">
+                    <h2>Deine Kreation</h2>
+                    @if (ausgewaehlte_produkte)
+                        <ul>
+                            @each (produkt in ausgewaehlte_produkte)
+                                <li>
+                                    <span>{{ produkt.produkt }}</span>
+                                    <span>{{ produkt.preis.toFixed(2) }} €</span>
+                                </li>
+                            @endeach
+                        </ul>
+                            <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
+                        <button class="button-warenkorb">In den Warenkorb legen</button>
+                        <button class="button-zum-warenkorb">Zum Warenkorb</button>
+                    @else
+                        <p>Dein Warenkorb ist leer.</p>
+                    @endif
                 </div>
-            @endif
-            @if (aktuelle_soße)
-            <div class="kreation_soße">
-                <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" class="kreation_soße_bild" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
-            </div>
-            @endif
-            <div class="kreation_toppings_wrapper">
-                @if (aktuelle_toppings)
-                    @each (sorte in aktuelle_toppings)
-                    <div class="kreation_toppings">
-                        <img src="{{sorte.bild}}" alt="{{ sorte.id }}" class="kreation_toppings_bild" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
-                    </div>
-                @endeach
-            </div>
-            @endif
-            </div>
-            <div class="favoriten_button">
-                @if (aktuelle_kreation)
-                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
-                    <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
-                </button>
-@else
-    <p>Keine Kreation ausgewählt</p>
-@endif
-
             </div>
         </div>
     </main>

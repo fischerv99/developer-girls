@@ -14,7 +14,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Verhindert horizontales Scrollen */
-  
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -22,13 +23,15 @@ body {
 }
 
 .main {
-  display: flex;
-  padding-top: 150px;
-  flex-direction: column;
-  width: 100%;
-  color: #FCF8ED;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Gleichmäßige Spalten */
+  gap: 20px; /* Optionaler Abstand zwischen Spalten */
+  width: 100%; /* Nimmt die gesamte Breite ein */
+  height: calc(100vh - 150px); /* Höhe dynamisch basierend auf der Viewport-Höhe */
+  box-sizing: border-box; /* Verhindert Überlauf */
+  padding: 20px;
 }
+
 
 /*HEADER*/
 
@@ -792,4 +795,37 @@ footer * {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* WARENKORB HELLGRÜN */
+
+.produkt_darstellung {
+  width: 100%; /* Nimmt den gesamten Spaltenplatz ein */
+  max-width: 100%; /* Verhindert Überlauf */
+  overflow-y: auto; /* Scrollen bei Überfüllung */
+  padding: 0 20px; /* Optionaler Innenabstand */
+  margin: 0; /* Kein äußerer Rand */
+}
+
+
+.warenkorb_hellgrün {
+  width: 100%; /* Nimmt den gesamten Spaltenplatz ein */
+  max-width: 100%; /* Verhindert Überlauf */
+  overflow-y: auto; /* Scrollen bei Überfüllung */
+  padding: 20px; /* Innenabstand für bessere Lesbarkeit */
+  background-color: #e6f4e6; /* Optional: leichter grüner Hintergrund */
+  border-radius: 8px; /* Optional: abgerundete Ecken */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Schatten */
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr; /* Beide Bereiche übereinander */
+  }
+
+  .produkt_darstellung,
+  .warenkorb_hellgrün {
+    width: 100%; /* Volle Breite */
+    padding: 10px; /* Weniger Innenabstand */
+  }
 }
