@@ -35,35 +35,9 @@ router.post('/update_kreation_toppings', [KreationsController, 'update_kreation_
 
 //Routen für angemeldete Startseiten (Kunde ist angemeldet), Registriert sich/einloggen -> UsersController
  // Seiten momentan provisorisch ans nav gebunden
-router.get('/logged_start_pasta', [UsersController, 'startseite_pasta_logged'])
-router.get('/logged_start_drinks', [UsersController, 'startseite_getraenke_logged'])
-router.get('/logged_start_beilagen', [UsersController, 'startseite_beilagen_logged']) 
-
-//alte Startseiten??
-router.get('/startseite/:kunde/Pasta', async ({ view,  }) => {
-  const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('saucen').select('*')
-  const toppings = await db.from('toppings').select('*')
-
-  return view.render('pages/kunde_pasta', { pasta, soßen, toppings })
-})
-
-
-router.get('/startseite/:kunde/Drinks', async ({ view }) => {
-  const smoothies = await db.from('getraenke').select('*').where('art', 1)
-  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 2)
-  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 3)
-
-  return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
-})
-
-router.get('/startseite/:kunde/Beilagen', async ({ view }) => {
-  const salate = await db.from('beilagen').select('*').where('art', 1)
-  const suppen = await db.from('beilagen').select('*').where('art', 2)
-
-  return view.render('pages/kunde_beilagen', { salate, suppen })
-})
-
+router.get('/startseite/:kunde/Pasta', [UsersController, 'startseite_pasta_logged'])
+router.get('/startseite/:kunde/Drinks', [UsersController, 'startseite_getraenke_logged'])
+router.get('/startseite/:kunde/Beilagen', [UsersController, 'startseite_beilagen_logged']) 
  // Registrierung
 router.get('/register', [UsersController, 'registrieren'])
 router.post('/register', [UsersController, 'registrieren2'])
@@ -71,7 +45,7 @@ router.post('/register', [UsersController, 'registrieren2'])
 router.get('/login', [UsersController, 'login'])
 router.post('/login', [UsersController, 'login2'])
   //Favoriten
-router.post('/favoriten', [UsersController, 'favoriten'])
+router.get('/favoriten', [UsersController, 'favoriten'])
  
 
 

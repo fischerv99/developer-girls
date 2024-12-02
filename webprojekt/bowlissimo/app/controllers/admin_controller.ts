@@ -80,7 +80,7 @@ export default class AdminController {
         return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  
     }
     //?????
-    public async hinzufuegen2 ({ request, view, response, params }: HttpContext) {  
+    public async hinzufuegen2 ({ request, view, response, params, session }: HttpContext) {  
         let { oberkategorie } = params; 
         let { unterkategorie } = params;
       
@@ -146,6 +146,7 @@ export default class AdminController {
         }
 
       // Speichere die Aktivität
+      const produktName = request.input('name');
       this.addActivity(session, `Produkt "${produktName}" in Kategorie "${oberkategorie}" hinzugefügt`);
 
       //Wichtig sind schräge Anführungszeichen, da sonst die Variable nicht erkannt wird
@@ -248,7 +249,7 @@ export default class AdminController {
         return response.redirect(`/administratorbereich/pasta`);
     }
 
-    public async loeschen ({ response, params }: HttpContext) {
+    public async loeschen ({ response, params, session }: HttpContext) {
         const { oberkategorie, id } = params; // Kategorie und ID aus params extrahieren
       
         // Produkt aus der Datenbank löschen

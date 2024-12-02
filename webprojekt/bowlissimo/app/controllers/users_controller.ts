@@ -5,13 +5,10 @@ import hash from '@adonisjs/core/services/hash'
 export default class UsersController {
     public async startseite_pasta_logged({ view, session }: HttpContext) {
         const pasta = await db.from('pasta').select('*')
-        const soßen = await db.from('soßen').select('*')
+        const soßen = await db.from('saucen').select('*')
         const toppings = await db.from('toppings').select('*')
 
-        const cartItems = session.get('cartItems', [])
-        const cartCount = cartItems.length
-      
-        return view.render('pages/kunde_pasta', { pasta, soßen, toppings, cartCount })
+        return view.render('pages/kunde_pasta', { pasta, soßen, toppings })
   
 }
 public async startseite_getraenke_logged({ view, session }: HttpContext) {
@@ -19,20 +16,15 @@ public async startseite_getraenke_logged({ view, session }: HttpContext) {
     const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
     const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
   
-    const cartItems = session.get('cartItems', [])
-    const cartCount = cartItems.length
-  
-    return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, cartCount })
+    return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
 }
 
 public async startseite_beilagen_logged({ view, session }: HttpContext) {
     const salate = await db.from('beilagen').select('*').where('art', 'salat')
-    const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
+  const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
 
-    const cartItems = session.get('cartItems', [])
-    const cartCount = cartItems.length
+  return view.render('pages/kunde_beilagen', { salate, suppen })
 
-   return view.render('pages/kunde_beilagen', { salate, suppen, cartCount })
 }
 
 public async registrieren({ view}: HttpContext) {
@@ -120,7 +112,7 @@ public async favoriten({ view, response, session}: HttpContext) {
     }
         
     const favorites = await db.from('favorites').where('user_id', userId);
-    return view.render('pages/favoriten', { favorites });
+    return view.render('pages/favoritenseite', { favorites });
       } 
     
 

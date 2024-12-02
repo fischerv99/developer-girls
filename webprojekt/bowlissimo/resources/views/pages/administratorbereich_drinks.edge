@@ -87,7 +87,7 @@
             <h2 class="überschrift_auswahl">ALKOHOLFREIE COCKTAILS</h2>
 
             <div class="produkt_auswahl">
-                @each (sorte in alkoholfreie_getränke)
+                @each (sorte in alkoholfreie_cocktails)
                 <div class="produkt_sorten" data-id="{{ sorte.id }}">
                     <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                     <div class="auswahl">
@@ -101,7 +101,7 @@
                 </div> 
                 @endeach
             </div>
-            <div class="hinzufügen_button_mittig"
+            <div class="hinzufügen_button_mittig">
             <button class="hinzufügen_button"  onclick="window.location.href='/administratorbereich/hinzufuegen/getraenke/cocktail'"> <!--Pfad zu administrator_hinzufügen-->
                 <span class="hinzufügen_button_text">Alkoholfreien Cocktail hinzufügen</span>
             </button>

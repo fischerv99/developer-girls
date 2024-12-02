@@ -44,8 +44,35 @@ export default class WarenkorbsController {
                             in_bestellung: false,
                             id: Math.abs(Math.floor(Math.random() * 1_000_000)) // Generate ID in JS
                     })
+
+            //neues ausgewaehltes Produkt erstellen mit neuer ID
+            //warenkorb_bestellung.id abrufen
+            const warenkorb_bestellung_id = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('id').first();
+            // warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
+            const warenkorb_bestellung_id_format  = warenkorb_bestellung_id.id;
+
+           //Produkt in ausgewähltes_produkt speichern
+            await db.table('ausgewaehltes_produkt')
+                    .insert({produkt: produkt,
+                             preis: preis_format,
+                             id: Math.abs(Math.floor(Math.random() * 1_000_000)), // Generate ID in JS
+                             warenkorb_id: warenkorb_bestellung_id_format,
+                             menge: 1
+                  })
+
+           //Wenn eine Kreation hinzugefügt wird muss status geandert ewrden
+            if (oberkategorie === 'kreation') {
+              await db.from("kreation")
+                        .where("session_id", session.sessionId)
+                        .andWhere("status", "nicht_warenkorb")
+                        .update({ status: "im_warenkorb"})
+            }
+
+          //Zu Warenkorb
+          return response.redirect('/warenkorb');
+
                 } else {
-          
+            //Also wenn bereits ein Warenkorb_Bestellung eintrag in der session vorhanden ist
            // Überprüfen, ob das Produkt bereits im Warenkorb ist
              const vorhandenes_produkt = await db.from('ausgewaehltes_produkt').where('produkt', produkt).andWhere('warenkorb_id', warenkorb.id).first();                   
               
@@ -55,7 +82,7 @@ export default class WarenkorbsController {
               } else {
 
 
-          //neue Warenkorbsposition erstellen mit neuer ID
+          //neues ausgewaehltes Produkt erstellen mit neuer ID
             //warenkorb_bestellung.id abrufen
             const warenkorb_bestellung_id = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('id').first();
             // warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
