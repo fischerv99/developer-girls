@@ -35,14 +35,14 @@ export default class AdminController {
           return view.render('pages/administratorbereich_login', {error}) //Zurück zum Login
         }
         else {
-          // Benutzer-ID in die Session speichern (27.11)
+          // Benutzer-ID in die Session speichern (27.11.Evy)
           session.put('administrator_id', administrator.administrator_id);
           await session.commit();
         
-          // Überprüfe, ob die Session funktioniert (27.11)
+          // Überprüfe, ob die Session funktioniert (27.11.Evy)
           console.log('Session Value:', session.get('administrator_id')); // Debug: Zeigt die gespeicherte ID in der Konsole
 
-          // Speichere die Aktivität, siehe Methode addActivity
+          // Speichere die Aktivität, siehe Methode addActivity (27.11.Evy)
           this.addActivity(session, 'Admin hat sich eingeloggt');
 
           // Leitet zum Administratorbereich weiter, wenn die Anmeldung erfolgreich ist
@@ -79,7 +79,7 @@ export default class AdminController {
         // Rendert die Seite mit dem Formular zum Hinzufügen
         return view.render('pages/administratorbereich_hinzufügen', {oberkategorie, unterkategorie});  
     }
-    //?????
+    //Ein neues Produkt hinzufügen
     public async hinzufuegen2 ({ request, view, response, params, session }: HttpContext) {  
         let { oberkategorie } = params; 
         let { unterkategorie } = params;
@@ -145,7 +145,7 @@ export default class AdminController {
                           });
         }
 
-      // Speichere die Aktivität
+      // Speichere die Aktivität (Evy)
       const produktName = request.input('name');
       this.addActivity(session, `Produkt "${produktName}" in Kategorie "${oberkategorie}" hinzugefügt`);
 
@@ -162,8 +162,8 @@ export default class AdminController {
         // Produkt aus der Datenbank holen
         const produkt = await db.from(oberkategorie).where('id', id).first(); 
       
-        console.log('Oberkategorie:', oberkategorie); // Debug(27.11)
-        console.log('ID:', id); // Debug(27.11)
+        console.log('Oberkategorie:', oberkategorie); // Debug(27.11.Evy)
+        console.log('ID:', id); // Debug(27.11.Evy)
 
         // Falls das Produkt nicht gefunden wird
         if (!produkt) {
@@ -255,14 +255,14 @@ export default class AdminController {
         // Produkt aus der Datenbank löschen
         await db.from(oberkategorie).where('id', id).delete();
 
-        // Speichere die Aktivität
+        // Speichere die Aktivität (Evy)
         this.addActivity(session, `Produkt mit ID "${id}" aus Kategorie "${oberkategorie}" gelöscht`);
 
         return response.redirect(`/administratorbereich/pasta`);
       }
 
 
-    // Beim Logout
+    // Beim Logout (27.11.Evy)
     public async logout({ session, response }: HttpContext) {
       // Löscht alle Session-Daten
       session.clear();
@@ -273,19 +273,19 @@ export default class AdminController {
   }
 
 
-      // Private Methode zur Speicherung von Admin-Aktivitäten (28.11)
+      // Private Methode zur Speicherung von Admin-Aktivitäten (28.11.Evy)
     private addActivity(session: HttpContext['session'], activity: string) {
       // Hole das bestehende Aktivitäten-Array aus der Session.
       // Falls es noch nicht existiert, wird ein leeres Array initialisiert.
       const activities = session.get('activities') || [];
 
-      // Füge eine neue Aktivität zum Aktivitäten-Array hinzu.
+      // Füge eine neue Aktivität zum Aktivitäten-Array hinzu (28.11.Evy)
       activities.push({
           activity, // Die Beschreibung der Aktivität (z. B. "Produkt hinzugefügt").
           timestamp: new Date().toISOString(), // Der aktuelle Zeitstempel im ISO-Format.
       });
 
-      // Aktualisiere das Aktivitäten-Array in der Session.
+      // Aktualisiere das Aktivitäten-Array in der Session (28.11.Evy).
       session.put('activities', activities);
       console.log(activities);
     }

@@ -3,8 +3,18 @@ import db from "@adonisjs/lucid/services/db"
 
 
 export default class ProduktesController {
-
 public async startseite_pasta({ view, session }: HttpContext) {
+
+  // Session-ID prüfen und setzen (03.12.Evy)
+  if (!session.get('sessionId')) {
+   // session.put('sessionId', session.sessionId);
+  }
+    console.log("Session ID: ",session.sessionId);
+
+  this.setSessionStart(session); // Startzeit setzen
+  this.trackLastActivity(session, 'startseite_pasta'); // Letzte Aktivität und besuchte Seite tracken
+
+  // Produkte aus der Datenbank
   const pasta = await db.from('pasta').select('*')
   const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
@@ -18,9 +28,12 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
                                   .where('warenkorb_id', warenkorb_id.id)
                                   .count('*')
-  console.log(anzahl_warenkorb_abrufen)
+    //console.log(anzahl_warenkorb_abrufen)
   //ergebnis ist im falschen format: { 'count(*)': 5 }
   const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+  session.put('anzahlWarenkorb', anzahl_warenkorb); // Anzahl der Produkte speichern
+  this.logSessionState(session); // Session-Zustand ausgeben
 
   //Aktuelle Kreation anzeigen                                
   const aktuelle_kreation = await db.from('kreation')
@@ -130,6 +143,9 @@ public async startseite_pasta({ view, session }: HttpContext) {
 } } }
 
 public async startseite_getraenke({ view, session }: HttpContext) {
+  this.setSessionStart(session); // Startzeit setzen
+  this.trackLastActivity(session, 'startseite_getraenke'); // Letzte Aktivität und besuchte Seite tracken
+
   const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
   const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
   const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
@@ -143,9 +159,13 @@ public async startseite_getraenke({ view, session }: HttpContext) {
     const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
                                              .where('warenkorb_id', warenkorb_id.id)
                                              .count('*')
-    console.log(anzahl_warenkorb_abrufen)
+      //console.log(anzahl_warenkorb_abrufen)
     //ergebnis ist im falschen format: { 'count(*)': 5 }
     const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+    session.put('anzahlWarenkorb', anzahl_warenkorb);
+    this.logSessionState(session);
+  
     return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb })
     } else {
       const anzahl_warenkorb = 0;
@@ -154,6 +174,9 @@ public async startseite_getraenke({ view, session }: HttpContext) {
 }
 
 public async startseite_beilagen({ view, session }: HttpContext) {
+  this.setSessionStart(session); // Startzeit setzen
+  this.trackLastActivity(session, 'startseite_beilagen'); // Letzte Aktivität und besuchte Seite tracken
+
   const salate = await db.from('beilagen').select('*').where('art', 'salat')
   const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
   
@@ -166,9 +189,13 @@ public async startseite_beilagen({ view, session }: HttpContext) {
     const anzahl_warenkorb_abrufen = await db.from('ausgewaehltes_produkt')
                                              .where('warenkorb_id', warenkorb_id.id)
                                              .count('*')
-    console.log(anzahl_warenkorb_abrufen)
+      //console.log(anzahl_warenkorb_abrufen)
     //ergebnis ist im falschen format: { 'count(*)': 5 }
     const anzahl_warenkorb = anzahl_warenkorb_abrufen[0]['count(*)'];
+
+    session.put('anzahlWarenkorb', anzahl_warenkorb);
+    this.logSessionState(session);
+
     return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb })
     } else {
       const anzahl_warenkorb = 0;
@@ -185,8 +212,60 @@ public async details({ view, params }: HttpContext) {
   if (!produkt) {
     return view.render('errors/not-found'); 
   }
+
+  this.setSessionStart(session); // Startzeit setzen
+  this.trackLastActivity(session, 'details'); // Letzte Aktivität und besuchte Seite tracken
+  this.logProductSelection(session, id, kategorie); // Produkt protokollieren
+
+
+  this.logSessionState(session);
+
   // Wenn das Produkt gefunden wurde, wird es an die View übergeben
   return view.render('pages/detailansicht', { produkt, kategorie });
+}
+
+// Beim ersten Aufruf einer Seite wird der Startzeitpunkt der Session in der Session gespeichert (03.12.Evy)
+private setSessionStart(session: HttpContext['session']) {
+  if (!session.get('sessionStartTime')) {
+    const now = new Date().toISOString();
+    session.put('sessionStartTime', now);
+    console.log(`Session gestartet: ${now}`);
+  }
+}
+
+// Letzten Aktivität des Besuchers speichern (03.12.Evy)
+private trackLastActivity(session: HttpContext['session'], page: string) {
+  // Hol vorhandene Seiten aus der Session oder initialisiere mit einem leeren Array
+  const activities: string[] = session.get('visitedPages') || [];
+
+  // Seite hinzufügen, wenn sie noch nicht in der Liste ist
+  if (!activities.includes(page)) {
+    activities.push(page);
+    session.put('visitedPages', activities);
+  }
+}
+
+//Produkte aus dem Warenkorb ausgeben
+private logProductSelection(session: HttpContext['session'], productId: number, category: string) {
+  const products = session.get('selectedProducts') || [];
+  products.push({ productId, category, timestamp: new Date().toISOString() });
+  session.put('selectedProducts', products);
+
+  console.log(`Produkt ausgewählt: ${productId} in Kategorie ${category}`);
+  this.logSessionState(session);
+}
+
+// Session-Daten vollständig ausgeben
+private logSessionState(session: HttpContext['session']) {
+  const sessionState = {
+    sessionId: session.get('sessionId'),
+    sessionStartTime: session.get('sessionStartTime'),
+    visitedPages: session.get('visitedPages') || [],
+    selectedProducts: session.get('selectedProducts') || [],
+    anzahlWarenkorb: session.get('anzahlWarenkorb') || 0, // Anzahl der Produkte im Warenkorb
+
+  }
+    console.log('Aktueller Session-Zustand:', sessionState)
 }
 
 }
