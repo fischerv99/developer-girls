@@ -8,7 +8,6 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import db from '@adonisjs/lucid/services/db'
 
 //Contoller (in Route) importieren
 const ProduktController = () => import('#controllers/produkt_controller')
@@ -17,6 +16,7 @@ const UsersController = () => import('#controllers/users_controller')
 const AdminController = () => import('#controllers/admin_controller')
 const WarenkorbsController = () => import('#controllers/warenkorbs_controller')
 const SonstigesController = () => import('#controllers/sonstiges_controller') 
+const BestellungsController = () => import('#controllers/bestellungs_controller')
 
 
 
@@ -33,11 +33,7 @@ router.post('/neue_kreation', [KreationsController, 'neue_kreation'])
 router.post('/update_kreatio_sosse', [KreationsController, 'update_kreation_sosse'])
 router.post('/update_kreation_toppings', [KreationsController, 'update_kreation_topping'])
 
-//Routen für angemeldete Startseiten (Kunde ist angemeldet), Registriert sich/einloggen -> UsersController
- // Seiten momentan provisorisch ans nav gebunden
-router.get('/startseite/:kunde/Pasta', [UsersController, 'startseite_pasta_logged'])
-router.get('/startseite/:kunde/Drinks', [UsersController, 'startseite_getraenke_logged'])
-router.get('/startseite/:kunde/Beilagen', [UsersController, 'startseite_beilagen_logged']) 
+//Routen für eingeloggte Kunden:  Registriert sich/einloggen -> UsersController
  // Registrierung
 router.get('/register', [UsersController, 'registrieren'])
 router.post('/register', [UsersController, 'registrieren2'])
@@ -46,7 +42,8 @@ router.get('/login', [UsersController, 'login'])
 router.post('/login', [UsersController, 'login2'])
   //Favoriten
 router.get('/favoriten', [UsersController, 'favoriten'])
- 
+//Logout
+router.get('/logout', [UsersController, 'logout'])
 
 
 //Routen für Administratorbereich -> AdminController
@@ -80,3 +77,6 @@ router.post('/warenkorb/menge/verringern/:produkt', [WarenkorbsController, 'verr
 //Route für Datenschutz und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
 router.get('/impressum', [SonstigesController, 'impressum'])
+
+//Route um Bestellung abzuschließen -> bestellungsController
+router.post('/kasse', [BestellungsController, 'kasse'])

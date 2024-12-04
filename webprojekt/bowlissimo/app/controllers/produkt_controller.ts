@@ -14,6 +14,10 @@ public async startseite_pasta({ view, session }: HttpContext) {
   this.setSessionStart(session); // Startzeit setzen
   this.trackLastActivity(session, 'startseite_pasta'); // Letzte Aktivität und besuchte Seite tracken
 
+  //Schauen ob nutzer angemeldet ist 
+  //prüft, ob ein Kunde angemeldet ist, und speichert das Ergebnis als true oder false in der Variablen kundeAngemeldet.
+  const kundeAngemeldet = session.get('kunde') !== undefined;
+
   // Produkte aus der Datenbank
   const pasta = await db.from('pasta').select('*')
   const soßen = await db.from('saucen').select('*')
@@ -53,7 +57,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -73,7 +77,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb,kundeAngemeldet })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -83,7 +87,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
   } } } } else {
 
   const anzahl_warenkorb = 0;
@@ -96,7 +100,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -106,7 +110,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -126,7 +130,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -136,7 +140,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
               }
               
             } 
@@ -145,6 +149,9 @@ public async startseite_pasta({ view, session }: HttpContext) {
 public async startseite_getraenke({ view, session }: HttpContext) {
   this.setSessionStart(session); // Startzeit setzen
   this.trackLastActivity(session, 'startseite_getraenke'); // Letzte Aktivität und besuchte Seite tracken
+
+  //Überprüfen ob kunde angemeldet 
+  const kundeAngemeldet = session.get('kunde') !== undefined;
 
   const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
   const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
@@ -166,16 +173,19 @@ public async startseite_getraenke({ view, session }: HttpContext) {
     session.put('anzahlWarenkorb', anzahl_warenkorb);
     this.logSessionState(session);
   
-    return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb })
+    return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb, kundeAngemeldet })
     } else {
       const anzahl_warenkorb = 0;
-      return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb })
+      return view.render('pages/startseite_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke, anzahl_warenkorb, kundeAngemeldet })
     }
 }
 
 public async startseite_beilagen({ view, session }: HttpContext) {
   this.setSessionStart(session); // Startzeit setzen
   this.trackLastActivity(session, 'startseite_beilagen'); // Letzte Aktivität und besuchte Seite tracken
+
+  //Überprüfen ob kunde angemeldet
+  const kundeAngemeldet = session.get('kunde') !== undefined;
 
   const salate = await db.from('beilagen').select('*').where('art', 'salat')
   const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
@@ -196,10 +206,10 @@ public async startseite_beilagen({ view, session }: HttpContext) {
     session.put('anzahlWarenkorb', anzahl_warenkorb);
     this.logSessionState(session);
 
-    return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb })
+    return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb, kundeAngemeldet })
     } else {
       const anzahl_warenkorb = 0;
-      return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb })
+      return view.render('pages/startseite_beilagen', { salate, suppen, anzahl_warenkorb, kundeAngemeldet })
     }
 }
 
