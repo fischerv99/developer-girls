@@ -21,15 +21,26 @@ body {
 body {
   background-color: #649e4c;
 }
-
 .main {
+  display: flex;
+  padding-top: 150px;
+  flex-direction: column;
+  width: 100%;
+  color: #FCF8ED;
+  align-items: center;
+}
+
+.main_startseitepasta {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Gleichmäßige Spalten */
+  grid-template-columns: 75% 25%;
   gap: 20px; /* Optionaler Abstand zwischen Spalten */
   width: 100%; /* Nimmt die gesamte Breite ein */
   height: calc(100vh - 150px); /* Höhe dynamisch basierend auf der Viewport-Höhe */
   box-sizing: border-box; /* Verhindert Überlauf */
-  padding: 20px;
+  padding-top: 140px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 
 

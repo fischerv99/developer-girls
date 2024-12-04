@@ -3,29 +3,6 @@ import db from "@adonisjs/lucid/services/db"
 import hash from '@adonisjs/core/services/hash'
 
 export default class UsersController {
-    public async startseite_pasta_logged({ view, session }: HttpContext) {
-        const pasta = await db.from('pasta').select('*')
-        const soßen = await db.from('saucen').select('*')
-        const toppings = await db.from('toppings').select('*')
-
-        return view.render('pages/kunde_pasta', { pasta, soßen, toppings })
-  
-}
-public async startseite_getraenke_logged({ view, session }: HttpContext) {
-    const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
-    const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
-    const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
-  
-    return view.render('pages/kunde_drinks', { smoothies, erfrischungsgetränke, alkoholfreie_getränke })
-}
-
-public async startseite_beilagen_logged({ view, session }: HttpContext) {
-    const salate = await db.from('beilagen').select('*').where('art', 'salat')
-  const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
-
-  return view.render('pages/kunde_beilagen', { salate, suppen })
-
-}
 
 public async registrieren({ view}: HttpContext) {
     return view.render('pages/register');
@@ -74,7 +51,7 @@ public async login({ view}: HttpContext) {
     return view.render('pages/login');
 }
 
-public async login2({ view, request, response}: HttpContext) {
+public async login2({ view, request, response, session}: HttpContext) {
      // Benutzername und Passwort überprüfen
     if(request.input('nutzername') === undefined || request.input('passwort') === undefined) { 
         const error = 'Formular-Fehler'
@@ -97,7 +74,9 @@ public async login2({ view, request, response}: HttpContext) {
           
     //Passwort mit gehaster Passwort in der Datenbank vergleichen
     if (await hash.verify(kunde.passwort_hash, request.input('passwort'))) {
-        return response.redirect('/startseite/{{kunde.kunden.id}}/Pasta');
+        //In session vermerken, dass der Kunde eingeloggt ist
+        session.put('kunde', kunde.kunden_id);
+        return response.redirect('/');
     } else { 
         const error = 'Falsche Anmeldedaten'
         return view.render('pages/login', {error}) //Zurück zum Login
@@ -105,15 +84,19 @@ public async login2({ view, request, response}: HttpContext) {
 }
 
 public async favoriten({ view, response, session}: HttpContext) {
-    const userId = session.get('user_id');
+    const userId = session.get('kunde');
     if (!userId) {
        // Weiterleitung zur Login-Seite, falls nicht eingeloggt
           return response.redirect('/login');
     }
         
-    const favorites = await db.from('favorites').where('user_id', userId);
-    return view.render('pages/favoritenseite', { favorites });
+    const favoriten = await db.from('favoriten').where('kunden_id', userId);
+    return view.render('pages/favoritenseite', { favoriten });
       } 
-    
+
+public async logout({ response, session}: HttpContext) {
+    session.forget('kunde');
+    return response.redirect('/');
+}
 
 }
