@@ -21,13 +21,24 @@
                     <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
                     <p>  {{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
 
-                    <form action="/warenkorb/update/{{produkt.produkt}}" method="post" enctype="application/x-www-form-urlencoded">
-                        {{csrfField()}}
-                        <label for="menge">Menge:</label>
-                        <input type="number" id="menge" name="menge" value="{{produkt.menge}}" min="1" step="1" pattern="\d*" onchange="this.form.submit()">
-                    </form>
-                    <button onclick="window.location.href='/warenkorb/entfernen/{{produkt.produkt}}'">Entfernen</button>
-                </div>
+                    <div class="menge-steuerung">
+                        <form action="/warenkorb/menge/verringern/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
+                            {{ csrfField() }}
+                            <button type="submit" class="minus-button">-</button>
+                        </form>
+                        <span class="menge">{{ produkt.menge }}</span>
+                        <form action="/warenkorb/menge/erhoehen/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
+                            {{ csrfField() }}
+                            <button type="submit" class="plus-button">+</button>
+                        </form>
+                    </div>
+                       <!-- Entfernen-Button -->
+                         <form action="/warenkorb/entfernen/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
+                             {{ csrfField() }}
+                            <button type="submit" class="entfernen-button">Entfernen</button>
+                        </form>
+                    </div>
+                    
             @endeach
             <p>Gesamtpreis: {{ gesamtpreis }} €</p>
     @else

@@ -618,7 +618,7 @@ h3.überschrift_zusatz {
 }
 
 
-/*IMPRESSUM & DATENSCHUTZ*/
+/*IMPRESSUM & DATENSCHUTZ & WARENKORB*/
 .impressum, .datenschutz, .warenkorb{
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
@@ -654,47 +654,36 @@ font-size: 20px;
   margin-bottom: 2rem; /* Abstand zwischen den Produkten */
 }
 
-
-/* FOOTER */
-footer {
-  display: flex;                /* Flexbox aktivieren */
-  align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
-  padding: 10px 60px;           /* Abstand innerhalb des Footers */
-  border-top: 5px solid #ffffff; /* Eine leichte Linie oben im Footer */
-  font-size: 14px;              /* Schriftgröße */
+.menge-steuerung {
+  display: flex;
+  align-items: center;
+  gap: 0,5rem;
 }
 
-footer .footer-logo {
-  max-height: 40px;  /* Maximale Höhe des Logos */
-  margin-top: 5px;   /* Abstand zwischen Logo und Linie */     
+.menge-steuerung .minus-button, .menge-steuerung .plus-button {
+  background-color: #FCF8ED;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-footer .footer-links {
-  text-align: right;    /* Links nach rechts verschieben */
-  margin-left: 800px;    /* Mehr Abstand zwischen Logo und Links */
-  margin-top: 10px;
-}  
-
-footer a {
-  color: #ffffff;   /* Weiß für Links */
-  text-decoration: none;  /* Keine Unterstreichung */
-  font-weight: normal;    /* Normale Schriftstärke für Links */
-  margin: 0 20px;
-  line-height: 40px;   
+.menge-steuerung .minus-button:hover, .menge-steuerung .plus-button:hover {
+  color:#FCC21D;
 }
 
-footer a:hover {
-  text-decoration: underline; /* Unterstreichung beim Hover */
-  color:  #FCC21D;   /* Farbe beim Hover */
+.menge {
+  font-size: 12px;
 }
 
-/* Entfernen von zusätzlichen Rändern oder Linien */
-footer * {
-  margin: 0;
-  padding: 0;
-  border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
+.entfernen-button {
+    border: none;
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
-
 
 /* LOG IN SEITE */
 
@@ -839,4 +828,57 @@ footer * {
     width: 100%; /* Volle Breite */
     padding: 10px; /* Weniger Innenabstand */
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER */
+footer {
+  display: flex;                /* Flexbox aktivieren */
+  align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
+  padding: 10px 60px;           /* Abstand innerhalb des Footers */
+  border-top: 5px solid #ffffff; /* Eine leichte Linie oben im Footer */
+  font-size: 14px;              /* Schriftgröße */
+}
+
+footer .footer-logo {
+  max-height: 40px;  /* Maximale Höhe des Logos */
+  margin-top: 5px;   /* Abstand zwischen Logo und Linie */     
+}
+
+footer .footer-links {
+  text-align: right;    /* Links nach rechts verschieben */
+  margin-left: 800px;    /* Mehr Abstand zwischen Logo und Links */
+  margin-top: 10px;
+}  
+
+footer a {
+  color: #ffffff;   /* Weiß für Links */
+  text-decoration: none;  /* Keine Unterstreichung */
+  font-weight: normal;    /* Normale Schriftstärke für Links */
+  margin: 0 20px;
+  line-height: 40px;   
+}
+
+footer a:hover {
+  text-decoration: underline; /* Unterstreichung beim Hover */
+  color:  #FCC21D;   /* Farbe beim Hover */
+}
+
+/* Entfernen von zusätzlichen Rändern oder Linien */
+footer * {
+  margin: 0;
+  padding: 0;
+  border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
 }
