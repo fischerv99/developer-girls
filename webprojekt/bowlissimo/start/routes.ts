@@ -79,4 +79,6 @@ router.get('/datenschutz', [SonstigesController, 'datenschutz'])
 router.get('/impressum', [SonstigesController, 'impressum'])
 
 //Route um Bestellung abzuschließen -> bestellungsController
-router.post('/kasse', [BestellungsController, 'kasse'])
+router.get('/kasse', [BestellungsController, 'kasse'])
+router.post('/bestellen_als_gast', [BestellungsController, 'bestellen_als_gast'])
+router.post('/bestellen/:kunde', [BestellungsController, 'bestellen'])

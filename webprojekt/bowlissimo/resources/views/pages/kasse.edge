@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="resources/css/app.css">
+  <title>Kasse</title>
+</head>
+<body>
+</main>
+ 
+<!-- Wenn der Kunde momentan nicht angemeldet ist --> 
+  @if(angemeldet == false) 
+<button onclick="window.location.href='/login'">Ich habe schon ein Konto </button>
+<button onclick="window.location.href='/register'"> Ich möchte mir ein Konto erstellen </button>
+
+<h3> Als Gast bestellen </h3>
+  <form action="/bestellen_als_gast" method="post" enctype= "application/x-www-form-urlencoded" class="login_form">
+    {{csrfField()}}
+
+    <label for ="vorname" class="login_überschrift">Vorame:</label>
+    <input type="text" id="vorname" name="vorname" required>
+
+    <label for ="nachname" class="login_überschrift">Nachname:</label>
+    <input type="text" id="nachname" name="nachname" required>
+
+    <label for="strasse_nr" class="login_überschrift"> Straße und Hausnummer: </label>
+    <input type="text" id="strasse_nr" name="strasse_nr" required>
+
+    <label for="postleitzahl" class="login_überschrift">Postleitzahl:</label>
+    <input type="integer" id="postleitzahl" name="postleitzahl" required>
+
+    <label for="stadt" class="login_überschrift">Stadt:</label>
+    <input type="text" id="stadt" name="stadt" required>
+
+    <label for="bezahlart" class="login_überschrift">Bezahlart:</label>
+    <select id="bezahlart" name="bezahlart" required>
+      <option value="kreditkarte">Kreditkarte</option>
+      <option value="paypal">PayPal</option>
+      <option value="bar">Bar</option>
+    </select>
+
+    <label for="email" class="login_überschrift">E-Mail:</label>
+    <input type="email" id="email" name="email" required>
+  
+    <button type="submit">Kostenpflichtig bestellen</button>
+  </form>
+    @endif
+
+    <!-- Wenn der Kunde momentan angemeldet ist, soll Formular vorausgefüllt sein --> 
+    @if(angemeldet == true)
+    <h3> Hallo {{kunde.nutzername}}, Du kannst deine Daten anpassen und wir speichern sie für dich. </h3>
+    <form action="/bestellen/{{kunde.kunden_id}}" method="post" enctype="application/x-www-form-urlencoded" class="login_form">
+        {{csrfField()}}
+        
+        <label for="vorname" class="login_überschrift">Vorname:</label>
+        <input type="text" id="vorname" name="vorname" value="{{kunde.kunden_id}}" required>
+
+        <label for="nachname" class="login_überschrift">Nachname:</label>
+        <input type="text" id="nachname" name="nachname" value="{{kunde.nachname}}" required>
+
+        <label for="strasse_nr" class="login_überschrift">Straße und Hausnummer:</label>
+        <input type="text" id="strasse_nr" name="strasse_nr" value="{{kunde.strasse_nr}}" required>
+
+        <label for="postleitzahl" class="login_überschrift">Postleitzahl:</label>
+        <input type="integer" id="postleitzahl" name="postleitzahl" value="{{kunde.postleitzahl}}" required>
+
+        <label for="stadt" class="login_überschrift">Stadt:</label>
+        <input type="text" id="stadt" name="stadt" value="{{kunde.stadt}}" required>
+
+        <label for="bezahlart" class="login_überschrift">Bezahlart:</label>
+        <select id="bezahlart" name="bezahlart" required>
+            <option value="kreditkarte" {{kunde.bezahlart == 'kreditkarte' ? 'selected' : ''}}>Kreditkarte</option>
+            <option value="paypal" {{kunde.bezahlart == 'paypal' ? 'selected' : ''}}>PayPal</option>
+            <option value="bar" {{kunde.bezahlart == 'bar' ? 'selected' : ''}}>Bar</option>
+        </select>
+
+        <label for="email" class="login_überschrift">E-Mail:</label>
+        <input type="email" id="email" name="email" value="{{kunde.mail}}" required>
+        
+        <button type="submit">Kostenpflichtig bestellen</button>
+    </form>
+  @endif
+
+</main>
+</body>
+
+<footer>
+@include('pages/partials/footer')
+</footer>
