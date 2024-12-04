@@ -43,7 +43,7 @@
         </nav>
     </header>
 
-    <main class="main">
+    <main class="main_startseitepasta">
         <div class="produkt_darstellung">
             <div class="überschrift">
                 <h1>CREATE YOUR OWN PASTA</h1>
@@ -165,27 +165,44 @@
            </div>
         </div>
         <div class="warenkorb_hellgrün">
-            <h1 class="überschrift">Warenkorb</h1>
-            <div class="warenkorb_seite">
-                <div class="warenkorb_container">
-                    <h2>Deine Kreation</h2>
-                    @if (ausgewaehlte_produkte)
-                        <ul>
-                            @each (produkt in ausgewaehlte_produkte)
-                                <li>
-                                    <span>{{ produkt.produkt }}</span>
-                                    <span>{{ produkt.preis.toFixed(2) }} €</span>
-                                </li>
-                            @endeach
-                        </ul>
-                            <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
-                        <button class="button-warenkorb">In den Warenkorb legen</button>
-                        <button class="button-zum-warenkorb">Zum Warenkorb</button>
+            <script src="/resources/js/kreation.js" defer></script>
+            <div class="deine_kreation">
+                <h2 class="überschrift">DEINE KREATION</h2>
+                @if (!aktuelle_pasta)
+                    <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
+                @endif
+                @if (aktuelle_pasta) 
+                    <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
+                <div class="deine_kreation_bilder"> 
+                    <div class="kreation_pasta">
+                        <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
+                    </div>
+                @endif
+                @if (aktuelle_soße)
+                <div class="kreation_soße">
+                    <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" class="kreation_soße_bild" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
+                </div>
+                @endif
+                <div class="kreation_toppings_wrapper">
+                    @if (aktuelle_toppings)
+                        @each (sorte in aktuelle_toppings)
+                        <div class="kreation_toppings">
+                            <img src="{{sorte.bild}}" alt="{{ sorte.id }}" class="kreation_toppings_bild" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
+                        </div>
+                    @endeach
+                </div>
+                @endif
+                </div>
+                <div class="favoriten_button">
+                    @if (aktuelle_kreation)
+                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
+                        <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+                    </button>
                     @else
-                        <p>Dein Warenkorb ist leer.</p>
+                        <p>Keine Kreation ausgewählt</p>
                     @endif
                 </div>
-            </div>
+           </div>
         </div>
     </main>
 
