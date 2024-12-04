@@ -109,85 +109,36 @@ export default class WarenkorbsController {
           return response.redirect('/warenkorb');
       } 
 
-// Menge erhöhen
   // Menge erhöhen
-  public async erhoehen({ response, session, params }: HttpContext) {
-    const { produkt } = params;
+    async erhoehen({ params, session, response }: HttpContext) {
+      const produktId = params.produkt;
+      
+      //Menge des Produktes erhöhen in der Datenbank ausgewaehltes_produkt
+      const produkt = await db.from('ausgewaehltes_produkt').where('produkt', produktId).first();
 
-    // Warenkorb-Bestellung abrufen
-    const warenkorb_bestellung_id = await db.from('warenkorb_bestellung')
-      .where('session_id', session.sessionId)
-      .select('id')
-      .first();
-  
-    if (!warenkorb_bestellung_id) {
-      return response.status(400).json({ error: 'Warenkorb nicht gefunden' });
+      await db.from('ausgewaehltes_produkt').where('produkt', produktId).update({ menge: produkt.menge + 1 });
+
+      return response.redirect('/warenkorb'); // Zurück zur Warenkorb-Seite
     }
-
-    const warenkorb_bestellung_id_format = warenkorb_bestellung_id.id;
-
-    // Menge erhöhen
-    await db.from('ausgewaehltes_produkt')
-      .where('warenkorb_id', warenkorb_bestellung_id_format)
-      .andWhere('produkt', produkt)
-      .increment('menge', 1);
-
-    // Aktuelles Produkt abrufen
-    const aktualisiertesProdukt = await db.from('ausgewaehltes_produkt')
-      .where('warenkorb_id', warenkorb_bestellung_id_format)
-      .andWhere('produkt', produkt)
-      .first();
-
-    // Rückgabe der neuen Menge als JSON
-    return response.json({ menge: aktualisiertesProdukt.menge });
-  }
 
   // Menge verringern
-  public async verringern({ response, session, params }: HttpContext) {
-    const { produkt } = params;
+    async verringern({ params, session, response }: HttpContext) {
+      const produktId = params.produkt;
   
-    const warenkorb_bestellung_id = await db.from('warenkorb_bestellung')
-      .where('session_id', session.sessionId)
-      .select('id')
-      .first();
-  
-    if (!warenkorb_bestellung_id) {
-      return response.status(400).json({ error: 'Warenkorb nicht gefunden' });
+      const produkt = await db.from('ausgewaehltes_produkt').where('produkt', produktId).first();
+      await db.from('ausgewaehltes_produkt').where('produkt', produktId).update({ menge: produkt.menge - 1 });
+
+      return response.redirect('/warenkorb'); // Zurück zur Warenkorb-Seite
+
     }
-  
-    const warenkorb_bestellung_id_format = warenkorb_bestellung_id.id;
-  
-    // Menge verringern
-    await db.from('ausgewaehltes_produkt')
-      .where('warenkorb_id', warenkorb_bestellung_id_format)
-      .andWhere('produkt', produkt)
-      .decrement('menge', 1);
-  
-    // Aktuelles Produkt abrufen
-    const aktualisiertesProdukt = await db.from('ausgewaehltes_produkt')
-      .where('warenkorb_id', warenkorb_bestellung_id_format)
-      .andWhere('produkt', produkt)
-      .first();
-  
-    // Rückgabe der neuen Menge als JSON
-    return response.json({ menge: aktualisiertesProdukt.menge });
-  }
 
-
- // Produkt löschen
-      public async entfernen ({ response, session, params }: HttpContext) {
-          const { produkt } = params
-
-          //In warenkorb_bestellung id abrufen mit aktueller session 
-          const warenkorb_bestellung_id = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('id').first();
-          // warenkorbposition_id ist jetzt im falschen Format: { id: 421608 }, muss geändert werden:
-          const warenkorb_bestellung_id_format  = warenkorb_bestellung_id.id;
-
-          //Produkt aus ausgewaehltes_produkt löschen
-          await db.from('ausgewaehltes_produkt').where('warenkorb_id', warenkorb_bestellung_id_format).andWhere('produkt', produkt).delete();
-
-          //Zu Warenkorb
-          return response.redirect('/warenkorb');
-      }
-    }
+    // Produkt löschen
+    async entfernen({ params, session, response }: HttpContext) {
+      const produktId = params.produkt;
     
+      // Produkt aus der Datenbank löschen
+      await db.from('ausgewaehltes_produkt').where('produkt', produktId).delete();
+    
+      return response.redirect('/warenkorb'); // Zurück zur Warenkorb-Seite
+    }
+  }
