@@ -45,7 +45,7 @@ export default class BestellungsController {
 }
 
     public async bestellen ({ view, request, session, params }: HttpContext) {
-        const nutzername = params
+        const { nutzername } = params
 
         //Daten werden in der db bei kunden_angemeldet gespeichert -> falls Nutzer was ändert wird es gespeichert
     const vorname = request.input('vorname')

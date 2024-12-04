@@ -69,7 +69,7 @@ router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminControlle
 // Routen für den Warenkorb -> WarenkorbsController
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
 router.get('/warenkorb/hinzufuegen/:oberkategorie/:produkt', [WarenkorbsController, 'hinzufuegen'])
-router.get('/warenkorb/entfernen/:produkt', [WarenkorbsController, 'entfernen'])
+router.post('/warenkorb/entfernen/:produkt', [WarenkorbsController, 'entfernen'])
 router.post('/warenkorb/menge/erhoehen/:produkt', [WarenkorbsController, 'erhoehen'])
 router.post('/warenkorb/menge/verringern/:produkt', [WarenkorbsController, 'verringern'])
 
