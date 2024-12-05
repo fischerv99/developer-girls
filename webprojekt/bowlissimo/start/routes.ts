@@ -42,6 +42,7 @@ router.get('/login', [UsersController, 'login'])
 router.post('/login', [UsersController, 'login2'])
   //Favoriten
 router.get('/favoriten', [UsersController, 'favoriten'])
+router.get('/favoriten/hinzufuegen/:id', [UsersController, 'favoriten_hinzufuegen'])
 //Logout
 router.get('/logout', [UsersController, 'logout'])
 

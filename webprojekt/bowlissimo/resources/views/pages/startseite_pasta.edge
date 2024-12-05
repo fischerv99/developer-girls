@@ -112,7 +112,7 @@
                             <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
                                 {{csrfField()}}
                                 <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
-                                <button class="auswahl_button" type="submit" >Auswählen/ Löschen</button>
+                                <button class="auswahl_button"> Auswählen/Löschen </button>
                             </form>
                             <h4 class="produkt_id">{{ sorte.id }}</h4>
                             <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
@@ -125,6 +125,7 @@
                     @endeach
                 </div>
             </div>
+
             <script src="/resources/js/kreation.js" defer></script>
             <div class="deine_kreation">
                 <h2 class="überschrift">DEINE KREATION</h2>
@@ -153,17 +154,28 @@
                 </div>
                 @endif
                 </div>
+                <!--Favoriten Button nur anzeigen, wenn Kunde angemeldet ist und eine Kreation mit Pasta und Soße ausgewählt-->
+                @if(kundeAngemeldet && aktuelle_soße)
                 <div class="favoriten_button">
-                    @if (aktuelle_kreation)
-                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
-                        <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
-                    </button>
-                    @else
-                        <p>Keine Kreation ausgewählt</p>
-                    @endif
+                    <button id="favoriten" onclick="window.location.href='/favoriten/hinzufuegen/{{ aktuelle_kreation.id }}'">
+                        <span id="favoriten_text">Zu FAVORITEN HINZUFÜGEN </span>
+                @endif      
+                <!--Warenkorb Button nur anzeigen, wenn Kunde eine Kreation mit Pasta und Soße ausgewählt-->
+                @if (aktuelle_soße)
+                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
+                    <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+                </button>
+                @endif
+                @if (aktuelle_kreation && !aktuelle_soße)
+                    <p>Wähle noch eine Soße</p>
+                @endif
+                @if (!aktuelle_kreation)
+                    <p>Keine Kreation ausgewählt</p>
+                @endif
                 </div>
            </div>
         </div>
+
         <div class="warenkorb_hellgrün">
             <script src="/resources/js/kreation.js" defer></script>
             <div class="deine_kreation">
@@ -193,14 +205,24 @@
                 </div>
                 @endif
                 </div>
+                <!--Favoriten Button nur anzeigen, wenn Kunde angemeldet ist und eine Kreation mit Pasta und Soße ausgewählt-->
+                @if(kundeAngemeldet && aktuelle_soße)
                 <div class="favoriten_button">
-                    @if (aktuelle_kreation)
-                    <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
-                        <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
-                    </button>
-                    @else
-                        <p>Keine Kreation ausgewählt</p>
-                    @endif
+                    <button id="favoriten" onclick="window.location.href='/favoriten/hinzufuegen/{{ aktuelle_kreation.id }}'">
+                        <span id="favoriten_text">Zu FAVORITEN HINZUFÜGEN </span>
+                @endif       
+                <!--Warenkorb Button nur anzeigen, wenn Kunde eine Kreation mit Pasta und Soße ausgewählt-->
+                @if (aktuelle_soße)
+                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
+                    <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
+                </button>
+                @endif
+                @if (aktuelle_kreation && !aktuelle_soße)
+                    <p>Wähle noch eine Soße</p>
+                @endif
+                @if (!aktuelle_kreation)
+                    <p>Keine Kreation ausgewählt</p>
+                @endif
                 </div>
            </div>
         </div>

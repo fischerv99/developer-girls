@@ -28,13 +28,18 @@
             <h1>Deine Favoriten:</h1>
         </div>
 
-        @each(favorit in favoriten)
-        <h4 class="favorit_name">{{ favorit.name }}</h4>
-    @else
+        @if(!kreationen)
         <div class="text">
-           Du hast bisher keine Favoriten. Kreiere jetzt deine erste Pasta-Bowl!
-        </div>
-    @endeach
+            Du hast bisher keine Favoriten. Kreiere jetzt deine erste Pasta-Bowl!
+         </div>
+        @endif
+
+       @each(kreation in kreationen)
+       <p>{{ kreation.name }}</p>
+       <p>{{ kreation.pasta_id }}</p>
+       <p>{{ kreation.sossen_id }}</p>
+       <p>{{ kreation.toppings }}</p>
+       @endeach
     
         
         </div>

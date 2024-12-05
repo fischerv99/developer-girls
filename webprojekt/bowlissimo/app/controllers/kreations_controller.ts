@@ -29,9 +29,8 @@ export default class KreationsController {
                     .update({ pasta_id: nudelsorte })
         }
        
-        // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
         return response.redirect ('/')
-    }
+        } 
 
     //Wenn Nutzer eine Soße auswählt, wird die Kreation aktualisiert
     public async update_kreation_sosse({ session, response, request }: HttpContext) {
@@ -78,12 +77,13 @@ export default class KreationsController {
                         .update({sossen_id: sossensorte,
                                  preis: neuer_preis,
   });
-            // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
-            return response.redirect('/')
+        return response.redirect('/')
+            
         }
     }
 
     public async update_kreation_topping({ session, response, request }: HttpContext) {
+        
         //Ausgewähltes Topping abrufen
         const topping = request.input('toppingsorte')
         console.log(topping)
@@ -156,8 +156,6 @@ export default class KreationsController {
                                              .update({preis: aktuelle_kreation.preis - preis_topping.preis})
                     }
         
-        // Weiterführen auf die Seite, wo Nutzer herkommt -> Session abfragen, ob Nutzer angemeldet oder nicht
         return response.redirect('/')
-            }
-    }
-        }
+            
+    } } }

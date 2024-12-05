@@ -30,7 +30,7 @@ export default class BestellungsController {
         const kunde_id = Math.random().toString(36).substr(2, 9) //Zufällige kunden_id generieren
 
         //Daten werden in der db für gast_kunden gespeichert
-        await db.table('gast_kunden').insert({
+        await db.table('kunde_gast').insert({
             vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart, kunde_id
         })
 
@@ -40,6 +40,8 @@ export default class BestellungsController {
                 .update({in_bestellung: 1,
         })
         
+        //Session löschen, da Bestellung abgeschlossen
+
         return view.render('pages/dankeseite', {vorname})
 
 }
@@ -56,8 +58,9 @@ export default class BestellungsController {
     const mail = request.input('mail')
     const bezahlart = request.input('bezahlart')
 
+    const kunden_id = session.get('kunde')
     await db.from('kunden_angemeldet')
-            .where('kunden_id', nutzername)
+            .where('kunden_id', kunden_id)
             .update({
                 vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart
             })
@@ -68,6 +71,8 @@ export default class BestellungsController {
     .update({in_bestellung: 1,
 })
 
-        return view.render('pages/dankeseite')
+  //Session löschen, da Bestellung abgeschlossen
+
+        return view.render('pages/dankeseite', {vorname})
         }
     }

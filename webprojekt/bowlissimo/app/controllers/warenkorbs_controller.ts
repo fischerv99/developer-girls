@@ -16,8 +16,9 @@ export default class WarenkorbsController {
         const ausgewaehlte_produkte = [];
         for (const id of warenkorb_bestellung_ids) {
           const produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', id).select('*');
-          ausgewaehlte_produkte.push(...produkte);
-        }
+          //alle Produkte in ein Array pushen
+          ausgewaehlte_produkte.push(...produkte); 
+}
           
       // Gesamtbetrag berechnen
         const gesamtbetrag = ausgewaehlte_produkte.reduce((summe, produkt) => summe + produkt.preis, 0);
