@@ -149,7 +149,7 @@ public async favoriten_hinzufuegen({ response, session, params}: HttpContext) {
                         name: "Pasta-Bowl"
             });
     return response.redirect('/favoriten');
-} }
+} } 
 
 public async favoriten_update_name({ request, response, session, params}: HttpContext) {
     const kreation_id = params.id;

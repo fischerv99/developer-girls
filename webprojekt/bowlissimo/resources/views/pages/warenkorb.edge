@@ -13,12 +13,8 @@
         @if (ausgewaehlte_produkte)
             @each (produkt in ausgewaehlte_produkte)
                 <div class="produkt">
-                    @if (typeof produkt.produkt === 'number')
-                        <h2>Pasta-Bowl</h2>
-                    @else
                         <h2>{{ produkt.produkt }}</h2>
-                    @endif
-                    <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
+                        <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
                     <p>  {{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
 
                     <div class="menge-steuerung">
@@ -38,8 +34,40 @@
                             <button type="submit" class="entfernen-button">Entfernen</button>
                         </form>
                     </div>
-                    
             @endeach
+        @endif
+
+        @if(kreationen)
+        @each(kreation in kreationen)
+            <h2>Pasta-Bowl</h2>
+            <p>{{ kreation.pasta_id }}</p>
+            <p>{{ kreation.sossen_id }}</p>
+            <p>{{ kreation.toppings }}</p>
+
+            <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
+            <p>  {{ (kreation.preis * kreation.menge).toFixed(2) }} €</p>
+
+            <div class="menge-steuerung">
+                <form action="/warenkorb/menge/verringern/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                    {{ csrfField() }}
+                    <button type="submit" class="minus-button">-</button>
+                </form>
+                <p> {{ kreation.menge }}</p>
+                <span class="menge">{{ kreation.menge }}</span>
+                <form action="/warenkorb/menge/erhoehen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                    {{ csrfField() }}
+                    <button type="submit" class="plus-button">+</button>
+                </form>
+            </div>
+               <!-- Entfernen-Button -->
+                 <form action="/warenkorb/entfernen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                     {{ csrfField() }}
+                    <button type="submit" class="entfernen-button">Entfernen</button>
+                </form>
+            </div>
+        @endeach
+                    
+                    
             <p>Gesamtpreis: {{ gesamtpreis }} €</p>
     @else
         <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>

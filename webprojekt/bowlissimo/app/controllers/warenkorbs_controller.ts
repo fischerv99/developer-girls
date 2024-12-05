@@ -13,17 +13,84 @@ export default class WarenkorbsController {
         //Id der warenkorb_bestellung abrufen
         const warenkorb_bestellung_ids = warenkorb_bestellungen.map((warenkorb_bestellung) => warenkorb_bestellung.id);
         //zuürck bekommt man liste mit allen ids, die zur session gehören
+
+        //Array für alle Produkte, die im Warenkorb liegen und keine Bowl sind 
         const ausgewaehlte_produkte = [];
         for (const id of warenkorb_bestellung_ids) {
-          const produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', id).select('*');
+            const produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', id)
+                                                                   .andWhere('produkt', 'NOT LIKE', '%0%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%1%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%2%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%3%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%4%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%5%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%6%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%7%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%8%')
+                                                                   .andWhere('produkt', 'NOT LIKE', '%9%')
+                                                                   .select('*'); 
+        //alle Produkte in ein Array pushen
+        ausgewaehlte_produkte.push(...produkte); 
+        console.log(ausgewaehlte_produkte)
+      }
+
+        //Array für alle Bowls, die im Warenkorb liegen
+        const ausgewaehlte_produkte_bowl = [];
+        for (const id of warenkorb_bestellung_ids) {
+            const produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', id).andWhere('produkt', '>', 0).select('*'); //andWhere('produkt', '>', 0) -> nur Produkte , die Zahl haben
           //alle Produkte in ein Array pushen
-          ausgewaehlte_produkte.push(...produkte); 
+          ausgewaehlte_produkte_bowl.push(...produkte); 
+        }
+          
+          //Array für alle Kreationen, die im Warenkorb liegen
+          const kreationen = []; 
+
+          //Inhalte dieser Bowl sollen angezeigt werden
+            //Dafür Kreation_id jeder Kreation in ausgewaehlte Proddukte
+          const kreation_ids = ausgewaehlte_produkte_bowl.map(ausgewaehltes_produkt => ausgewaehltes_produkt.produkt);
+          //kreation_ids ist ein Array mit allen Kreation_ids
+           //Jede id durchlaufen und die Kreationen abrufen
+          for (const kreation_id of kreation_ids) {
+              const kreation = await db.from('kreation').where('id', kreation_id).first();
+              if (kreation) {
+                  kreationen.push(kreation);
+              }
+          //Ergebnis kreationen ist ein Array mit allen Kreationen, die favorisiert wurden: [{id: 1, pasta.id: 'Spagetti', ...}, ...]
+          //Jetzt soll zu jeder Kreation die Toppings abgerufen werden
+          //Dafür die kreation_toppings tabelle mit den ids der einzelnen favorisierten Kreationen durchlaufen und die Toppings abrufen
+          for (const kreation of kreationen) {
+              const toppings_der_einzelnen_kreation = await db.from('kreation_toppings').where('kreation_id', kreation.id);
+              //Ergebnis toppings_der_einzelnen_kreation ist ein Array mit allen Toppings der Kreation: [{kreation_id: 1, topping_id: 1, ...}, ...]
+              //Nur die Topping-IDs interessieren und sollen in die Kreation eingefügt werden
+              const topping_ids = toppings_der_einzelnen_kreation.map(topping => topping.topping_id);
+              //topping_ids ist ein Array mit allen Topping-IDs der favorisierten Kreation
+              kreation.toppings = topping_ids;
+
+              //Jeder kreation in Kreationen soll der Preis der kreation hinzugefügt werden
+              const kreation_preis = await db.from('ausgewaehltes_produkt').where('produkt', kreation.id).select('preis');
+              //Ergebnis kreation_preis ist ein Array mit den Preisen der Kreation: [{preis: '10'}, ...]
+              //Nur der Preis interessiert und soll in die Kreation eingefügt werden
+              const kreation_preis_string = kreation_preis.map(preis => preis.preis);
+              //kreation_preis_string ist ein Array mit dem Namen der favorisierten Kreation
+               kreation.preis = kreation_preis_string;
+
+              //Jeder kreation in Kreationen soll die menge der kreation hinzugefügt werden
+              const kreation_menge = await db.from('ausgewaehltes_produkt').where('produkt', kreation.id).select('menge');
+             //Ergebnis kreation_menge ist ein Array mit dem Namen der Kreation: [{menge: '1'}, ...]
+             //Nur der Name interessiert und soll in die Kreation eingefügt werden
+             const kreation_menge_string = kreation_menge.map(menge => menge.menge);
+             //kreation_name_string ist ein Array mit dem Namen der favorisierten Kreation
+             kreation.menge = kreation_menge_string;
+      
+              console.log(kreation)
+          }
+
 }
           
       // Gesamtbetrag berechnen
         const gesamtbetrag = ausgewaehlte_produkte.reduce((summe, produkt) => summe + produkt.preis, 0);
 
-      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtbetrag });
+      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtbetrag, kreationen });
     } 
 
 
