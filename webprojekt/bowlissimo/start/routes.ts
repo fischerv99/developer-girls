@@ -43,6 +43,8 @@ router.post('/login', [UsersController, 'login2'])
   //Favoriten
 router.get('/favoriten', [UsersController, 'favoriten'])
 router.get('/favoriten/hinzufuegen/:id', [UsersController, 'favoriten_hinzufuegen'])
+router.post('/favoriten/update-name/:id', [UsersController, 'favoriten_update_name'])
+router.post('/favoriten/entfernen/:id', [UsersController, 'favoriten_entfernen'])
 //Logout
 router.get('/logout', [UsersController, 'logout'])
 

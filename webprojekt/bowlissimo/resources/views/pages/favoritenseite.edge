@@ -36,6 +36,15 @@
 
        @each(kreation in kreationen)
        <p>{{ kreation.name }}</p>
+    <form action="favoriten/update-name/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+        {{csrfField()}}
+        <input type="text" name="name" placeholder="Neuer Name">
+        <button type="submit">Namen ändern</button>    
+    </form>
+    <form action="/favoriten/entfernen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+        {{csrfField()}}
+        <button type="submit">Entfernen</button>
+    </form>
        <p>{{ kreation.pasta_id }}</p>
        <p>{{ kreation.sossen_id }}</p>
        <p>{{ kreation.toppings }}</p>

@@ -151,6 +151,21 @@ public async favoriten_hinzufuegen({ response, session, params}: HttpContext) {
     return response.redirect('/favoriten');
 } }
 
+public async favoriten_update_name({ request, response, session, params}: HttpContext) {
+    const kreation_id = params.id;
+    const name = request.input('name');
+
+
+    await db.from('favoriten').where('kunden_id', session.get('kunde')).where('kreation_id', kreation_id).update({name: name});
+    return response.redirect('/favoriten');
+}
+
+public async favoriten_entfernen({ response, session, params}: HttpContext) {
+    const kreation_id = params.id;
+    await db.from('favoriten').where('kunden_id', session.get('kunde')).where('kreation_id', kreation_id).delete();
+    return response.redirect('/favoriten');
+}
+
 public async logout({ response, session}: HttpContext) {
     session.forget('kunde');
     return response.redirect('/');
