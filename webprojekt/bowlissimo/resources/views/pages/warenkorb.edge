@@ -10,75 +10,86 @@
     
     <h1>Warenkorb</h1>
 
-        @if (ausgewaehlte_produkte)
-            @each (produkt in ausgewaehlte_produkte)
-                <div class="produkt">
-                        <h2>{{ produkt.produkt }}</h2>
-                        <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
-                    <p>  {{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
-
-                    <div class="menge-steuerung">
-                        <form action="/warenkorb/menge/verringern/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
-                            {{ csrfField() }}
-                            <button type="submit" class="minus-button">-</button>
-                        </form>
-                        <span class="menge">{{ produkt.menge }}</span>
-                        <form action="/warenkorb/menge/erhoehen/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
-                            {{ csrfField() }}
-                            <button type="submit" class="plus-button">+</button>
-                        </form>
-                    </div>
-                       <!-- Entfernen-Button -->
-                         <form action="/warenkorb/entfernen/{{ produkt.produkt }}" method="post" enctype="application/x-www-form-urlencoded">
-                             {{ csrfField() }}
-                            <button type="submit" class="entfernen-button">Entfernen</button>
-                        </form>
-                    </div>
-            @endeach
-        @endif
-
-        @if(kreationen)
-        @each(kreation in kreationen)
-            <h2>Pasta-Bowl</h2>
-            <p>{{ kreation.pasta_id }}</p>
-            <p>{{ kreation.sossen_id }}</p>
-            <p>{{ kreation.toppings }}</p>
-
-            <!--Preis anzeigen auf 2 Nachkommastellen gerundet-->
-            <p>  {{ (kreation.preis * kreation.menge).toFixed(2) }} €</p>
-
+    @if (ausgewaehlte_produkte)
+     @each (produkt in ausgewaehlte_produkte)
+        <div class="produkt">
+            <h2>{{ produkt.produkt }}</h2>
+            
+            <!-- Preis anzeigen -->
+            <p>{{ (produkt.preis * produkt.menge).toFixed(2) }} €</p>
+            
+            <!-- Menge Steuerung -->
             <div class="menge-steuerung">
-                <form action="/warenkorb/menge/verringern/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                <form action="/warenkorb/menge/verringern/{{ produkt.produkt }}" method="post">
                     {{ csrfField() }}
                     <button type="submit" class="minus-button">-</button>
                 </form>
-                <p> {{ kreation.menge }}</p>
-                <span class="menge">{{ kreation.menge }}</span>
-                <form action="/warenkorb/menge/erhoehen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                <span class="menge">{{ produkt.menge }}</span>
+                <form action="/warenkorb/menge/erhoehen/{{ produkt.produkt }}" method="post">
                     {{ csrfField() }}
                     <button type="submit" class="plus-button">+</button>
                 </form>
             </div>
-               <!-- Entfernen-Button -->
-                 <form action="/warenkorb/entfernen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
-                     {{ csrfField() }}
-                    <button type="submit" class="entfernen-button">Entfernen</button>
+
+            <!-- Entfernen-Button -->
+            <form action="/warenkorb/entfernen/{{ produkt.produkt }}" method="post">
+                {{ csrfField() }}
+                <button type="submit" class="entfernen-button">Entfernen</button>
+            </form>
+        </div>
+      @endeach
+    @endif
+  
+           
+    <!-- Kreationen -->  
+    @if (kreationen)
+    @each (kreation in kreationen)
+        <div class="produkt">
+            <h2>Pasta-Bowl</h2>
+            <p>Pasta: {{ kreation.pasta_id }}</p>
+            <p>Soße: {{ kreation.sossen_id }}</p>
+            <p>Toppings: {{ kreation.toppings }}</p>
+            
+            <!-- Preis anzeigen -->
+            <p>{{ (kreation.preis * kreation.menge).toFixed(2) }} €</p>
+            
+            <!-- Menge Steuerung -->
+            <div class="menge-steuerung">
+                <form action="/warenkorb/menge/verringern/{{ kreation.id }}" method="post">
+                    {{ csrfField() }}
+                    <button type="submit" class="minus-button">-</button>
+                </form>
+                <span class="menge">{{ kreation.menge }}</span>
+                <form action="/warenkorb/menge/erhoehen/{{ kreation.id }}" method="post">
+                    {{ csrfField() }}
+                    <button type="submit" class="plus-button">+</button>
                 </form>
             </div>
-        @endeach
-                    
-                    
-            <p>Gesamtpreis: {{ gesamtpreis }} €</p>
-    @else
-        <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
+            <!-- Entfernen-Button -->
+            <form action="/warenkorb/entfernen/{{ kreation.id }}" method="post">
+                {{ csrfField() }}
+                <button type="submit" class="entfernen-button">Entfernen</button>
+            </form>
+        </div>
+    @endeach
     @endif
+                 
 
+            <!-- Gesamtpreis -->
+
+        @if (ausgewaehlte_produkte.length > 0 || kreationen.length > 0)
+            <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
+        @else
+            <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
+        @endif
+
+    <!-- Zur Kasse Button -->
     <button class="auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
 
     <footer>
         @include('pages/partials/footer')
     </footer>
 
-
 </body>
 </html>
+   

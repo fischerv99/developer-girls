@@ -84,13 +84,19 @@ export default class WarenkorbsController {
       
               console.log(kreation)
           }
-
+ 
 }
           
       // Gesamtbetrag berechnen
-        const gesamtbetrag = ausgewaehlte_produkte.reduce((summe, produkt) => summe + produkt.preis, 0);
+      let gesamtpreis = ausgewaehlte_produkte.reduce((total, produkt) => {
+        return total + (produkt.preis * produkt.menge);
+    }, 0);
+    
+    gesamtpreis += kreationen.reduce((total, kreation) => {
+        return total + (kreation.preis * kreation.menge);
+    }, 0);
 
-      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtbetrag, kreationen });
+      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtpreis, kreationen });
     } 
 
 
