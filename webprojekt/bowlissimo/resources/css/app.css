@@ -619,7 +619,7 @@ h3.überschrift_zusatz {
 
 
 /*IMPRESSUM & DATENSCHUTZ & WARENKORB*/
-.impressum, .datenschutz, .warenkorb{
+.impressum, .datenschutz, .warenkorb {
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
   color: #fff; /* Weiße Schriftfarbe */
@@ -628,62 +628,97 @@ h3.überschrift_zusatz {
   margin-left: 80px; /* Verschiebt den Container nach rechts */
 }
 
-.impressum h1, .datenschutz h1, .warenkorb h1 {
+.impressum h1, .datenschutz h1 {
   font-family: fantasy; 
   font-size: 32px;
   color: #FCF8ED;
 }
 
-.impressum h2, .datenschutz h2, .warekorb h2 {
+.impressum h2, .datenschutz h2 {
 font-family: fantasy; 
 font-size: 20px;
 }
 
 /* Textabschnitte */
-.impressum p, .datenschutz p, .warenkorb p{
+.impressum p, .datenschutz p {
   margin-bottom: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
 
 /* Warenkorb */
-.warenkorb-content {
-  padding-top: 8rem; /* Abstand zum Titel */
+
+.warenkorb h1 {
+  font-family: fantasy; 
+  font-size: 32px;
+  color: #FCF8ED;
 }
 
-.warenkorb .produkt {
-  margin-bottom: 2rem; /* Abstand zwischen den Produkten */
+.warenkorb-inhalt {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
+
+.produkt h2 {
+  margin-bottom: 10px; 
+}
+
 
 .menge-steuerung {
   display: flex;
-  align-items: center;
-  gap: 0,5rem;
-}
-
-.menge-steuerung .minus-button, .menge-steuerung .plus-button {
-  background-color: #FCF8ED;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.5rem;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.menge-steuerung .minus-button:hover, .menge-steuerung .plus-button:hover {
-  color:#FCC21D;
+  gap: 10px;
+  margin: 10px 0;
 }
 
 .menge {
   font-size: 12px;
 }
 
-.entfernen-button {
-    border: none;
-    padding: 3px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
+/* Buttons */
+.minus-button, .plus-button, .entfernen-button {
+  padding: 5px;
+  font-size: 16px;
+  color: #649e4c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.minus-button:hover, .plus-button:hover, .entfernen-button:hover {
+  color:#FCC21D;
+}
+
+.gesamtpreis {
+  text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* zur Kasse Button, Weiter Einkaufen */
+.kasse_auswahl, .weiter_einkaufen {
+  width: 20%;
+  padding: 15px;
+  background-color: #ffffff;
+  color: #649e4c;
+  font-size:16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;  /* Text in Großbuchstaben */
+  font-weight: bold;
+} 
+
+.kasse_auswahl:hover, .weiter_einkaufen:hover {
+  color:#FCC21D;
+}
+
+
+
+
 
 /* LOG IN SEITE */
 

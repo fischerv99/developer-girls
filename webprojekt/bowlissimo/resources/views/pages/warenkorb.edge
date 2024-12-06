@@ -7,9 +7,43 @@
     <link rel="stylesheet" href="resources/css/app.css">
 </head>
 <body>
-    
-    <h1>Warenkorb</h1>
+    <header class="header">
+        @include('pages/partials/header')
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben_ohne_log">
+            <ul>
+                <li><a href="/" class="inaktiv">PASTA-BOWLS</a></li>
+                <li><a href="/startseite_drinks" class="aktiv">DRINKS</a></li>
+                <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
+                
+                @if(!kundeAngemeldet)
+                <li><a href="/login" class="inaktiv">
+                    <img src="/storage/profil.png" alt="Logo" style="width: 35px; height: 35px;">
+                </a></li>   
+                @endif
 
+                @if(kundeAngemeldet)
+                <a href="/favoriten" class="inaktiv">
+                    <img src="/storage/herz.png" alt="Logo" style="width: 25px; height: 25px;">
+                </a>
+
+                <li><a href="/logout" class="inaktiv">Logout</a></li>
+                @endif
+                
+            </ul>
+        </nav>        
+    </header>
+<<main class="warenkorb">
+      <!-- Weiter Einkaufen Button -->   
+      <button class="weiter_einkaufen" onclick="window.location.href='/'">Weiter einkaufen</button>
+<h1>Warenkorb</h1>
+
+  <div class="warenkorb-inhalt">
     @if (ausgewaehlte_produkte)
      @each (produkt in ausgewaehlte_produkte)
         <div class="produkt">
@@ -73,22 +107,24 @@
         </div>
     @endeach
     @endif
-                 
 
-            <!-- Gesamtpreis -->
-
+ <!-- Gesamtpreis -->
+    <div class="gesamtpreis">
         @if (ausgewaehlte_produkte.length > 0 || kreationen.length > 0)
             <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
         @else
             <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
         @endif
+    </div>
+  </div>
 
-    <!-- Zur Kasse Button -->
-    <button class="auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
+ <!-- Zur Kasse Button -->
+    <button class="kasse_auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
+</main>
 
-    <footer>
-        @include('pages/partials/footer')
-    </footer>
+<footer>
+   @include('pages/partials/footer')
+</footer>
 
 </body>
 </html>
