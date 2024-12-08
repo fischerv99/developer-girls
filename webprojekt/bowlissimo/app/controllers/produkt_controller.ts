@@ -213,7 +213,7 @@ public async startseite_beilagen({ view, session }: HttpContext) {
     }
 }
 
-public async details({ view, params }: HttpContext) {
+public async details({ view, params, session }: HttpContext) {
    // Kategorie und ID aus params extrahieren
   const { kategorie, id } = params;
   // Dynamische Tabelle basierend auf der Kategorie wählen
