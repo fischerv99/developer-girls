@@ -179,12 +179,12 @@
         <div class="warenkorb_hellgrün">
             <script src="/resources/js/kreation.js" defer></script>
             <div class="deine_kreation">
-                <h2 class="überschrift">DEINE KREATION</h2>
+                <h2 class="warenkorbhellgrün_überschrift">DEINE KREATION</h2>
                 @if (!aktuelle_pasta)
                     <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
                 @endif
                 @if (aktuelle_pasta) 
-                    <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
+                    <h3 class="warenkorbhellgrün_überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
                 <div class="deine_kreation_bilder"> 
                     <div class="kreation_pasta">
                         <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">

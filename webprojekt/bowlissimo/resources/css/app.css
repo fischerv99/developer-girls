@@ -21,6 +21,7 @@ body {
 body {
   background-color: #649e4c;
 }
+
 .main {
   display: flex;
   padding-top: 150px;
@@ -32,15 +33,14 @@ body {
 
 .main_startseitepasta {
   display: grid;
-  grid-template-columns: 75% 25%;
-  gap: 20px; /* Optionaler Abstand zwischen Spalten */
-  width: 100%; /* Nimmt die gesamte Breite ein */
-  height: calc(100vh - 150px); /* Höhe dynamisch basierend auf der Viewport-Höhe */
-  box-sizing: border-box; /* Verhindert Überlauf */
-  padding-top: 140px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: auto;
+  gap: 20px;
+  width: 100%;
+  height: calc(100vh-150px);
+  padding: 20px;
+  box-sizing: border-box;
+  padding-top: 150px;
 }
 
 
@@ -50,9 +50,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #649e4c; /* Grüner Hintergrund für das Logo */
-  padding: 20px 0; /* Abstand um das Logo */
-  position: fixed; /* Fixiert das Logo am oberen Rand */
+  background-color: #649e4c;
+  padding: 20px 0;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1001;
@@ -61,8 +61,8 @@ body {
   
 /* Logo */
 .header img {
-  width: 200px; /* Größe des Logos anpassen */
-  height: auto; /* Höhe automatisch anpassen */
+  width: 200px;
+  height: auto;
 }
 
 /*NAVIGATION*/
@@ -716,10 +716,6 @@ font-size: 20px;
   color:#FCC21D;
 }
 
-
-
-
-
 /* LOG IN SEITE */
 
 .login_form {
@@ -767,9 +763,12 @@ font-size: 20px;
   padding-bottom: 20px;
 }
 
+
 /* KREATIONEN */
 .deine_kreation {
   text-align: center;
+  max-height: calc(100vh-200px);
+  overflow-y: auto;
 }
 
 .deine_kreation_bilder {
@@ -824,6 +823,8 @@ font-size: 20px;
   position: absolute;
   width: 80px;
   height: 80px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .kreation_toppings_bild {
@@ -832,50 +833,61 @@ font-size: 20px;
   object-fit: cover;
 }
 
+
 /* WARENKORB HELLGRÜN */
 
 .produkt_darstellung {
-  width: 100%; /* Nimmt den gesamten Spaltenplatz ein */
-  max-width: 100%; /* Verhindert Überlauf */
-  overflow-y: auto; /* Scrollen bei Überfüllung */
-  padding: 0 20px; /* Optionaler Innenabstand */
-  margin: 0; /* Kein äußerer Rand */
+  grid-column: 1;
+  overflow-y: auto;
+  padding: 0 20px;
+  margin: 0;
 }
 
 
 .warenkorb_hellgrün {
-  width: 100%; /* Nimmt den gesamten Spaltenplatz ein */
-  max-width: 100%; /* Verhindert Überlauf */
-  overflow-y: auto; /* Scrollen bei Überfüllung */
-  padding: 20px; /* Innenabstand für bessere Lesbarkeit */
-  background-color: #e6f4e6; /* Optional: leichter grüner Hintergrund */
-  border-radius: 8px; /* Optional: abgerundete Ecken */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Schatten */
+  position: sticky;
+  top: 150px;
+  width: 100%;
+  max-width: 100%;
+  grid-column: 2;
+  height: 100%;
+  min-width: 25%;
+  padding: 20px;
+  background-color: #e6f4e6;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
   .main {
-    grid-template-columns: 1fr; /* Beide Bereiche übereinander */
+    grid-template-columns: 1fr;
   }
 
   .produkt_darstellung,
   .warenkorb_hellgrün {
-    width: 100%; /* Volle Breite */
-    padding: 10px; /* Weniger Innenabstand */
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    max-height: 100%;
+    overflow-y:auto;
   }
 }
 
+.warenkorbhellgrün_überschrift {
+  width: 100%;
+  display: flex;
+  font-family: fantasy;
+  align-items: center;
+  color: #649e4c;
+  padding: 20px 20px 20px 40px;
+}
 
-
-
-
-
-
-
-
-
-
-
+.warenkorbhellgrün_überschrift_zusatz {
+  padding-bottom: 13px;
+  font-size: 20px;
+  color: #649e4c;
+  text-align: left;
+}
 
 
 /* FOOTER */
