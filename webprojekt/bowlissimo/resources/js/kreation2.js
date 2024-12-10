@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const toppings = document.querySelectorAll(".kreation_toppings");
     const totalToppings = toppings.length;
-    const toppingsWrapper = document.querySelector(".kreation_toppings_wrapper");
 
     if (totalToppings > 0) {
         const radius = 150; // Radius des Kreises
@@ -16,9 +15,5 @@ document.addEventListener("DOMContentLoaded", () => {
             topping.style.left = `${x}px`;
             topping.style.top = `${y}px`;
         });
-
-        toppingsWrapper.classList.remove("empty"); // Entferne die "leer"-Klasse
-    } else {
-        toppingsWrapper.classList.add("empty"); // Füge die "leer"-Klasse hinzu
     }
 });
