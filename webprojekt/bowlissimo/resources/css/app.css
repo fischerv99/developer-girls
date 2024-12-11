@@ -850,7 +850,7 @@ font-size: 20px;
   width: 100%;
   max-width: 100%;
   grid-column: 2;
-  height: 100vh;
+  height: calc(100vh - 180px);
   min-width: 25%;
   padding: 20px 20px 10px 10px;
   background-color: #e6f4e6;
@@ -859,19 +859,25 @@ font-size: 20px;
 }
 
 @media (max-width: 768px) {
-  .main {
-    grid-template-columns: 1fr;
+  .main_startseitepasta {
+      display: flex;
+      flex-direction: column; /* Produkte und Warenkorb untereinander */
   }
 
-  .produkt_darstellung,
+  .produkt_darstellung {
+      width: 100%; /* Nimmt die volle Breite ein */
+  }
+
   .warenkorb_hellgrün {
-    position: relative;
-    width: 100%;
-    padding: 10px;
-    max-height: 100%;
-    overflow-y:auto;
+      position: relative; /* Positionierung ändern */
+      top: auto;
+      width: 100%; /* Breite des Warenkorbs auf 100% setzen */
+      margin-top: 20px; /* Abstand über dem Warenkorb */
+      height: auto; /* Höhe flexibel lassen */
+      overflow-y: auto; /* Scrollen innerhalb des Warenkorbs bei Bedarf */
   }
 }
+
 
 .warenkorbhellgrün_überschrift {
   width: 100%;
