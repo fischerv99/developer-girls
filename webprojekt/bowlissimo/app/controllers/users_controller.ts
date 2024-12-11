@@ -148,6 +148,9 @@ public async favoriten_hinzufuegen({ response, session, params}: HttpContext) {
                         kreation_id: kreation_id,
                         name: "Pasta-Bowl"
             });
+    //Bei der Kreation vermerken, dass sie favorisiert wurde
+    await db.from('kreation').where('id', kreation_id).update({favorisiert: 1});
+
     return response.redirect('/favoriten');
 } } 
 

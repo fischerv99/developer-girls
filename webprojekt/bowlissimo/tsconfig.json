@@ -3,6 +3,8 @@
   "compilerOptions": {
     "moduleResolution": "node16",
     "rootDir": "./",
-    "outDir": "./build"
+    "outDir": "./build",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   }
 }

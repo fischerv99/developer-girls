@@ -11,6 +11,7 @@
 
 import 'reflect-metadata'
 import { Ignitor, prettyPrintError } from '@adonisjs/core'
+import CartCleanupService from '../app/services/clean.ts' // Importiere den Bereinigungsservice
 
 /**
  * URL to the application root. AdonisJS need it to resolve
@@ -34,6 +35,7 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
     app.booting(async () => {
       await import('#start/env')
     })
+    
     app.listen('SIGTERM', () => app.terminate())
     app.listenIf(app.managedByPm2, 'SIGINT', () => app.terminate())
   })
