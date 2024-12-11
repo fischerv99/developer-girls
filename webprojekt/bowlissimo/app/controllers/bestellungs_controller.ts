@@ -34,10 +34,11 @@ export default class BestellungsController {
             vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart, kunde_id
         })
 
-        //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird
+        //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird und welcher kunde
         await db.from('warenkorb_bestellung')
                 .where('session_id', session.sessionId)
                 .update({in_bestellung: 1,
+                         kunde_id: kunde_id
         })
         
         //Session löschen, da Bestellung abgeschlossen
@@ -65,13 +66,15 @@ export default class BestellungsController {
                 vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart
             })
     
-    //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird
+    //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird und Kunde vermerken
     await db.from('warenkorb_bestellung')
     .where('session_id', session.sessionId)
     .update({in_bestellung: 1,
+             kunde_id: nutzername
 })
 
   //Session löschen, da Bestellung abgeschlossen
+    session.forget(session.sessionId)
 
         return view.render('pages/dankeseite', {vorname})
         }

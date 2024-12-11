@@ -7,7 +7,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   // Session-ID prüfen und setzen (03.12.Evy)
   if (!session.get('sessionId')) {
-   // session.put('sessionId', session.sessionId);
+      session.put('sessionId', session.sessionId);
   }
     console.log("Session ID: ",session.sessionId);
 
