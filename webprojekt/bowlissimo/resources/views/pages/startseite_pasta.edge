@@ -135,53 +135,6 @@
             </div>
 
             <script src="/resources/js/kreation.js" defer></script>
-            <div class="deine_kreation">
-                <h2 class="überschrift">DEINE KREATION</h2>
-                @if (!aktuelle_pasta)
-                    <h3 class="überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
-                @endif
-                @if (aktuelle_pasta) 
-                    <h3 class="überschrift_zusatz">-WOW, SIEHT DAS LECKER AUS</h3>
-                <div class="deine_kreation_bilder"> 
-                    <div class="kreation_pasta">
-                        <img src="{{aktuelle_pasta.bild}}" alt="{{ aktuelle_pasta.id }}" class="kreation_pasta_bild" longdesc="Ein Bild von {{ aktuelle_pasta.id }} in Herzform." width="100" height="100">
-                    </div>
-                @endif
-                @if (aktuelle_soße)
-                <div class="kreation_soße">
-                    <img src="{{aktuelle_soße.bild}}" alt="{{ aktuelle_soße.id }}" class="kreation_soße_bild" longdesc="Ein Bild von {{ aktuelle_soße.id }} in Herzform." width="100" height="100">
-                </div>
-                @endif
-                <div class="kreation_toppings_wrapper">
-                    @if (aktuelle_toppings)
-                        @each (sorte in aktuelle_toppings)
-                        <div class="kreation_toppings">
-                            <img src="{{sorte.bild}}" alt="{{ sorte.id }}" class="kreation_toppings_bild" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="100" height="100">
-                        </div>
-                    @endeach
-                </div>
-                @endif
-                </div>
-                <!--Favoriten Button nur anzeigen, wenn Kunde angemeldet ist und eine Kreation mit Pasta und Soße ausgewählt-->
-                @if(kundeAngemeldet && aktuelle_soße)
-                <div class="favoriten_button">
-                    <button id="favoriten" onclick="window.location.href='/favoriten/hinzufuegen/{{ aktuelle_kreation.id }}'">
-                        <span id="favoriten_text">Zu FAVORITEN HINZUFÜGEN </span>
-                @endif      
-                <!--Warenkorb Button nur anzeigen, wenn Kunde eine Kreation mit Pasta und Soße ausgewählt-->
-                @if (aktuelle_soße)
-                <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
-                    <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
-                </button>
-                @endif
-                @if (aktuelle_kreation && !aktuelle_soße)
-                    <p>Wähle noch eine Soße</p>
-                @endif
-                @if (!aktuelle_kreation)
-                    <p>Keine Kreation ausgewählt</p>
-                @endif
-                </div>
-           </div>
         </div>
 
         <div class="warenkorb_hellgrün">

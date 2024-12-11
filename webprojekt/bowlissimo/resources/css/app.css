@@ -476,9 +476,9 @@ h3.überschrift_zusatz {
   padding: 12px;
   font-size: 16px;
   color:#f4f4f4;
-  border: none; /* Kein Rahmen */
-  border-radius: 5px; /* Abgerundete Ecken */
-  cursor: pointer; /* Zeigt Klickbarkeit an */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   background-color:transparent;
 }
 
@@ -852,7 +852,7 @@ font-size: 20px;
   grid-column: 2;
   height: 100vh;
   min-width: 25%;
-  padding: 20px;
+  padding: 20px 20px 10px 10px;
   background-color: #e6f4e6;
   border-radius: 8px;
   overflow: hidden;
