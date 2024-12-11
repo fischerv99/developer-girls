@@ -134,13 +134,15 @@ public async startseite_pasta({ view, session }: HttpContext) {
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
-                  const aktuelle_toppings_ids = kreation_toppings.map((topping) => topping.topping_id);
+                  const aktuelle_toppings_ids = kreation_toppings.map((topping) => topping.topping_id); 
+                  //Ergebnis ist im Format: [ Chilli, Tofu, Pilze]
+                  console.log(aktuelle_toppings_ids)
                   //Toppings speichern
                     const aktuelle_toppings = await db.from('toppings')
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, aktuelle_toppings_ids })
               }
               
             } 

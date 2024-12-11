@@ -109,11 +109,19 @@
                     <div class="produkt_sorten" data-id="{{ sorte.id }}">
                         <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                         <div class="auswahl">
+                            @if(aktuelle_toppings_ids && aktuelle_toppings_ids.includes(sorte.id))
                             <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
                                 {{csrfField()}}
                                 <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
-                                <button class="auswahl_button"  type="submit"> Auswählen/Löschen </button>
+                                <button class="auswahl_button"  type="submit"> Löschen </button>
                             </form>
+                            @else
+                            <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
+                                {{csrfField()}}
+                                <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
+                                <button class="auswahl_button" type="submit">Auswählen</button>
+                            </form>
+                            @endif
                             <h4 class="produkt_id">{{ sorte.id }}</h4>
                             <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
                             <p class="produkt_preis_euro" data-preis="{{ sorte.preis }}">€</p>
