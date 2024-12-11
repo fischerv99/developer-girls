@@ -99,7 +99,9 @@ export default class WarenkorbsController {
     gesamtpreis += kreationen.reduce((total, kreation) => {
         return total + (kreation.preis * kreation.menge);
     }, 0);
-
+     
+    const lieferkosten = 2; 
+    gesamtpreis += lieferkosten;
       return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtpreis, kreationen, kundeAngemeldet });
     } 
 
