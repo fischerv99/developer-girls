@@ -74,6 +74,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               const kreation_toppings = await db.from('kreation_toppings')
                                                 .where('kreation_id', aktuelle_kreation_id)
                                                 .select('*')
+              console.log(kreation_toppings)
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
@@ -82,12 +83,14 @@ public async startseite_pasta({ view, session }: HttpContext) {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
                   const aktuelle_toppings_ids = kreation_toppings.map((topping) => topping.topping_id);
+                  //Ergebnis ist im Format: [ Chilli, Tofu, Pilze]
+                  console.log(aktuelle_toppings_ids)
                   //Toppings speichern
                     const aktuelle_toppings = await db.from('toppings')
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings_ids, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
   } } } } else {
 
   const anzahl_warenkorb = 0;
