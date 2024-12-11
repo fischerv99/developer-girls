@@ -6,6 +6,10 @@ export default class WarenkorbsController {
   // Warenkorb anzeigen
     public async warenkorb({ view, session }: HttpContext) {
 
+      //Schauen ob nutzer angemeldet ist 
+      //prüft, ob ein Kunde angemeldet ist, und speichert das Ergebnis als true oder false in der Variablen kundeAngemeldet.
+      const kundeAngemeldet = session.get('kunde') !== undefined;
+
       //alle id der warenkorb_bestellung abrufen, welche zur session gehört -> Liste von warenkorb_bestellung-Einträgen zurückgeben, die der session_id entsprechen
       const warenkorb_bestellungen = await db.from('warenkorb_bestellung').where('session_id', session.sessionId).select('*');
 
@@ -96,7 +100,7 @@ export default class WarenkorbsController {
         return total + (kreation.preis * kreation.menge);
     }, 0);
 
-      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtpreis, kreationen });
+      return view.render('pages/warenkorb', { ausgewaehlte_produkte, gesamtpreis, kreationen, kundeAngemeldet });
     } 
 
 
