@@ -111,6 +111,7 @@
  <!-- Gesamtpreis -->
     <div class="gesamtpreis">
         @if (ausgewaehlte_produkte.length > 0 || kreationen.length > 0)
+           <p class="lieferkosten"> Lieferkosten: 2 € </p>
             <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
         @else
             <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>

@@ -688,6 +688,13 @@ font-size: 20px;
   color:#FCC21D;
 }
 
+.lieferkosten {
+  text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .gesamtpreis {
   text-align: left;
     font-size: 24px;
