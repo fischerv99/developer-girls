@@ -1,12 +1,10 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import db from "@adonisjs/lucid/services/db"
 import CartCleanupService from '../services/clean.ts' // Importiere den Bereinigungsservice
-import { Console } from 'console'
 
 
 
 export default class ProduktesController {
-
 public async startseite_pasta({ view, session }: HttpContext) {
   // Bereinigungsservice starten
   new CartCleanupService()  // Bereinigung wird im Hintergrund ausgeführt
@@ -28,9 +26,6 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const pasta = await db.from('pasta').select('*')
   const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
-
-      // Abrufen der Städte-Daten aus der Datenbank
-      const cities = await db.from('cities').select('City', 'Postcodes')
 
   //Aktuelle Anzahl der Produkte im Warenkorb berechnen
     //Dazu Warenkorb_id extrahieren
@@ -55,9 +50,8 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                     .first();
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
-  console.log("cities 1", cities);
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -99,8 +93,8 @@ public async startseite_pasta({ view, session }: HttpContext) {
                     const aktuelle_toppings = await db.from('toppings')
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
-                console.log(cities);
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings_ids, cities, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings_ids, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
   } } } } else {
 
   const anzahl_warenkorb = 0;
@@ -155,19 +149,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
 
-                return view.render('pages/startseite_pasta', { 
-                  pasta, 
-                  soßen, 
-                  toppings, 
-                  aktuelle_pasta, 
-                  aktuelle_soße, 
-                  aktuelle_toppings, 
-                  aktuelle_kreation, 
-                  anzahl_warenkorb, 
-                  kundeAngemeldet, 
-                  aktuelle_toppings_ids, 
-                  cities
-                })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, aktuelle_toppings_ids })
               }
               
             } 
