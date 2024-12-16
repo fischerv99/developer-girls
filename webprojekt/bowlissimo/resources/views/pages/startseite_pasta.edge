@@ -6,11 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bowlissimo</title>
     <link rel="stylesheet" href="resources/css/app.css">
+
 </head>
 
 <body>
-
     <header class="header">
+
+    <!--Pop-up für Städte-->
+    <div id="location-popup" class="popup hidden">
+        <div class="popup-content">
+          <h2>Deine Stadt auswählen</h2>
+          <form id="location-form">
+            <label for="city-select">Stadt</label>
+            <select id="city-select" name="city" required>
+              <option value="" disabled selected>Wähle deine Stadt</option>
+                @each (city in cities)
+                <option value="{{ city.City }}">{{ city.City }} </option>
+                @endeach
+            </select>
+      
+            <label for="zipcode">Postleitzahl</label>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Deine PLZ" required pattern="\d{5}" readonly />
+      
+            <button type="submit" class="btn">Bestätigen</button>
+          </form>
+        </div>
+    </div>
+    <div class="popup-overlay"></div>
+ 
+
         @include('pages/partials/header')
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-icon">
@@ -138,6 +162,9 @@
         <div class="warenkorb_hellgrün">
             <script src="/resources/js/kreation.js" defer></script>
             <div class="deine_kreation">
+
+ 
+
                 <h2 class="warenkorbhellgrün_überschrift">DEINE KREATION</h2>
                 @if (!aktuelle_pasta)
                     <h3 class="warenkorbhellgrün_überschrift_zusatz">-WÄHLE DEINE LIEBLINGSPASTA</h3>
@@ -191,5 +218,42 @@
         @include('pages/partials/footer')
     </footer>
 
+
+    <script>
+        // Elemente selektieren
+        const popup = document.getElementById('location-popup');
+        const overlay = document.querySelector('.popup-overlay');
+
+        // Funktion: Pop-up öffnen
+        function openPopup() {
+        popup.classList.add('visible'); // Pop-up sichtbar machen
+        overlay.classList.add('visible'); // Overlay sichtbar machen
+        document.body.classList.add('blurred'); // Hintergrund verschwommen machen
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+  const citySelect = document.getElementById("city-select");
+  const zipcodeInput = document.getElementById("zipcode");
+          // Event-Listener für die Auswahl im Dropdown
+  citySelect.addEventListener("change", (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const selectedValue = selectedOption.value; // Postleitzahl als Wert
+    citySelect.value = selectedValue; // PLZ ins Input-Feld setzen
+  });
+});
+  
+        // Funktion: Pop-up schließen
+        function closePopup() {
+        popup.classList.remove('visible'); // Pop-up ausblenden
+        overlay.classList.remove('visible'); // Overlay ausblenden
+        document.body.classList.remove('blurred'); // Hintergrund normal
+        }
+
+        // Beispiel: Pop-up automatisch nach 2 Sekunden öffnen
+        setTimeout(openPopup, 2000);
+
+        // Pop-up schließen, wenn Overlay geklickt wird
+        overlay.addEventListener('click', closePopup);
+
+    </script>
 </body>
 </html>
