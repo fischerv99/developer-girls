@@ -15,17 +15,16 @@ const KreationsController = () => import('#controllers/kreations_controller')
 const UsersController = () => import('#controllers/users_controller')
 const AdminController = () => import('#controllers/admin_controller')
 const WarenkorbsController = () => import('#controllers/warenkorbs_controller')
-const SonstigesController = () => import('#controllers/sonstiges_controller') 
+const SonstigesController = () => import('#controllers/sonstiges_controller')
 const BestellungsController = () => import('#controllers/bestellungs_controller')
-
-
 
 
 //Routen für Startseiten (Kunde nicht angemeldet) -> ProduktController
 router.get('/', [ProduktController, 'startseite_pasta'])
 router.get('/startseite_drinks', [ProduktController, 'startseite_getraenke'])
 router.get('/startseite_beilagen', [ProduktController, 'startseite_beilagen'])
-  // Detailansicht für ein Produkt (auch für angemeldete Kunden)
+router.get('/startseite_pasta', [ProduktController, 'startseite_pasta'])
+// Detailansicht für ein Produkt (auch für angemeldete Kunden)
 router.get('/details/:kategorie/:id', [ProduktController, 'details'])
 
 //Routen für Kreationen (Kunde nicht angemeldet und angemeldet) -> KreationController
@@ -34,13 +33,13 @@ router.post('/update_kreatio_sosse', [KreationsController, 'update_kreation_soss
 router.post('/update_kreation_toppings', [KreationsController, 'update_kreation_topping'])
 
 //Routen für eingeloggte Kunden:  Registriert sich/einloggen -> UsersController
- // Registrierung
+// Registrierung
 router.get('/register', [UsersController, 'registrieren'])
 router.post('/register', [UsersController, 'registrieren2'])
-  // Login
+// Login
 router.get('/login', [UsersController, 'login'])
 router.post('/login', [UsersController, 'login2'])
-  //Favoriten
+//Favoriten
 router.get('/favoriten', [UsersController, 'favoriten'])
 router.get('/favoriten/hinzufuegen/:id', [UsersController, 'favoriten_hinzufuegen'])
 router.post('/favoriten/update-name/:id', [UsersController, 'favoriten_update_name'])
@@ -59,15 +58,13 @@ router.get('/administratorbereich/getraenke', [AdminController, 'getraenke'])
 router.get('/administratorbereich/beilagen', [AdminController, 'beilagen'])
 router.get('/administratorbereich/logout', [AdminController, 'logout'])
 
-//Hinzufügen eines neuen Produkts
+// Hinzufügen eines neuen Produkts
 router.get('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', [AdminController, 'hinzufuegen'])
 router.post('/administratorbereich/hinzufuegen/:oberkategorie/:unterkategorie', [AdminController, 'hinzufuegen2'])
- //Bearbeiten eines Produkts-> id noch ändern können?
+// Bearbeiten eines Produkts-> id noch ändern können?
 router.get('/administratorbereich/bearbeiten/:oberkategorie/:id', [AdminController, 'bearbeiten'])
 router.post('/administratorbereich/bearbeiten/:oberkategorie/:id', [AdminController, 'bearbeiten2'])
 router.post('/administratorbereich/loeschen/:oberkategorie/:id', [AdminController, 'loeschen'])
- 
-
 
 // Routen für den Warenkorb -> WarenkorbsController
 router.get('/warenkorb', [WarenkorbsController, 'warenkorb'])
@@ -75,7 +72,6 @@ router.get('/warenkorb/hinzufuegen/:oberkategorie/:produkt', [WarenkorbsControll
 router.post('/warenkorb/entfernen/:produkt', [WarenkorbsController, 'entfernen'])
 router.post('/warenkorb/menge/erhoehen/:produkt', [WarenkorbsController, 'erhoehen'])
 router.post('/warenkorb/menge/verringern/:produkt', [WarenkorbsController, 'verringern'])
-
 
 //Route für Datenschutz und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
