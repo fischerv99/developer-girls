@@ -17,8 +17,8 @@ public async startseite_pasta({ view, session }: HttpContext) {
   }
     console.log("Session ID: ",session.sessionId);
 
-  this.setSessionStart(session); // Startzeit setzen
-  this.trackLastActivity(session, 'startseite_pasta'); // Letzte Aktivität und besuchte Seite tracken
+  this.setSessionStart(session); // Startzeit setzen (Evy)
+  this.trackLastActivity(session, 'startseite_pasta'); // Letzte Aktivität und besuchte Seite tracken (Evy)
 
   //Schauen ob nutzer angemeldet ist 
   //prüft, ob ein Kunde angemeldet ist, und speichert das Ergebnis als true oder false in der Variablen kundeAngemeldet.
@@ -29,8 +29,10 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const soßen = await db.from('saucen').select('*')
   const toppings = await db.from('toppings').select('*')
 
-      // Abrufen der Städte-Daten aus der Datenbank
-      const cities = await db.from('cities').select('City', 'Postcodes')
+  // Abrufen der Städte-Daten aus der Datenbank (Evy)
+  const cities = await db.from('cities').select('City', 'Postcodes')
+  console.log('Cities aus der Datenbank:', cities); // Debug-Ausgabe im Terminal
+
 
   //Aktuelle Anzahl der Produkte im Warenkorb berechnen
     //Dazu Warenkorb_id extrahieren
@@ -67,7 +69,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -88,7 +90,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb,kundeAngemeldet })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb,kundeAngemeldet, cities })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -113,7 +115,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -123,7 +125,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -143,7 +145,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
