@@ -11,12 +11,15 @@
  
 <!-- Wenn der Kunde momentan nicht angemeldet ist --> 
   @if(angemeldet == false) 
-<button onclick="window.location.href='/login'">Ich habe schon ein Konto </button>
-<button onclick="window.location.href='/register'"> Ich möchte mir ein Konto erstellen </button>
+<div class="kasse-buttons">
+  <button onclick="window.location.href='/login'">Ich habe schon ein Konto </button>
+  <button onclick="window.location.href='/register'"> Ich möchte mir ein Konto erstellen </button>
+</div>
 
-<h3> Als Gast bestellen </h3>
+  <h3 class="gast-bestellen-text">Als Gast bestellen</h3>
   <form action="/bestellen_als_gast" method="post" enctype= "application/x-www-form-urlencoded" class="login_form">
     {{csrfField()}}
+
 
     <label for ="vorname" class="login_überschrift">Vorame:</label>
     <input type="text" id="vorname" name="vorname" required>
@@ -77,8 +80,9 @@
 
         <label for="email" class="login_überschrift">E-Mail:</label>
         <input type="email" id="email" name="email" value="{{kunde.mail}}" required>
-        
+
         <button type="submit">Kostenpflichtig bestellen</button>
+  
     </form>
   @endif
 

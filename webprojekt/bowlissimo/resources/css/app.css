@@ -903,7 +903,61 @@ font-size: 20px;
 }
 
 
-/* FOOTER */
+/* DANKESEITE */
+.text {
+  padding-bottom: 13px;
+    font-size: 20px;
+    color: #FCF8ED;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 40px;
+}
+
+/*Kasse*/
+
+
+
+.kasse-buttons button {
+  display: flex; /* Buttons nebeneinander anordnen */
+  gap: 10px; /* Abstand zwischen den Buttons */
+  width: 20%;
+  padding: 15px;
+  background-color: #ffffff;
+  color: #649e4c;
+  font-size:16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;  /* Text in Großbuchstaben */
+  font-weight: bold;
+} 
+
+.kasse-buttons buttons:hover {
+  color: #FCC21D;
+}
+
+.kasse-als-gast {
+  text-align: center; /* Text zentrieren */
+  margin-bottom: 15px; /* Abstand zum Button */
+  font-size: 16px; /* Optional: Schriftgröße */
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER - bitte ganz unten stehen lassen */
 footer {
   display: flex;                /* Flexbox aktivieren */
   align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
@@ -941,13 +995,4 @@ footer * {
   margin: 0;
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
-}
-
-/* DANKESEITE */
-.text {
-  padding-bottom: 13px;
-    font-size: 20px;
-    color: #FCF8ED;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-left: 40px;
 }
