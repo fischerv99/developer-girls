@@ -4,12 +4,17 @@ class CartCleanupService {
   private cleanupInterval: number;
 
   constructor() {
+<<<<<<< HEAD
     this.cleanupInterval = 60 * 24; // alle 24h wird der Warenkorb bereinigt
+=======
+    this.cleanupInterval = 24 * 60 * 60 * 1000; // 24 Stunden in Millisekunden
+>>>>>>> parent of 9618cf9 (dtenbankbereinigung)
     this.startCleanup();
   }
 
   private async cleanupOldCarts() {
     try {
+<<<<<<< HEAD
       const  bereinigungs_zeit = new Date(Date.now() - this.cleanupInterval).toISOString(); //zeitstempel ist mind 24h älter als jetzt
 
       const gel_warenkorb = await db.from('warenkorb_bestellung')
@@ -18,10 +23,15 @@ class CartCleanupService {
                                            .select('id');
       
       console.log('Los gehts mit:', gel_warenkorb);
+=======
+      const deletedCarts = await db.from('warenkorb_bestellung')
+        .where('in_bestellung', 0)
+>>>>>>> parent of 9618cf9 (dtenbankbereinigung)
 
-      //wenn es welche gibt:
-      if (gel_warenkorb.length > 0) {
+      const deletedProducts = await db.from('ausgewähltes_produkt')
+        .whereIn('warenkorb_id', deletedCarts)
 
+<<<<<<< HEAD
         console.log('Alte Warenkörbe vorhanden, die nicht bestellt wurden: ', gel_warenkorb);
 
       const warenkorb_ids = gel_warenkorb.map((warenkorb) => warenkorb.id);
@@ -93,18 +103,34 @@ class CartCleanupService {
     
       //verbindung kreation zu toppings löschen wenn kreation älter als 24h
       const kreation_id_2 = gel_Kreationen_2.map((kreation) => kreation.id);
+=======
+      const deletedCreations = await db.from('kreation')
+        .whereIn('id', deletedProducts)
+        .where('favorisiert', 0)
+        .delete();
+
+>>>>>>> parent of 9618cf9 (dtenbankbereinigung)
       await db.from('kreation_toppings')
-             .whereIn('kreation_id', kreation_id_2)
-             .delete();
+        .whereIn('kreation_id', deletedCreations)
+        .delete();
 
-      //kreationen löschen, die nicht im warenkorb waren, nicht favorisiert wurden und älter als 24h sind
-      await db.from('kreation')
-             .orWhere('id', kreation_id_2)
-             .andWhere('favorisiert', 0)
-             .delete();
+      const gelöschte_Kreationen = await db.from('kreation')
+        .where('status', "nicht_warenkorb")
+        .delete();
+      
+      await db.from('kreation_toppings')
+        .whereIn('kreation_id', gelöschte_Kreationen)
+        .delete();
+      
+      await db.from('ausgewähltes_produkt')
+        .whereIn('warenkorb_id', deletedCarts)
+        .delete();
 
-      console.log('Bereinigung abgeschlossen'); }
+      await db.from('warenkorb_bestellung')
+        .where('in_bestellung', 0)
+        .delete();
 
+      console.log('Bereinigung abgeschlossen');
     } catch (error) {
       console.error('Fehler bei der Bereinigung:', error);
     }

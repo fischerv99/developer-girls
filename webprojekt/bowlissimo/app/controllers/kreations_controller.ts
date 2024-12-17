@@ -21,7 +21,6 @@ export default class KreationsController {
                           preis: 5.99,
                           favorisiert: 0,
                           session_id: session.sessionId,
-                          zeitstempel: new Date().toISOString() // Zeitstempel für spätere Bereinigung
                 })
         } else {
             //Wenn schon eine Kreation existiert, dann nur die Nudelsorte updaten

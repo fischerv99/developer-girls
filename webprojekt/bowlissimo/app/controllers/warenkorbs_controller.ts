@@ -122,8 +122,7 @@ export default class WarenkorbsController {
             await db.table('warenkorb_bestellung')
                     .insert({session_id: session.sessionId,
                             in_bestellung: false,
-                            id: Math.abs(Math.floor(Math.random() * 1_000_000)), // Generate ID in JS
-                            zeitstempel: new Date().toISOString() // Zeitstempel für spätere Bereinigung
+                            id: Math.abs(Math.floor(Math.random() * 1_000_000)) // Generate ID in JS
                     })
 
             //neues ausgewaehltes Produkt erstellen mit neuer ID
