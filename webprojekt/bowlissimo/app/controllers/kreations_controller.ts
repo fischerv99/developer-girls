@@ -19,7 +19,6 @@ export default class KreationsController {
                           id: Math.abs(Math.floor(Math.random() * 1_000_000)),
                           status: "nicht_warenkorb",
                           preis: 5.99,
-                          favorisiert: 0,
                           session_id: session.sessionId,
                           zeitstempel: new Date().toISOString() // Zeitstempel für spätere Bereinigung
                 })
