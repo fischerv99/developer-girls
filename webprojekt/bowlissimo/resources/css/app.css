@@ -913,12 +913,22 @@ font-size: 20px;
 }
 
 /*Kasse*/
+h3 {
+  color: white; /* Textfarbe auf weiß setzen */
+  font-size: 20px; /* Schriftgröße anpassen */
+  text-align: center; /* Text zentrieren */
+  margin-bottom: 20px; /* Optional: Abstand nach unten */
+}
 
-
+.kasse-buttons {
+  display: flex; /* Flexbox aktivieren */
+  justify-content: center; /* Zwischen den Buttons Platz lassen */
+  gap: 10px; /* Abstand zwischen den Buttons */
+  width:100%; /* Breite der Buttons */
+  margin: 20px auto; /* Zentriert die Buttons */
+}
 
 .kasse-buttons button {
-  display: flex; /* Buttons nebeneinander anordnen */
-  gap: 10px; /* Abstand zwischen den Buttons */
   width: 20%;
   padding: 15px;
   background-color: #ffffff;
@@ -937,14 +947,20 @@ font-size: 20px;
   color: #FCC21D;
 }
 
-.kasse-als-gast {
-  text-align: center; /* Text zentrieren */
-  margin-bottom: 15px; /* Abstand zum Button */
-  font-size: 16px; /* Optional: Schriftgröße */
-  color: white;
+.kasse-button-bestellen {
+  width: 20%;
+  padding: 15px;
+  background-color: #ffffff;
+  color: #649e4c;
+  font-size:16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;  /* Text in Großbuchstaben */
+  font-weight: bold;
 }
-
-
 
 
 
