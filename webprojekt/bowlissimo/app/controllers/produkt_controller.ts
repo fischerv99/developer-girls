@@ -31,7 +31,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   // Abrufen der Städte-Daten aus der Datenbank (Evy)
   const cities = await db.from('cities').select('City', 'Postcodes')
-  console.log('Cities aus der Datenbank:', cities); // Debug-Ausgabe im Terminal
+      //console.log('Cities aus der Datenbank:', cities); // Debug-Ausgabe im Terminal
 
 
   //Aktuelle Anzahl der Produkte im Warenkorb berechnen

@@ -15,7 +15,7 @@
     <!--Pop-up für Städte-->
     <div id="location-popup" class="popup hidden">
         <div class="popup-content">
-          <h2>Deine Stadt auswählen</h2>
+          <h2>Wo willst du essen?</h2>
           <form id="location-form">
             <label for="city-select">Stadt</label>
             <select id="city-select" name="city" required>
@@ -23,12 +23,12 @@
                 @each (city in cities)
                 <option value="{{ city.City }}">{{ city.City }} </option>
                 @endeach
-            </select>
+            </select> 
       
             <label for="zipcode">Postleitzahl</label>
             <input type="text" id="zipcode" name="zipcode" placeholder="Deine PLZ" required pattern="\d{5}" readonly />
       
-            <button type="submit" class="btn">Bestätigen</button>
+            <button type="submit" class="btn_revert">Bestätigen</button>
           </form>
         </div>
     </div>
