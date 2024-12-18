@@ -7,6 +7,9 @@ export default class ProduktesController {
 
 public async startseite_pasta({ view, session }: HttpContext) {
 
+  const cartCleanupService = CartCleanupService.getInstance();
+  console.log('CartCleanupService gestartet:', cartCleanupService);
+
   // Session-ID prüfen und setzen (03.12.Evy)
   if (!session.get('sessionId')) {
       session.put('sessionId', session.sessionId);
@@ -206,8 +209,6 @@ public async startseite_getraenke({ view, session }: HttpContext) {
 }
 
 public async startseite_beilagen({ view, session }: HttpContext) {
-
-  //new CartCleanupService(); // Bereinigungsservice starten
 
   this.setSessionStart(session); // Startzeit setzen
   this.trackLastActivity(session, 'startseite_beilagen'); // Letzte Aktivität und besuchte Seite tracken
