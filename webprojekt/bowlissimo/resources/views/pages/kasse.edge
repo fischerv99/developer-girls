@@ -50,9 +50,10 @@
 
       <label for="email" class="login_überschrift">E-Mail:</label>
       <input type="email" id="email" name="email" required>
-  
+    <div class="kasse-buttons">
       <button type="submit">Kostenpflichtig bestellen</button>
-    </form>
+    </div>
+  </form>
     @endif
 
     <!-- Wenn der Kunde momentan angemeldet ist, soll Formular vorausgefüllt sein --> 
@@ -85,11 +86,10 @@
 
       <label for="email" class="login_überschrift">E-Mail:</label>
       <input type="email" id="email" name="email" value="{{kunde.mail}}" required>
-
-      <div class="kasse-buttons">
-        <button type="submit">Kostenpflichtig bestellen</button>
-      </div>
-    </form>
+    <div class="kasse-buttons">
+      <button type="submit">Kostenpflichtig bestellen</button>
+    </div>
+  </form>
     @endif
   </main>
 </body>
