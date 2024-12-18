@@ -1,94 +1,122 @@
 import db from "@adonisjs/lucid/services/db" // Import für Datenbankzugriffe
 
-class CartCleanupService {
+class CartCleanupService { 
   private cleanupInterval: number;
 
   constructor() {
-    this.cleanupInterval = 1000 * 60 * 60 * 24; // 24 Stunden
-    this.startCleanup();
+    this.cleanupInterval = 60 * 24; // 24 Stunden
+      this.startCleanup();
+    }
+  
+    private startCleanup() {
+      setInterval(() => {
+        this.cleanupOldCarts();
+      }, this.cleanupInterval);
   }
 
   private async cleanupOldCarts() {
     try {
+      const  bereinigungs_zeit = new Date(Date.now() - this.cleanupInterval).toISOString(); //zeitstempel ist mind 24h älter als jetzt
+
       const gel_warenkorb = await db.from('warenkorb_bestellung')
                                            .where('in_bestellung', 0)
-                                           .andWhere('zeitstempel', '<', new Date(Date.now() - this.cleanupInterval).toISOString()) //zeitstempel älter als 2 Minuten
+                                           .andWhere('zeitstempel', '<', bereinigungs_zeit) 
                                            .select('id');
-
+       
       //wenn es welche gibt:
       if (gel_warenkorb.length > 0) {
 
+        console.log('Alte Warenkörbe vorhanden, die nicht bestellt wurden: ', gel_warenkorb);
+
       const warenkorb_ids = gel_warenkorb.map((warenkorb) => warenkorb.id);
+      console.log('zu löschende Warenkorb IDs: ', warenkorb_ids);
+
       const gel_podukte = await db.from('ausgewaehltes_produkt')
-                                       .whereIn('warenkorb_id', warenkorb_ids)
-                                        .select('produkt');
+                                  .whereIn('warenkorb_id', warenkorb_ids)
+                                  .select('produkt')
+                                  .whereIn('warenkorb_id', warenkorb_ids)
+                                  .select('produkt');
+      //ergebnis ist array mit produkt ids: [{produkt: 1}, {produkt: 2}, ...]
 
      //kreationen, die im Warenkörben waren aber nicht bestellt wurden
       const gel_produkte_id = gel_podukte.map((produkt) => produkt.produkt);
+      console.log('zu löschende Produkte IDs: ', gel_produkte_id);
+      
       const gel_kreationen_1 = await db.from('kreation')
                                        .whereIn('id', gel_produkte_id)
-                                       .where('favorisiert', 0)
+                                       .andWhere('favorisiert', 0)
                                        .select('id');
+             //ergebnnis ist array mit kreationen: [{id: 1, ...}, {id: 2, ...}, ...]
+        console.log('zu löschende Kreationen: ', gel_kreationen_1);
         
     //verbindung kreation zu toppings löschen wenn kreation nicht mehr vorhanden
-    await db.from('kreation_toppings')
-    .whereIn('kreation_id', gel_kreationen_1)
-    .delete();
+    const gel_kreationen_1_ids = gel_kreationen_1.map((kreation) => kreation.id);
+    console.log('zu löschende Kreationen IDs: ', gel_kreationen_1_ids);
+
+    const gel_toppings_1 = await db.from('kreation_toppings')
+                                   .whereIn('kreation_id', gel_kreationen_1_ids)
+                                   .delete(); 
+
+    console.log('alte toppings gelöscht', gel_toppings_1);
 
     //kreationen löschen, die im Warenkorb waren aber nicht bestellt wurden,äler als 14h sind und nicht favorisiert sind
-    const kreation_id_1 = gel_kreationen_1.map((kreation) => kreation.id);
     await db.from('kreation')
-    .whereIn('id', kreation_id_1)
-    .andWhere('zeitstempel', '<', new Date(Date.now() - this.cleanupInterval).toISOString())
-    .andWhere('favorisiert', 0)
-    .delete();
+            .whereIn('id', gel_kreationen_1_ids)
+            .andWhere('zeitstempel', '<', bereinigungs_zeit)
+            .andWhere('favorisiert', 0)
+            .delete();
 
+    console.log('alte kreationen, die nicht bestellt gelöscht', gel_kreationen_1_ids);
+    
      //ausgewählte Produkte löschen, die im Warenkorb waren aber nicht bestellt wurden
      await db.from('ausgewähltes_produkt')
-     .whereIn('warenkorb_id', warenkorb_ids) 
-     .delete();
+             .whereIn('warenkorb_id', warenkorb_ids) 
+             .delete();
+
+      console.log('alte Produkte aus Warenkorb gelöscht', warenkorb_ids);
 
    //Warenkorb löschen, die nicht bestellt wurden
    await db.from('warenkorb_bestellung')
-     .where('in_bestellung', 0)
-     .delete();
+           .whereIn('id', warenkorb_ids)
+           .delete();
+
+      console.log('Alte Warenkörbe gelöscht');
       
-      }
-      
-      //kreationen, die nicht im Warenkorb waren und älter als 24h sind
+      } 
+      //Kreationen löschen, die nicht im Warenkorb waren und älter als 24h sind
       const gel_Kreationen_2 = await db.from('kreation')
                                        .where('status', "nicht_warenkorb")
-                                       .where('favorisiert', 0)
-                                       .andWhere('zeitstempel', '<', new Date(Date.now() - this.cleanupInterval).toISOString())
+                                       .andWhere('favorisiert', 0)
+                                       .andWhere('zeitstempel', '<', bereinigungs_zeit)
                                        .select('id');
-      
-      //wenn es keine Kreationen gibt, die älter als 24h sind
+
+     //wenn es Kreationen gibt, die älter als 24h sind und nicht im Warenkorb waren
       if (gel_Kreationen_2.length > 0) {
+
+        console.log('Kreationen vorhanden, die nicht im Warenkorb waren und älter als 24h sind');
     
       //verbindung kreation zu toppings löschen wenn kreation älter als 24h
       const kreation_id_2 = gel_Kreationen_2.map((kreation) => kreation.id);
-      await db.from('kreation_toppings')
-             .whereIn('kreation_id', kreation_id_2)
-             .delete();
+      console.log('zu löschende Kreationen IDs 2: ', kreation_id_2);
 
-      //kreationen löschen, die nicht im warenkorb waren, nicht favorisiert wurden und älter als 24h sind
+      const gel_toppings_2= await db.from('kreation_toppings')
+                                    .whereIn('kreation_id', kreation_id_2)
+                                    .delete()
+  
+      console.log('alte toppings 2 gelöscht', gel_toppings_2);
+
+      //kreationen löschen, die nicht im Warenkorb waren und älter als 24h sind
       await db.from('kreation')
-             .orWhere('id', kreation_id_2)
-             .andWhere('favorisiert', 0)
-             .delete();
+              .whereIn('id', kreation_id_2)
+              .delete();
 
-      console.log('Bereinigung abgeschlossen'); }
+      console.log('alte kreationen gelöscht', kreation_id_2);
+      }
 
     } catch (error) {
-      console.error('Fehler bei der Bereinigung:', error);
+      console.error('Fehler beim Bereinigen des Warenkorbs:', error);
     }
-  }
+  } }
 
-  private startCleanup() {
-    setInterval(() => {
-      this.cleanupOldCarts();
-    }, this.cleanupInterval);
-  }
-}
+  export default CartCleanupService;
 
-export default CartCleanupService;
