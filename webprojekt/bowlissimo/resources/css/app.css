@@ -1057,15 +1057,6 @@ footer * {
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
 }
 
-<<<<<<< Updated upstream
-/* DANKESEITE */
-.text {
-  padding-bottom: 13px;
-    font-size: 20px;
-    color: #FCF8ED;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-left: 40px;
-}
 
 /* Pop-up Styling (Evy) */
 #city-select, #zipcode {
@@ -1086,10 +1077,6 @@ footer * {
 
 }
 
-=======
-
-/* Pop-up Styling */
->>>>>>> Stashed changes
 .popup {
   font-size: 25px;
   line-height: 2.5;
