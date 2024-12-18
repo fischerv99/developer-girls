@@ -18,7 +18,7 @@
         <nav class="nav_oben_ohne_log">
             <ul>
                 <li><a href="/" class="inaktiv">PASTA-BOWLS</a></li>
-                <li><a href="/startseite_drinks" class="aktiv">DRINKS</a></li>
+                <li><a href="/startseite_drinks" class="inaktiv">DRINKS</a></li>
                 <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
                 
                 @if(!kundeAngemeldet)
@@ -113,14 +113,15 @@
         @if (ausgewaehlte_produkte.length > 0 || kreationen.length > 0)
            <p class="lieferkosten"> Lieferkosten: 2 € </p>
             <p>Gesamtpreis: {{ gesamtpreis.toFixed(2) }} €</p>
+            
+            <!-- Zur Kasse Button -->
+    <button class="kasse_auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
         @else
             <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
         @endif
     </div>
   </div>
 
- <!-- Zur Kasse Button -->
-    <button class="kasse_auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
 </main>
 
 <footer>

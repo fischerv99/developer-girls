@@ -58,7 +58,7 @@
 
     <!-- Wenn der Kunde momentan angemeldet ist, soll Formular vorausgefüllt sein --> 
     @if(angemeldet == true)
-    <h3> Hallo {{kunde.nutzername}}, Du kannst deine Daten anpassen und wir speichern sie für dich. </h3>
+    <h3> Hallo {{kunde.kunden_id}}, Du kannst deine Daten anpassen und wir speichern sie für dich. </h3>
     <form action="/bestellen/{{kunde.kunden_id}}" method="post" enctype="application/x-www-form-urlencoded" class="login_form">
         {{csrfField()}}
       
