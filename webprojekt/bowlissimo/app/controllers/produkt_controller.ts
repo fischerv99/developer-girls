@@ -1,15 +1,11 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import db from "@adonisjs/lucid/services/db"
+import Console from 'console'
 import CartCleanupService from '../services/clean.ts' // Importiere den Bereinigungsservice
-import { Console } from 'console'
-
-
 
 export default class ProduktesController {
 
 public async startseite_pasta({ view, session }: HttpContext) {
-  // Bereinigungsservice starten
-  new CartCleanupService()  // Bereinigung wird im Hintergrund ausgeführt
 
   // Session-ID prüfen und setzen (03.12.Evy)
   if (!session.get('sessionId')) {
@@ -210,6 +206,9 @@ public async startseite_getraenke({ view, session }: HttpContext) {
 }
 
 public async startseite_beilagen({ view, session }: HttpContext) {
+
+  //new CartCleanupService(); // Bereinigungsservice starten
+
   this.setSessionStart(session); // Startzeit setzen
   this.trackLastActivity(session, 'startseite_beilagen'); // Letzte Aktivität und besuchte Seite tracken
 
