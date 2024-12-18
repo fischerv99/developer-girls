@@ -25,10 +25,10 @@
       <form action="/login" method="post" enctype="application/x-www-form-urlencoded" class="login_form">
         {{csrfField()}}
         <label for="nutzername" class="login_überschrift">Nutzername:</label>
-        <input type="text" id="nutzername" name="nutzername" required>
+        <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Nutzernamen ein.">
     
         <label for="passwort" class="login_überschrift">Passwort:</label>
-        <input type="password" id="passwort" name="passwort" required>
+        <input type="password" id="passwort" name="passwort" required placeholder="Geben Sie Ihr Passwort ein.">
     
         <button type="submit" class="einloggen_button">Einloggen</button>
       </form>

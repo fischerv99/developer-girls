@@ -260,7 +260,7 @@ h3.überschrift_zusatz {
     position: absolute;
     top: 0;
     left: 40px; /* Gleicher linker Abstand wie die Überschriften */
-    right: 40px; /* Optional: rechter Abstand für Symmetrie */
+    right: 40px;
     width: calc(100% - 80px);
     height: 2px;
     background-color: #FCF8ED; /* Farbe der Linie */
@@ -491,7 +491,7 @@ h3.überschrift_zusatz {
   text-decoration: underline;
 }
 
-#zum_warenkorb_hinzufügen {
+#zum_warenkorb_hinzufügen, #favoriten {
   color: #649e4c;
   padding: 5px 10px;
   font-size: 14px;
@@ -502,7 +502,7 @@ h3.überschrift_zusatz {
   cursor: pointer;
 }
 
-#zum_warenkorb_hinzufügen:hover {
+#zum_warenkorb_hinzufügen:hover, #favoriten_text:hover {
   background-color: #ececec;
   font-weight: bold;
 }
@@ -511,63 +511,63 @@ h3.überschrift_zusatz {
 .product-details {
   margin-top: 160px;
   display: flex;
-  flex-wrap: wrap; /* Ermöglicht ein Umbruchverhalten bei kleinen Bildschirmen */
-  justify-content: space-between; /* Teilt die Seiten gleichmäßig auf */
-  align-items: flex-start; /* Elemente oben ausrichten */
-  max-width: 1200px; /* Begrenzt die Breite des Containers */
-  gap: 20px; /* Abstand zwischen Bild und Beschreibung */
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  align-items: flex-start; 
+  max-width: 1200px;
+  gap: 20px;
   color: #FCF8ED;
 }
 
 .product-details h1 {
-  flex: 1 1 100%; /* Titel nimmt die gesamte Breite ein */
+  flex: 1 1 100%;
   font-family: fantasy;
   font-size: 2rem;
   margin-bottom: 20px;
-  text-align: left; /* Titel linksbündig */
+  text-align: left;
   color: #FCF8ED;
 }
 
 .product-image {
-  flex: 1; /* Nimmt einen Teil des verfügbaren Platzes ein */
-  text-align: center; /* Zentriert das Bild */
+  flex: 1;
+  text-align: center;
 }
 
 .product-image img {
-  width: 100%; /* Passt das Bild an die Breite des Containers an */
-  max-width: 300px; /* Begrenze die maximale Bildbreite */
-  height: auto; /* Erhalte das Seitenverhältnis */
-  margin-bottom: 20px; /* Abstand unter dem Bild */
+  width: 100%;
+  max-width: 300px; 
+  height: auto; 
+  margin-bottom: 20px;
 }
 
 .product-details p {
-  flex: 1; /* Nimmt Platz für die Beschreibung ein */
+  flex: 1; 
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 20px;
 }
 
 .product-details ul {
-  flex: 1; /* Nimmt Platz für die Liste ein */
-  list-style: none; /* Entfernt Aufzählungszeichen */
-  padding: 0; /* Entfernt den Standard-Innenabstand */
+  flex: 1;
+  list-style: none;
+  padding: 0;
 }
 
 .product-details ul li {
-  margin-bottom: 10px; /* Abstand zwischen den Listenpunkten */
+  margin-bottom: 10px;
   font-size: 1rem;
   line-height: 1.5;
 }
 
 .product-details ul li strong {
   font-size: 1.1rem;
-  color: #FCC21D; /* Hebt die Titel hervor */
+  color: #FCC21D;
 }
 
 @media (max-width: 768px) {
   .product-details {
-    flex-direction: column; /* Ordnet die Inhalte vertikal an */
-    align-items: center; /* Zentriert die Inhalte */
+    flex-direction: column; 
+    align-items: center;
   }
 
   .product-image {
@@ -575,33 +575,33 @@ h3.überschrift_zusatz {
   }
 
   .product-details h1 {
-    text-align: center; /* Titel zentriert */
+    text-align: center;
   }
 
   .product-details ul {
-    text-align: center; /* Liste zentriert */
+    text-align: center;
   }
 }
 
 .produkt_details_header {
-  display: flex; /* Flexbox für horizontale Anordnung */
-  align-items: center; /* Vertikale Zentrierung */
-  justify-content: space-between; /* Button ganz rechts, Überschrift links */
-  padding: 20px 40px; /* Behalte das Padding */
-  width: 100%; /* Nimmt die gesamte Breite ein */
-  max-width: 1200px; /* Begrenze die Breite auf großen Bildschirmen */
-  margin: 0 auto; /* Zentriere den Container horizontal */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
   .produkt_details_header {
-      flex-direction: row; /* Behalte die horizontale Anordnung */
-      align-items: center; /* Zentriere vertikal */
-      padding: 10px 20px; /* Weniger Padding auf kleinen Bildschirmen */
+      flex-direction: row;
+      align-items: center;
+      padding: 10px 20px;
   }
 
   .zurück_button {
-      margin-left: auto; /* Button bleibt rechts */
+      margin-left: auto;
   }
 }
 
@@ -609,8 +609,8 @@ h3.überschrift_zusatz {
   font-size: 30px;
   font-family: fantasy;
   color: #FCF8ED;
-  text-align: left; /* Überschrift links ausrichten */
-  flex-grow: 1; /* Überschrift nimmt den Platz zwischen den Rändern ein */
+  text-align: left;
+  flex-grow: 1;
 }
 
 .details_überschrift {
@@ -804,9 +804,9 @@ font-size: 20px;
   width: 75px;
   height: 75px;
   z-index: 2;
-  right: 45%; /* Verschiebt die Soße horizontal */
-  top: 45%; /* Positioniert sie näher an der Pasta */
-  transform: translate(50%, -50%); /* Überlappung nach rechts oben */
+  right: 45%; 
+  top: 45%;
+  transform: translate(50%, -50%);
 }
 
 .kreation_soße_bild {
@@ -868,20 +868,20 @@ font-size: 20px;
 @media (max-width: 768px) {
   .main_startseitepasta {
       display: flex;
-      flex-direction: column; /* Produkte und Warenkorb untereinander */
+      flex-direction: column;
   }
 
   .produkt_darstellung {
-      width: 100%; /* Nimmt die volle Breite ein */
+      width: 100%;
   }
 
   .warenkorb_hellgrün {
-      position: relative; /* Positionierung ändern */
+      position: relative;
       top: auto;
-      width: 100%; /* Breite des Warenkorbs auf 100% setzen */
-      margin-top: 20px; /* Abstand über dem Warenkorb */
-      height: auto; /* Höhe flexibel lassen */
-      overflow-y: auto; /* Scrollen innerhalb des Warenkorbs bei Bedarf */
+      width: 100%; 
+      margin-top: 20px;
+      height: auto;
+      overflow-y: auto;
   }
 }
 
@@ -904,12 +904,56 @@ font-size: 20px;
 
 
 /* DANKESEITE */
+.überschrift_dankeseite {
+  display: flex;
+  font-size: 40px;
+  width: 100%;
+  display: flex;
+  font-family: fantasy;
+  justify-content: center;
+  text-decoration: underline;
+  color:#FCC21D;
+  padding: 20px 20px 20px 40px;
+}
+
 .text {
+  display: flex;
   padding-bottom: 13px;
-    font-size: 20px;
-    color: #FCF8ED;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-left: 40px;
+  font-size: 25px;
+  color:#FCF8ED;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  justify-content: center;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Abstand zwischen den Zeitcontainern */
+}
+
+.time {
+  display: flex; 
+  flex-direction: row; 
+  align-items: center;
+  color: #FCF8ED;
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.time span#days,
+.time span#hours,
+.time span#minutes,
+.time span#seconds {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 20px; 
+  margin-left: 5px;
+  color: #FCC21D;
 }
 
 /*Kasse*/
@@ -1011,11 +1055,9 @@ footer * {
   margin: 0;
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
-<<<<<<< HEAD
-}
-=======
 }
 
+<<<<<<< Updated upstream
 /* DANKESEITE */
 .text {
   padding-bottom: 13px;
@@ -1044,6 +1086,10 @@ footer * {
 
 }
 
+=======
+
+/* Pop-up Styling */
+>>>>>>> Stashed changes
 .popup {
   font-size: 25px;
   line-height: 2.5;
@@ -1092,4 +1138,3 @@ footer * {
 body.blurred {
   overflow: hidden; /* Scrollen deaktivieren */
 }
->>>>>>> parent of a1b7a2a (Revert "Merge branch 'main' of https://github.com/fischerv99/developer-girls")

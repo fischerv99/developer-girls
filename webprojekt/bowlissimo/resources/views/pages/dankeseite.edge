@@ -8,8 +8,69 @@
     <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 <body>
-    <h1 class="überschrift">Danke für deine Bestellung!</h1>
-    <p class="text"> Vielen Dank, dass du bei uns bestellt hast, deine Bestellung wird in Kürze bei dir sein!</p>
+    <header class="header">
+        @include('pages/partials/header')
+    </header>
+    <main class="main">
+        <h1 class="überschrift_dankeseite">VIELEN DANK FÜR DEINE BESTELLUNG!</h1>
+        <p class="text">YUHU DEINE BOWL IST AUF DEM WEG!</p>
+        <div>
+            <h2>Countdown bis deine Kreation da ist:</h2>
+            <div class="countdown">
+                <div class="time">
+                    <span id="hours">00</span>
+                    <span class="label">Stunden</span>
+                </div>
+                <div class="time">
+                    <span id="minutes">00</span>
+                    <span class="label">Minuten</span>
+                </div>
+                <div class="time">
+                    <span id="seconds">00</span>
+                    <span class="label">Sekunden</span>
+                </div>
+            </div>
+                  
+        </div>
+        <img src="/storage/nudel.png" alt="Eine Nudel." longdesc="Ein Bild von einer Nudel im Comic-Style." width="200" height="200">
+        <button class="weiter_einkaufen" onclick="window.location.href='/startseite_pasta';">
+            <span class="weiter_einkaufen_text">Weiter einkaufen</span>
+        </button>
+    
+    
+        <script>
+            // Zieldatum festlegen
+            const countdownDate = new Date("Feb 30, 2025 18:30:00").getTime();
+    
+            // Countdown-Funktion
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+    
+                // Zeit in Tage, Stunden, Minuten und Sekunden umrechnen
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+                // HTML aktualisieren
+                document.getElementById('hours').innerHTML = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+    
+                // Überprüfen, ob der Countdown vorbei ist
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.querySelector('.countdown-container').innerHTML = "<h1>Event ist gestartet!</h1>";
+                }
+            }
+    
+            // Alle 1 Sekunde aktualisieren
+            const countdownInterval = setInterval(updateCountdown, 1000);
+    
+            // Erste Aktualisierung sofort durchführen, um Verzögerung zu vermeiden
+            updateCountdown();
+        </script>        
+    </main>
 </body>
 <footer>
     @include('pages/partials/footer')

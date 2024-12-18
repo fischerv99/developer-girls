@@ -3,40 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="stylesheet" href="/resources/css/app.css">
     <title>Login</title>
 </head>
 <body>
-
-    <header>
+    <header class="header">
         @include('pages/partials/header')
     </header>
+    <main class="main">
+        <div>
+            <a href="/login">Anmelden als Kunde</a>
+        </div>
 
-    <div>
-        <a href="/login">Anmelden als Kunde</a>
-    </div>
+        <div class="login">
+            <h1 class="überschrift">Anmelden als Administrator</h1>
+            <button class="zurück_button" onclick="window.history.back();">
+                <span class="zurück_button_text">Zurück</span>
+            </button>   
 
-<div class="login">
-    <h2>Anmelden als Administrator</h2>
+            @if (error != undefined)
+                Fehler: {{ error }}
+            @endif
 
-    @if (error != undefined)
-        Fehler: {{ error }}
-    @endif
+            <form action="/administratorbereich_login" method="POST" class="login_form"> <!-- Formular für die Anmeldung -->
+                {{csrfField()}}
+                <!-- Benutzername -->
+                <label for="nutzername" class="login_überschrift">Nutzername:</label>
+                <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Nutzernamen ein.">
 
-    <form action="/administratorbereich_login" method="POST"> <!-- Formular für die Anmeldung -->
-        {{csrfField()}}
-        <!-- Benutzername -->
-        <label for="nutzername">Benutzername</label>
-        <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Benutzernamen ein">
+                <!-- Passwort -->
+                <label for="passwort" class="login_überschrift">Passwort:</label>
+                <input type="password" id="passwort" name="passwort" required placeholder="Geben Sie Ihr Passwort ein.">
 
-        <!-- Passwort -->
-        <label for="passwort">Passwort</label>
-        <input type="password" id="passwort" name="passwort" required placeholder="Geben Sie Ihr Passwort ein">
-
-        <!-- Login Button -->
-        <button type="submit">Anmelden</button>
-    </form>
-</div>
+                <!-- Login Button -->
+                <button type="submit" class="einloggen_button">Anmelden</button>
+            </form>
+        </div>
+    </main>
 
     <footer>
         @include('pages/partials/footer')
