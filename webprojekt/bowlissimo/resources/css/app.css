@@ -10,7 +10,9 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: baileywick-jf-gothic, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Verhindert horizontales Scrollen */
@@ -191,7 +193,9 @@ nav ul li a.aktiv {
 .überschrift {
     width: 100%;
     display: flex;
-    font-family: fantasy;
+    font-family: baileywick-jf-gothic, sans-serif;
+    font-weight: 400;
+    font-style: normal;
     align-items: center;
     color: #FCF8ED;
     padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
@@ -199,7 +203,9 @@ nav ul li a.aktiv {
   
 .überschrift h1 {
     padding-left: 40px;
-    font-family: fantasy;
+    font-family: baileywick-jf-gothic, sans-serif;
+    font-weight: 400;
+    font-style: normal;
     font-size: 35px;
     text-align: left;
     color: #FCF8ED;
