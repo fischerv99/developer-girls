@@ -80,6 +80,7 @@
                 <div class="produkt_auswahl">
 
                     @each (sorte in pasta)
+                    <div class="produkt_sorten" data-id="{{ sorte.id.replace('ae', 'ä').replace('oe', 'ö').replace('ue', 'ü') }}">
                     <div class="produkt_sorten" data-id="{{ sorte.id }}">
                         <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                         <!-- width und height bei allen Bildern einbauen, da der Browser den Platz dann freihält, auch wenn das Bild noch nicht geladen ist. -->
@@ -131,6 +132,7 @@
                 <h3 class="überschrift_zusatz">- WÄHLE SO VIEL TOPPINGS WIE DU WILLST DAZU</h3>
                 <div class="produkt_auswahl">
                     @each (sorte in toppings)
+                    <div class="produkt_sorten" data-id="{{ sorte.id.replace('ae', 'ä').replace('oe', 'ö').replace('ue', 'ü') }}">
                     <div class="produkt_sorten" data-id="{{ sorte.id }}">
                         <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200">
                         <div class="auswahl">

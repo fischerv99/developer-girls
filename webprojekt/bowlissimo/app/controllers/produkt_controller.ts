@@ -1,12 +1,12 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import db from "@adonisjs/lucid/services/db"
-import Console from 'console'
 import CartCleanupService from '../services/clean.ts' // Importiere den Bereinigungsservice
 
 export default class ProduktesController {
 
 public async startseite_pasta({ view, session }: HttpContext) {
 
+  // Bereinigungsservice für den Warenkorb starten 
   const cartCleanupService = CartCleanupService.getInstance();
   console.log('CartCleanupService gestartet:', cartCleanupService);
 
@@ -24,9 +24,9 @@ public async startseite_pasta({ view, session }: HttpContext) {
   const kundeAngemeldet = session.get('kunde') !== undefined;
 
   // Produkte aus der Datenbank
-  const pasta = await db.from('pasta').select('*')
-  const soßen = await db.from('saucen').select('*')
-  const toppings = await db.from('toppings').select('*')
+  let pasta = await db.from('pasta').select('*')
+  let soßen = await db.from('saucen').select('*')
+  let toppings = await db.from('toppings').select('*')
 
   // Abrufen der Städte-Daten aus der Datenbank (Evy)
   const cities = await db.from('cities').select('City', 'Postcodes')
@@ -181,9 +181,10 @@ public async startseite_getraenke({ view, session }: HttpContext) {
   //Überprüfen ob kunde angemeldet 
   const kundeAngemeldet = session.get('kunde') !== undefined;
 
-  const smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
-  const erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
-  const alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
+  let smoothies = await db.from('getraenke').select('*').where('art', 'smoothie')
+  let erfrischungsgetränke = await db.from('getraenke').select('*').where('art', 'erfrischungsgetraenk')
+  let alkoholfreie_getränke = await db.from('getraenke').select('*').where('art', 'cocktail')
+
 
   //Aktuelle Anzahl der Produkte im Warenkorb berechnen
     //Dazu Warenkorb_id extrahieren
@@ -216,8 +217,9 @@ public async startseite_beilagen({ view, session }: HttpContext) {
   //Überprüfen ob kunde angemeldet
   const kundeAngemeldet = session.get('kunde') !== undefined;
 
-  const salate = await db.from('beilagen').select('*').where('art', 'salat')
-  const suppen = await db.from('beilagen').select('*').where('art', 'suppe')
+  //Produkte aus der db holen
+  let salate = await db.from('beilagen').select('*').where('art', 'salat')
+  let suppen = await db.from('beilagen').select('*').where('art', 'suppe')
   
   //Aktuelle Anzahl der Produkte im Warenkorb berechnen
     //Dazu Warenkorb_id extrahieren
