@@ -74,7 +74,7 @@
             <h2 class="überschrift_auswahl">SUPPEN</h2>
             <div class="produkt_auswahl">
                 @each (sorte in suppen)
-                    <div class="produkt_sorten" data-id="{{ sorte.id.replace('ae', 'ä').replace('oe', 'ö').replace('ue', 'ü').replace('ss', 'ß') }}">
+                    <div class="produkt_sorten" data-id="{{ sorte.id}}">
                         <img src="{{ sorte.bild }}" alt="{{ sorte.id }}" longdesc="Ein Bild von {{ sorte.id }} in Herzform." width="200" height="200"> 
                         <div class="auswahl">
                             <button class="auswahl_button" onclick="window.location.href='/warenkorb/hinzufuegen/beilagen/{{sorte.id}}'">
