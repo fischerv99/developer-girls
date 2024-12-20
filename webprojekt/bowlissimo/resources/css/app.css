@@ -1,3 +1,26 @@
+/*VARIABLEN*/
+:root {
+  /* Schriftarten */
+  --schriftart_überschrift: "baileywick-jf-gothic", sans-serif; /*für alle h1-Überschriften*/
+  --schriftart_texte: "roboto", sans-serif; /*alle Texte*/
+  --schriftart_nav_buttons: "aileron", sans-serif; /*für Navigation & Buttons*/
+
+  /* Schriftgrößen */
+  --schriftgröße_überschrift: 35px;
+  --schriftgröße_überschrift_zusatz: 20px;
+  --schriftgröße_nav_buttons: 20px; /*für Navigation & Buttons*/
+  --schriftgröße_texte: 18px; /*für Produktnamen*/
+  --schriftgröße_klein: 14px; /*für "Details", Preise, etc.*/
+
+  /* Farben */
+  --farbe_hintergrund:#649e4c; /*für alle Seiten*/
+  --farbe_hintergrund_nav:#FCF8ED; /*für Hintergrund Navigation & Buttons*/
+  --farbe_hintergrund_hellgrün:#bdd3aa; /*für den hellgrünen Warenkorb an der rechten Seite an der Startseite*/
+  --farbe_schriften1:#FCF8ED; /*für alle Texte*/
+  --farbe_schriften_konvert:#649e4c; /*für Texte, die auf hellem Hintergrund sind, Beispiel Navigation & Buttons*/
+  --farbe_akzente:#FCC21D; /*Akzentfarbe, verwenden für bspw hovern oder um „ausgewählt“ zu kennzeichnen*/
+}
+
 /*ALLGEMEIN*/
 
 * {
@@ -10,9 +33,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-family: baileywick-jf-gothic, sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: var(--schriftart_texte);
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Verhindert horizontales Scrollen */
@@ -21,7 +42,7 @@ body {
 }
 
 body {
-  background-color: #649e4c;
+  background-color: var(--farbe_hintergrund);
 }
 
 .main {
@@ -29,13 +50,13 @@ body {
   padding-top: 150px;
   flex-direction: column;
   width: 100%;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
   align-items: center;
 }
 
 .main_startseitepasta {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 70% 30%;
   grid-template-rows: auto;
   gap: 20px;
   width: 100%;
@@ -52,13 +73,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #649e4c;
+  background-color: var(--farbe_hintergrund);
   padding: 20px 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1001;
-  border-bottom: 5px solid #f4f4f4;
+  border-bottom: 5px solid var(--farbe_hintergrund_nav);
 }
   
 /* Logo */
@@ -69,16 +90,8 @@ body {
 
 /*NAVIGATION*/
 
-.inaktiv {
-  color: #649e4c;
-}
-
-.aktiv {
-  color: #FCC21D;
-}
-
 .nav_oben {
-  background-color: #FCF8ED;
+  background-color: var(--farbe_hintergrund_nav);
   padding-top: 25px;
   position: fixed; 
   top: 85px; 
@@ -90,7 +103,7 @@ body {
 }
 
 .nav_oben_ohne_log {
-  background-color: #FCF8ED;
+  background-color: var(--farbe_hintergrund_nav);
   padding-top: 5px;
   position: fixed; 
   top: 85px; 
@@ -113,7 +126,7 @@ nav ul {
 
 /* Links innerhalb der Menüpunkte */
 nav ul li a {
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
   text-decoration: none;
   padding: 10px 20px;
   transition: color 0.3s ease;
@@ -121,13 +134,13 @@ nav ul li a {
 
 /* Hover-Effekt für Links */
 nav ul li a:hover {
-  color: #FCC21D;
+  color: var(--farbe_akzente);
 }
 
 /* Aktiver Menüpunkt */
 nav ul li a.aktiv {
   font-weight: bold;
-  color: #FCC21D;
+  color: var(--farbe_akzente);
 }
 
 /* Verstecktes Checkbox-Element für die Navigation */
@@ -153,7 +166,7 @@ nav ul li a.aktiv {
   display: block;
   height: 2px;
   width: 22px;
-  background-color:#FCF8ED;
+  background-color:var(--farbe_hintergrund_nav);
   margin: 4px 0;
   transition: 0.3s ease;
 }
@@ -169,7 +182,7 @@ nav ul li a.aktiv {
       left: -250px;
       width: 250px;
       height: 100%;
-      background-color: #FCF8ED;
+      background-color: var(--farbe_hintergrund_nav);
       padding-top: 60px;
       transition: left 0.3s ease;
       z-index: 1000;
@@ -193,29 +206,25 @@ nav ul li a.aktiv {
 .überschrift {
     width: 100%;
     display: flex;
-    font-family: baileywick-jf-gothic, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: var(--schriftart_überschrift);
     align-items: center;
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
     padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
 }
   
 .überschrift h1 {
     padding-left: 40px;
-    font-family: baileywick-jf-gothic, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: var(--schriftart_überschrift);
     font-size: 35px;
     text-align: left;
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
     margin-right: 10px; /* Kleiner Abstand zwischen H1 und Basispreis */
 }
   
 .überschrift_zusatz {
     padding-bottom: 13px;
     font-size: 20px;
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
     text-align: left;
 }
   
@@ -223,7 +232,7 @@ nav ul li a.aktiv {
 .pasta, .soßen, .toppings, .erfrischungsgetränke, .beilagen, .smoothies, .alkoholfreie_cocktails {
     width: 100%;
     padding: 20px 20px 10px 40px; /* Einheitlicher linker Abstand */
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
 }
   
 .pasta h2.überschrift_auswahl, .soßen h2.überschrift_auswahl, .toppings h2.überschrift_auswahl, .beilage h2.überschrift_auswahl,
@@ -235,7 +244,7 @@ nav ul li a.aktiv {
 }
   
 h2.überschrift_auswahl {
-    font-family: fantasy;
+    font-family: var(--schriftart_texte);
     font-size: 1.5rem;
     margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
     text-align: left;
@@ -244,7 +253,7 @@ h2.überschrift_auswahl {
   
 h3.überschrift_zusatz {
     font-size: 1rem;
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
 }
   
 /* Linie über den Produkt-Containern */
@@ -269,7 +278,7 @@ h3.überschrift_zusatz {
     right: 40px;
     width: calc(100% - 80px);
     height: 2px;
-    background-color: #FCF8ED; /* Farbe der Linie */
+    background-color: var(--farbe_hintergrund_nav); /* Farbe der Linie */
 }
   
   
@@ -315,7 +324,7 @@ h3.überschrift_zusatz {
     text-align: center;
     padding: 10px;
     background-color: transparent;
-    color: #FCF8ED;
+    color: var(--farbe_schriften1);
     border-radius: 8px;
     transition: transform 0.3s ease;
 }
@@ -356,26 +365,27 @@ h3.überschrift_zusatz {
 /*BUTTONS*/
 
 .auswahl_button {
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
+  font-family: var(--schriftgröße_nav_buttons);
   padding: 5px 10px;
   font-size: 14px;
   border: none;
   border-radius: 6px;
-  background-color: #f4f4f4;
+  background-color: var(--farbe_hintergrund_nav);
   margin-top: 10px;
   cursor: pointer;
 }
 
 .auswahl_button:hover {
-  background-color: #ececec;
   font-weight: bold;
 }
 
 .details_button {
   display: block;
   text-align: center;
+  font-family: var(--schriftgröße_nav_buttons);
   width: 100%;
-  color:#f4f4f4;
+  color:var(--farbe_schriften_konvert);
   font-size: 12px;
   background-color: transparent;
   border: none;
@@ -384,31 +394,32 @@ h3.überschrift_zusatz {
 }
 
 .details_button:hover {
-  color: #FCC21D;
+  color: var(--farbe_akzente);
   font-weight: bold;
 }
 
 .zurück_button {
-  color: #f4f4f4;
+  color: var(--farbe_schriften1);
   font-size: 14px;
   border: none;
   background-color: transparent;
   padding-left: 40px;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--schriftgröße_nav_buttons);
   text-align: left;
 }
 
 .zurück_button:hover {
-  color: #FCC21D;
+  color: var(--farbe_akzente);
   font-weight: bold;
 }
 
 .bearbeiten_button {
   display: block;
+  font-family: var(--schriftgröße_nav_buttons);
   text-align: center;
   width: 100%;
-  color: #f4f4f4;
+  color: var(--farbe_hintergrund_nav);
   background-color: transparent;
   padding: 5px 10px;
   font-size: 12px;
@@ -418,17 +429,18 @@ h3.überschrift_zusatz {
 }
 
 .bearbeiten_button:hover {
-  color: #FCC21D;
+  color: var(--farbe_akzente);
   font-weight: bold;
 }
 
 .hinzufügen_button {
-  color: #649e4c;
+  font-family: var(--schriftgröße_nav_buttons);
+  color: var(--farbe_schriften_konvert);
   padding: 5px 10px;
   font-size: 14px;
   border: none;
   border-radius: 6px;
-  background-color: #f4f4f4;
+  background-color: var(--farbe_hintergrund_nav);
   margin: 10px;
   cursor: pointer;
 }
@@ -440,7 +452,6 @@ h3.überschrift_zusatz {
 }
 
 .hinzufügen_button:hover {
-  background-color: #ececec;
   font-weight: bold;
 }
 
@@ -448,8 +459,8 @@ h3.überschrift_zusatz {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  color: #f4f4f4;
-  background-color: #649e4c;
+  color: var(--farbe_hintergrund_nav);
+  background-color: var(--farbe_hintergrund);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -457,23 +468,23 @@ h3.überschrift_zusatz {
 }
 
 .einloggen_button:hover {
-  color:#FCC21D;
+  color:var(--farbe_akzente);
 }
 
 .keinkonto_text {
   margin-top: 15px;
   font-size: 14px;
   text-align: center;
-  color:#f4f4f4;
+  color:var(--farbe_schriften1);
 }
 
 .keinkonto_text .registrieren_button {
-  color: #f4f4f4;
+  color: var(--farbe_schriften1);
   text-decoration: underline;
 }
 
 .keinkonto_text .registrieren_button:hover {
-  color:#FCC21D;
+  color:var(--farbe_akzente);
   font-weight: bold;
 }
 
@@ -481,7 +492,7 @@ h3.überschrift_zusatz {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  color:#f4f4f4;
+  color: var(--farbe_schriften1);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -489,27 +500,26 @@ h3.überschrift_zusatz {
 }
 
 .login_form button[type="submit"]:hover {
-  color:#FCC21D;
+  color:var(--farbe_akzente);
 }
 
 .einloggen_button {
-  color: #f4f4f4;
+  color: var(--farbe_schriften1);
   text-decoration: underline;
 }
 
 #zum_warenkorb_hinzufügen, #favoriten {
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
   padding: 5px 10px;
   font-size: 14px;
   border: none;
   border-radius: 6px;
-  background-color: #f4f4f4;
+  background-color: var(--farbe_hintergrund_nav);
   margin: 10px;
   cursor: pointer;
 }
 
 #zum_warenkorb_hinzufügen:hover, #favoriten_text:hover {
-  background-color: #ececec;
   font-weight: bold;
 }
 
@@ -522,7 +532,7 @@ h3.überschrift_zusatz {
   align-items: flex-start; 
   max-width: 1200px;
   gap: 20px;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
 }
 
 .product-details h1 {
@@ -531,7 +541,7 @@ h3.überschrift_zusatz {
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: left;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
 }
 
 .product-image {
@@ -567,7 +577,7 @@ h3.überschrift_zusatz {
 
 .product-details ul li strong {
   font-size: 1.1rem;
-  color: #FCC21D;
+  color: var(--farbe_akzente);
 }
 
 @media (max-width: 768px) {
@@ -613,8 +623,8 @@ h3.überschrift_zusatz {
 
 .produkt_details_header .details_überschrift {
   font-size: 30px;
-  font-family: fantasy;
-  color: #FCF8ED;
+  font-family: var(--schriftart_überschrift);
+  color: var(--farbe_schriften1);
   text-align: left;
   flex-grow: 1;
 }
@@ -628,20 +638,20 @@ h3.überschrift_zusatz {
 .impressum, .datenschutz, .warenkorb {
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
-  color: #fff; /* Weiße Schriftfarbe */
+  color: var(--farbe_schriften1); /* Weiße Schriftfarbe */
   text-align: left; /* Text links ausrichten */
   margin: 8rem 0;
   margin-left: 80px; /* Verschiebt den Container nach rechts */
 }
 
 .impressum h1, .datenschutz h1 {
-  font-family: fantasy; 
+  font-family: var(--schriftart_überschrift); 
   font-size: 32px;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
 }
 
 .impressum h2, .datenschutz h2 {
-font-family: fantasy; 
+font-family: var(--schriftart_texte); 
 font-size: 20px;
 }
 
@@ -654,9 +664,9 @@ font-size: 20px;
 /* Warenkorb */
 
 .warenkorb h1 {
-  font-family: fantasy; 
+  font-family: var(--schriftart_überschrift); 
   font-size: 32px;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
 }
 
 .warenkorb-inhalt {
@@ -684,14 +694,14 @@ font-size: 20px;
 .minus-button, .plus-button, .entfernen-button {
   padding: 5px;
   font-size: 16px;
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .minus-button:hover, .plus-button:hover, .entfernen-button:hover {
-  color:#FCC21D;
+  color:var(--farbe_akzente);
 }
 
 .lieferkosten {
@@ -713,8 +723,8 @@ font-size: 20px;
 .kasse_auswahl, .weiter_einkaufen {
   width: 20%;
   padding: 15px;
-  background-color: #ffffff;
-  color: #649e4c;
+  background-color: var(--farbe_hintergrund_nav);
+  color: var(--farbe_schriften1);
   font-size:16px;
   border: none;
   border-radius: 12px;
@@ -726,7 +736,7 @@ font-size: 20px;
 } 
 
 .kasse_auswahl:hover, .weiter_einkaufen:hover {
-  color:#FCC21D;
+  color:var(--farbe_akzente);
 }
 
 /* LOG IN SEITE */
@@ -741,8 +751,8 @@ font-size: 20px;
 .login_form .login_überschrift {
   display: block;
   font-size: 16px;
-  color: #f4f4f4;
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--farbe_schriften1);
+  font-family: var(--schriftart_texte);
   margin-bottom: 8px;
   font-weight: bold;
 }
@@ -763,7 +773,7 @@ font-size: 20px;
 
 /* REGISTRIEREN */
 .registrieren_text {
-  color:#f4f4f4;
+  color:var(--farbe_schriften1);
   font-size: 15px;
   padding-left: 40px;
 }
@@ -780,7 +790,7 @@ font-size: 20px;
 /* KREATIONEN */
 .deine_kreation {
   text-align: center;
-  max-height: calc(100vh-200px);
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
 
@@ -819,7 +829,7 @@ font-size: 20px;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 2px white;
+  border: 2px var(--farbe_schriften1);
 }
 
 
@@ -866,7 +876,7 @@ font-size: 20px;
   height: calc(100vh - 180px);
   min-width: 25%;
   padding: 20px 20px 10px 10px;
-  background-color: #e6f4e6;
+  background-color: var(--farbe_hintergrund_hellgrün);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -895,16 +905,16 @@ font-size: 20px;
 .warenkorbhellgrün_überschrift {
   width: 100%;
   display: flex;
-  font-family: fantasy;
+  font-family: var(--schriftart_überschrift);
   align-items: center;
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
   padding: 20px 20px 20px 40px;
 }
 
 .warenkorbhellgrün_überschrift_zusatz {
   padding-bottom: 13px;
   font-size: 20px;
-  color: #649e4c;
+  color: var(--farbe_schriften_konvert);
   text-align: left;
 }
 
@@ -915,10 +925,10 @@ font-size: 20px;
   font-size: 40px;
   width: 100%;
   display: flex;
-  font-family: fantasy;
+  font-family: var(--schriftart_überschrift);
   justify-content: center;
   text-decoration: underline;
-  color:#FCC21D;
+  color:var(--farbe_akzente);
   padding: 20px 20px 20px 40px;
 }
 
@@ -926,8 +936,8 @@ font-size: 20px;
   display: flex;
   padding-bottom: 13px;
   font-size: 25px;
-  color:#FCF8ED;
-  font-family: Arial, Helvetica, sans-serif;
+  color:var(--farbe_schriften1);
+  font-family: var(--schriftart_texte);
   padding: 20px;
   justify-content: center;
 }
@@ -942,7 +952,7 @@ font-size: 20px;
   display: flex; 
   flex-direction: row; 
   align-items: center;
-  color: #FCF8ED;
+  color: var(--farbe_schriften1);
   padding: 20px 10px;
   text-align: center;
   font-size: 20px;
@@ -959,12 +969,12 @@ font-size: 20px;
 .label {
   font-size: 20px; 
   margin-left: 5px;
-  color: #FCC21D;
+  color: var(--farbe_akzente);
 }
 
 /*Kasse*/
 h3 {
-  color: white; /* Textfarbe auf weiß setzen */
+  color: var(--farbe_schriften1); /* Textfarbe auf weiß setzen */
   font-size: 20px; /* Schriftgröße anpassen */
   text-align: center; /* Text zentrieren */
   margin-bottom: 20px; /* Optional: Abstand nach unten */
@@ -981,8 +991,8 @@ h3 {
 .kasse-buttons button {
   width: 20%;
   padding: 15px;
-  background-color: #ffffff;
-  color: #649e4c;
+  background-color: var(--farbe_hintergrund_nav);
+  color: var(--farbe_schriften_konvert);
   font-size:16px;
   border: none;
   border-radius: 12px;
@@ -994,14 +1004,14 @@ h3 {
 } 
 
 .kasse-buttons buttons:hover {
-  color: #FCC21D;
+  color: var(--farbe_akzente);
 }
 
 .kasse-button-bestellen {
   width: 20%;
   padding: 15px;
-  background-color: #ffffff;
-  color: #649e4c;
+  background-color: var(--farbe_hintergrund_nav);
+  color: var(--farbe_schriften_konvert);
   font-size:16px;
   border: none;
   border-radius: 12px;
@@ -1020,17 +1030,17 @@ h3 {
 /* Pop-up Styling (Evy) */
 #city-select, #zipcode {
   font-size: 15px;
-  background-color: rgba(100, 158, 76, 0.2);
+  background-color:var(--farbe_hintergrund_hellgrün);
   border-radius: 6px;
 
 }
 .btn_revert {
-  color: #f4f4f4;
+  color: var(--farbe_schriften1);
   padding: 5px 10px;
   font-size: 14px;
   border: none;
   border-radius: 6px;
-  background-color: #649e4c;
+  background-color: var(--farbe_hintergrund);
   margin-top: 10px;
   cursor: pointer;
 
@@ -1046,8 +1056,8 @@ h3 {
   height: 500px;
   width: 90%; /* Breite des Pop-ups */
   max-width: 1000px; /* Maximalbreite */
-  background-color: #FCF8ED; /* Helles Hintergrundfarbe */
-  color: #649e4c; /* Textfarbe */
+  background-color: var(--farbe_hintergrund_nav); /* Helles Hintergrundfarbe */
+  color: var(--farbe_schriften_konvert); /* Textfarbe */
   padding: 60px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Schlagschatten */
   border-radius: 10px; /* Runde Ecken */
