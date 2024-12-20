@@ -35,7 +35,7 @@ body {
 
 .main_startseitepasta {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
   gap: 20px;
   width: 100%;
@@ -1098,18 +1098,6 @@ body.blurred {
 
 /* FOOTER - bitte ganz unten stehen lassen */
 
-@media (max-width: 768px) {
-  footer {
-    flex-direction: column; /* Flexbox-Richtung auf Spalte ändern */
-    align-items: center; /* Zentriert den Inhalt horizontal */
-    text-align: center; /* Text zentrieren */
-  }
-  footer .footer-links {
-    margin-left: 0; /* Entfernt den linken Abstand */
-    margin-top: 10px; /* Abstand nach oben */
-    text-align: center; /* Text zentrieren */
-  }
-}
 footer {
   display: flex;                /* Flexbox aktivieren */
   align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
@@ -1141,6 +1129,19 @@ footer a {
 footer a:hover {
   text-decoration: underline; /* Unterstreichung beim Hover */
   color:  #FCC21D;   /* Farbe beim Hover */
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column; /* Flexbox-Richtung auf Spalte ändern */
+    align-items: center; /* Zentriert den Inhalt horizontal */
+    text-align: center; /* Text zentrieren */
+  }
+  footer .footer-links {
+    margin-left: 0; /* Entfernt den linken Abstand */
+    margin-top: 10px; /* Abstand nach oben */
+    text-align: center; /* Text zentrieren */
+  }
 }
 
 /* Entfernen von zusätzlichen Rändern oder Linien */
