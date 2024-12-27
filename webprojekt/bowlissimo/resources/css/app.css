@@ -6,9 +6,10 @@
   --schriftart_nav_buttons: "aileron", sans-serif; /*für Navigation & Buttons*/
 
   /* Schriftgrößen */
-  --schriftgröße_überschrift: 35px;
+  --schriftgröße_überschrift: 35px; /*nur für h1-Überschriften!*/
+  --schriftgröße_unterüberschrift: 30px; /*für h2,h3,etc. Überschriften*/
   --schriftgröße_überschrift_zusatz: 20px;
-  --schriftgröße_nav_buttons: 20px; /*für Navigation & Buttons*/
+  --schriftgröße_nav_buttons: 15px; /*für Navigation & Buttons*/
   --schriftgröße_texte: 18px; /*für Produktnamen*/
   --schriftgröße_klein: 14px; /*für "Details", Preise, etc.*/
 
@@ -34,6 +35,7 @@ body {
   height: 100%;
   width: 100%;
   font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_texte);
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Verhindert horizontales Scrollen */
@@ -206,7 +208,6 @@ nav ul li a.aktiv {
 .überschrift {
     width: 100%;
     display: flex;
-    font-family: var(--schriftart_überschrift);
     align-items: center;
     color: var(--farbe_schriften1);
     padding: 20px 20px 20px 40px; /* Einheitlicher linker Abstand */
@@ -215,7 +216,7 @@ nav ul li a.aktiv {
 .überschrift h1 {
     padding-left: 40px;
     font-family: var(--schriftart_überschrift);
-    font-size: 35px;
+    font-size: var(--schriftgröße_überschrift);
     text-align: left;
     color: var(--farbe_schriften1);
     margin-right: 10px; /* Kleiner Abstand zwischen H1 und Basispreis */
@@ -223,7 +224,8 @@ nav ul li a.aktiv {
   
 .überschrift_zusatz {
     padding-bottom: 13px;
-    font-size: 20px;
+    font-family: var(--schriftart_texte);
+    font-size: var(--schriftgröße_überschrift_zusatz);
     color: var(--farbe_schriften1);
     text-align: left;
 }
@@ -245,14 +247,14 @@ nav ul li a.aktiv {
   
 h2.überschrift_auswahl {
     font-family: var(--schriftart_texte);
-    font-size: 1.5rem;
+    font-size: var(--schriftgröße_unterüberschrift);
     margin-right: 10px; /* Abstand zwischen Überschrift und Zusatztext */
     text-align: left;
     padding-left: 40px;
 }
   
 h3.überschrift_zusatz {
-    font-size: 1rem;
+    font-size: var(--schriftgröße_überschrift_zusatz);
     color: var(--farbe_schriften1);
 }
   
@@ -346,7 +348,7 @@ h3.überschrift_zusatz {
 }
 
 .produkt_preis {
-    font-size: 1rem;
+    font-size: var(--schriftgröße_klein);
     display: inline-flex;
     align-items: baseline;
     gap: 5px;
@@ -354,7 +356,7 @@ h3.überschrift_zusatz {
 }
   
 .produkt_preis_euro {
-    font-size: 1rem;
+    font-size: var(--schriftgröße_klein);
     display: inline-flex;
 }
   
@@ -368,7 +370,7 @@ h3.überschrift_zusatz {
   color: var(--farbe_schriften_konvert);
   font-family: var(--schriftgröße_nav_buttons);
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 6px;
   background-color: var(--farbe_hintergrund_nav);
@@ -384,9 +386,9 @@ h3.überschrift_zusatz {
   display: block;
   text-align: center;
   font-family: var(--schriftgröße_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
   width: 100%;
-  color:var(--farbe_schriften_konvert);
-  font-size: 12px;
+  color:var(--farbe_schriften1);
   background-color: transparent;
   border: none;
   text-decoration: underline;
@@ -400,7 +402,7 @@ h3.überschrift_zusatz {
 
 .zurück_button {
   color: var(--farbe_schriften1);
-  font-size: 14px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   background-color: transparent;
   padding-left: 40px;
@@ -417,12 +419,12 @@ h3.überschrift_zusatz {
 .bearbeiten_button {
   display: block;
   font-family: var(--schriftgröße_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
   text-align: center;
   width: 100%;
   color: var(--farbe_hintergrund_nav);
   background-color: transparent;
   padding: 5px 10px;
-  font-size: 12px;
   border: none;
   cursor: pointer;
   text-decoration: underline;
@@ -437,7 +439,7 @@ h3.überschrift_zusatz {
   font-family: var(--schriftgröße_nav_buttons);
   color: var(--farbe_schriften_konvert);
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 6px;
   background-color: var(--farbe_hintergrund_nav);
@@ -461,6 +463,8 @@ h3.überschrift_zusatz {
   font-size: 16px;
   color: var(--farbe_hintergrund_nav);
   background-color: var(--farbe_hintergrund);
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -473,13 +477,16 @@ h3.überschrift_zusatz {
 
 .keinkonto_text {
   margin-top: 15px;
-  font-size: 14px;
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_nav_buttons);
   text-align: center;
   color:var(--farbe_schriften1);
 }
 
 .keinkonto_text .registrieren_button {
   color: var(--farbe_schriften1);
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
   text-decoration: underline;
 }
 
@@ -491,7 +498,8 @@ h3.überschrift_zusatz {
 .login_form button[type="submit"] {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_texte);
   color: var(--farbe_schriften1);
   border: none;
   border-radius: 5px;
@@ -511,7 +519,7 @@ h3.überschrift_zusatz {
 #zum_warenkorb_hinzufügen, #favoriten {
   color: var(--farbe_schriften_konvert);
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 6px;
   background-color: var(--farbe_hintergrund_nav);
@@ -537,8 +545,8 @@ h3.überschrift_zusatz {
 
 .product-details h1 {
   flex: 1 1 100%;
-  font-family: fantasy;
-  font-size: 2rem;
+  font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_überschrift);
   margin-bottom: 20px;
   text-align: left;
   color: var(--farbe_schriften1);
@@ -558,7 +566,7 @@ h3.überschrift_zusatz {
 
 .product-details p {
   flex: 1; 
-  font-size: 1rem;
+  font-size: var(--schriftgröße_texte);
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -571,12 +579,11 @@ h3.überschrift_zusatz {
 
 .product-details ul li {
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: var(--schriftgröße_texte);
   line-height: 1.5;
 }
 
 .product-details ul li strong {
-  font-size: 1.1rem;
   color: var(--farbe_akzente);
 }
 
@@ -622,7 +629,7 @@ h3.überschrift_zusatz {
 }
 
 .produkt_details_header .details_überschrift {
-  font-size: 30px;
+  font-size: var(--schriftgröße_überschrift);
   font-family: var(--schriftart_überschrift);
   color: var(--farbe_schriften1);
   text-align: left;
@@ -646,13 +653,13 @@ h3.überschrift_zusatz {
 
 .impressum h1, .datenschutz h1 {
   font-family: var(--schriftart_überschrift); 
-  font-size: 32px;
+  font-size: var(--schriftgröße_überschrift);
   color: var(--farbe_schriften1);
 }
 
 .impressum h2, .datenschutz h2 {
 font-family: var(--schriftart_texte); 
-font-size: 20px;
+font-size: var(--schriftgröße_texte);
 }
 
 /* Textabschnitte */
@@ -665,7 +672,7 @@ font-size: 20px;
 
 .warenkorb h1 {
   font-family: var(--schriftart_überschrift); 
-  font-size: 32px;
+  font-size: var(--schriftgröße_überschrift);
   color: var(--farbe_schriften1);
 }
 
@@ -695,6 +702,8 @@ font-size: 20px;
   padding: 5px;
   font-size: 16px;
   color: var(--farbe_schriften_konvert);
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -706,14 +715,14 @@ font-size: 20px;
 
 .lieferkosten {
   text-align: left;
-    font-size: 20px;
+    font-size: var(--schriftgröße_nav_buttons);
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 .gesamtpreis {
   text-align: left;
-    font-size: 24px;
+    font-size: var(--schriftgröße_unterüberschrift);
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -724,8 +733,8 @@ font-size: 20px;
   width: 20%;
   padding: 15px;
   background-color: var(--farbe_hintergrund_nav);
-  color: var(--farbe_schriften1);
-  font-size:16px;
+  color: var(--farbe_schriften_konvert);
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -750,7 +759,7 @@ font-size: 20px;
 
 .login_form .login_überschrift {
   display: block;
-  font-size: 16px;
+  font-size: var(--schriftgröße_texte);
   color: var(--farbe_schriften1);
   font-family: var(--schriftart_texte);
   margin-bottom: 8px;
@@ -767,14 +776,14 @@ font-size: 20px;
   margin-bottom: 15px;
   border: 1px solid #ccc; 
   border-radius: 5px;
-  font-size: 14px;
+  font-size: var(--schriftgröße_texte);
   box-sizing: border-box;
 }
 
 /* REGISTRIEREN */
 .registrieren_text {
   color:var(--farbe_schriften1);
-  font-size: 15px;
+  font-size: var(--schriftgröße_texte);
   padding-left: 40px;
 }
 
@@ -906,6 +915,7 @@ font-size: 20px;
   width: 100%;
   display: flex;
   font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_unterüberschrift);
   align-items: center;
   color: var(--farbe_schriften_konvert);
   padding: 20px 20px 20px 40px;
@@ -913,7 +923,7 @@ font-size: 20px;
 
 .warenkorbhellgrün_überschrift_zusatz {
   padding-bottom: 13px;
-  font-size: 20px;
+  font-size: var(--schriftgröße_überschrift_zusatz);
   color: var(--farbe_schriften_konvert);
   text-align: left;
 }
@@ -922,10 +932,10 @@ font-size: 20px;
 /* DANKESEITE */
 .überschrift_dankeseite {
   display: flex;
-  font-size: 40px;
+  font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_überschrift);
   width: 100%;
   display: flex;
-  font-family: var(--schriftart_überschrift);
   justify-content: center;
   text-decoration: underline;
   color:var(--farbe_akzente);
@@ -935,7 +945,7 @@ font-size: 20px;
 .text {
   display: flex;
   padding-bottom: 13px;
-  font-size: 25px;
+  font-size: var(--schriftgröße_texte);
   color:var(--farbe_schriften1);
   font-family: var(--schriftart_texte);
   padding: 20px;
@@ -955,7 +965,7 @@ font-size: 20px;
   color: var(--farbe_schriften1);
   padding: 20px 10px;
   text-align: center;
-  font-size: 20px;
+  font-size: var(--schriftgröße_überschrift_zusatz);
 }
 
 .time span#days,
@@ -967,7 +977,7 @@ font-size: 20px;
 }
 
 .label {
-  font-size: 20px; 
+  font-size: var(--schriftgröße_überschrift_zusatz); 
   margin-left: 5px;
   color: var(--farbe_akzente);
 }
@@ -975,7 +985,7 @@ font-size: 20px;
 /*Kasse*/
 h3 {
   color: var(--farbe_schriften1); /* Textfarbe auf weiß setzen */
-  font-size: 20px; /* Schriftgröße anpassen */
+  font-size: var(--schriftgröße_überschrift_zusatz); /* Schriftgröße anpassen */
   text-align: center; /* Text zentrieren */
   margin-bottom: 20px; /* Optional: Abstand nach unten */
 }
@@ -993,7 +1003,7 @@ h3 {
   padding: 15px;
   background-color: var(--farbe_hintergrund_nav);
   color: var(--farbe_schriften_konvert);
-  font-size:16px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -1012,7 +1022,7 @@ h3 {
   padding: 15px;
   background-color: var(--farbe_hintergrund_nav);
   color: var(--farbe_schriften_konvert);
-  font-size:16px;
+  font-size:var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -1029,7 +1039,7 @@ h3 {
 
 /* Pop-up Styling (Evy) */
 #city-select, #zipcode {
-  font-size: 15px;
+  font-size: var(--schriftgröße_nav_buttons);
   background-color:var(--farbe_hintergrund_hellgrün);
   border-radius: 6px;
 
@@ -1037,7 +1047,7 @@ h3 {
 .btn_revert {
   color: var(--farbe_schriften1);
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: var(--schriftgröße_nav_buttons);
   border: none;
   border-radius: 6px;
   background-color: var(--farbe_hintergrund);
@@ -1047,7 +1057,8 @@ h3 {
 }
 
 .popup {
-  font-size: 25px;
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_überschrift_zusatz);
   line-height: 2.5;
   position: fixed; /* Fixiert das Pop-up auf der Seite */
   top: 50%; /* Zentriert vertikal */
@@ -1113,8 +1124,9 @@ footer {
   align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
   justify-content: space-between; /* Platz zwischen Logo und Links */
   padding: 10px 60px;           /* Abstand innerhalb des Footers */
-  border-top: 5px solid #ffffff; /* Eine leichte Linie oben im Footer */
-  font-size: 14px;              /* Schriftgröße */
+  border-top: 5px solid var(--farbe_hintergrund_nav); /* Eine leichte Linie oben im Footer */
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_texte);              /* Schriftgröße */
 }
 
 footer .footer-logo {
@@ -1129,7 +1141,7 @@ footer .footer-links {
 }  
 
 footer a {
-  color: #ffffff;   /* Weiß für Links */
+  color: var(--farbe_hintergrund_nav);   /* Weiß für Links */
   text-decoration: none;  /* Keine Unterstreichung */
   font-weight: normal;    /* Normale Schriftstärke für Links */
   line-height: 40px;   
@@ -1138,7 +1150,7 @@ footer a {
 
 footer a:hover {
   text-decoration: underline; /* Unterstreichung beim Hover */
-  color:  #FCC21D;   /* Farbe beim Hover */
+  color: var(--farbe_akzente);   /* Farbe beim Hover */
 }
 
 @media (max-width: 768px) {
@@ -1164,7 +1176,7 @@ footer {
   display: flex;                /* Flexbox aktivieren */
   align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
   padding: 10px 60px;           /* Abstand innerhalb des Footers */
-  border-top: 5px solid #ffffff; /* Eine leichte Linie oben im Footer */
+  border-top: 5px solid var(--farbe_hintergrund_nav); /* Eine leichte Linie oben im Footer */
   font-size: 14px;              /* Schriftgröße */
 }
 
@@ -1180,7 +1192,7 @@ footer .footer-links {
 }  
 
 footer a {
-  color: #ffffff;   /* Weiß für Links */
+  color: var(--farbe_hintergrund_nav);   /* Weiß für Links */
   text-decoration: none;  /* Keine Unterstreichung */
   font-weight: normal;    /* Normale Schriftstärke für Links */
   margin: 0 20px;
@@ -1189,7 +1201,7 @@ footer a {
 
 footer a:hover {
   text-decoration: underline; /* Unterstreichung beim Hover */
-  color:  #FCC21D;   /* Farbe beim Hover */
+  color: var(--farbe_akzente);   /* Farbe beim Hover */
 }
 
 /* Entfernen von zusätzlichen Rändern oder Linien */
