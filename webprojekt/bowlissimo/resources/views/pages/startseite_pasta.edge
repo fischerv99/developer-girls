@@ -51,7 +51,7 @@
                 
                 @if(!kundeAngemeldet)
                 <li><a href="/login" class="inaktiv">
-                    <img src="/storage/profil.png" alt="Logo" style="width: 35px; height: 35px;">
+                    <img src="/storage/profil.png" alt="Logo" style="width: 15px; height: 15px;">
                 </a></li>   
                 @endif
 
@@ -194,23 +194,26 @@
                 @endif
                 </div>
                 <!--Favoriten Button nur anzeigen, wenn Kunde angemeldet ist und eine Kreation mit Pasta und Soße ausgewählt-->
-                @if(kundeAngemeldet && aktuelle_soße)
+                @if(kundeAngemeldet && aktuelle_pasta && aktuelle_soße && aktuelle_toppings)
                 <div class="favoriten_button">
                     <button id="favoriten" onclick="window.location.href='/favoriten/hinzufuegen/{{ aktuelle_kreation.id }}'">
-                        <span id="favoriten_text">Zu FAVORITEN HINZUFÜGEN </span>
+                        <span id="favoriten_text">ZU FAVORITEN HINZUFÜGEN </span>
                     </button>
                 @endif       
                 <!--Warenkorb Button nur anzeigen, wenn Kunde eine Kreation mit Pasta und Soße ausgewählt-->
-                @if (aktuelle_soße)
+                @if (aktuelle_soße && aktuelle_pasta && aktuelle_toppings)
                 <button id="zum_warenkorb_hinzufügen" onclick="window.location.href='/warenkorb/hinzufuegen/kreation/{{ aktuelle_kreation.id }}'">
                     <span id="zum_warenkorb_hinzufügen_text">ZUM WARENKORB HINZUFÜGEN</span>
                 </button>
                 @endif
                 @if (aktuelle_kreation && !aktuelle_soße)
-                    <p>Wähle noch eine Soße</p>
+                    <p class="text_warenkorb_hellgrün">Wähle noch eine Soße</p>
+                @endif
+                @if (aktuelle_kreation && aktuelle_soße && !aktuelle_toppings)
+                    <p class="text_warenkorb_hellgrün">Wähle noch mindestens ein Topping</p>
                 @endif
                 @if (!aktuelle_kreation)
-                    <p>Keine Kreation ausgewählt</p>
+                    <p class="text_warenkorb_hellgrün">Keine Kreation ausgewählt</p>
                 @endif
                 </div>
            </div>

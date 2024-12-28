@@ -92,10 +92,13 @@ body {
 
 /*NAVIGATION*/
 
-.nav_oben {
+.nav_oben, .nav_oben_ohne_log {
   background-color: var(--farbe_hintergrund_nav);
-  padding-top: 25px;
+  font-size: 15px;
+  font-family: var(--schriftart_nav_buttons);
+  height: 50px;
   position: fixed; 
+  padding: 15px 5px 15px 5px;
   top: 85px; 
   left: 0;
   width: 100%;
@@ -104,16 +107,10 @@ body {
   box-shadow: none;
 }
 
-.nav_oben_ohne_log {
-  background-color: var(--farbe_hintergrund_nav);
-  padding-top: 5px;
-  position: fixed; 
-  top: 85px; 
-  left: 0;
-  width: 100%;
-  z-index: 999;
-  border: none;
-  box-shadow: none;
+nav ul li img {
+  width: 50px;
+  height: 50px;
+  padding: 0px;
 }
 
 /* Desktop-Menü und Flexbox-Einstellungen */
@@ -122,15 +119,13 @@ nav ul {
   align-items: center;
   justify-content: space-around;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Links innerhalb der Menüpunkte */
 nav ul li a {
   color: var(--farbe_schriften_konvert);
+  padding: 15px 5px 15px 5px;
   text-decoration: none;
-  padding: 10px 20px;
   transition: color 0.3s ease;
 }
 
@@ -917,15 +912,21 @@ font-size: var(--schriftgröße_texte);
   font-family: var(--schriftart_überschrift);
   font-size: var(--schriftgröße_unterüberschrift);
   align-items: center;
-  color: var(--farbe_schriften_konvert);
+  color: var(--farbe_schriften1);
   padding: 20px 20px 20px 40px;
 }
 
 .warenkorbhellgrün_überschrift_zusatz {
   padding-bottom: 13px;
   font-size: var(--schriftgröße_überschrift_zusatz);
-  color: var(--farbe_schriften_konvert);
+  color: var(--farbe_schriften1);
   text-align: left;
+}
+
+.text_warenkorb_hellgrün {
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_texte);
+  color: var(--farbe_schriften1);
 }
 
 
