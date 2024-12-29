@@ -140,6 +140,34 @@ nav ul li a.aktiv {
   color: var(--farbe_akzente);
 }
 
+.profil_bild {
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease;
+}
+
+a:hover .profil_bild {
+  content: url('/storage/profil_gelb.png');
+}
+
+a.aktiv .profil_bild {
+  content: url('/storage/profil_gelb.png');
+}
+
+.herz_bild {
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease;
+}
+
+a:hover .herz_bild {
+  content: url('/storage/herz_gelb.png');
+}
+
+a.aktiv .herz_bild {
+  content: url('/storage/herz_gelb.png');
+}
+
 /* Verstecktes Checkbox-Element für die Navigation */
 #menu-toggle {
   display: none;

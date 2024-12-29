@@ -7,27 +7,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://use.typekit.net/nvm4puz.css">
     <link rel="stylesheet" href="/resources/css/app.css">
+    <link rel="icon" href="/storage/nudel.png" type="image/png">
 </head>
 
 <body>
 
     <header class="header"> 
         @include('pages/partials/header')
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <nav class="nav_oben">
-            <ul>
-                <li><a href="/administratorbereich/pasta" class="inaktiv">PASTA-BOWLS</a></li>
-                <li><a href="/administratorbereich/getraenke" class="aktiv">DRINKS</a></li>
-                <li><a href="/administratorbereich/beilagen" class="inaktiv">BEILAGEN</a></li>
-                <li><a href="/administratorbereich/logout" class="inaktiv">LOGOUT</a></li>
-
-            </ul>
-        </nav>        
+        @include('pages/partials/navigation_administratorbereich')  
     </header>
 
     <main class="main">

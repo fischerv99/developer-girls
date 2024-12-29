@@ -7,41 +7,14 @@
     <title>Bowlissimo</title>
     <link rel="stylesheet" href="https://use.typekit.net/nvm4puz.css">
     <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="icon" href="/storage/nudel.png" type="image/png">
 </head>
 
 <body>
 
     <header class="header">
         @include('pages/partials/header')
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <nav class="nav_oben_ohne_log">
-            <ul>
-                <li><a href="/" class="inaktiv">PASTA-BOWLS</a></li>
-                <li><a href="/startseite_drinks" class="aktiv">DRINKS</a></li>
-                <li><a href="/startseite_beilagen" class="inaktiv">BEILAGEN</a></li>
-                
-                @if(!kundeAngemeldet)
-                <li><a href="/login" class="inaktiv">
-                    <img src="/storage/profil.png" alt="Logo" style="width: 35px; height: 35px;">
-                </a></li>   
-                @endif
-
-                @if(kundeAngemeldet)
-                <a href="/favoriten" class="inaktiv">
-                    <img src="/storage/herz.png" alt="Logo" style="width: 25px; height: 25px;">
-                </a>
-
-                <li><a href="/logout" class="inaktiv">Logout</a></li>
-                @endif
-                
-                <li><a href="/warenkorb" class="inaktiv" id="warenkorb-button">Warenkorb ({{anzahl_warenkorb}})</a></li> <!-- 0 ist die Platzhalteranzahl, die später dynamisch geändert werden kann -->
-            </ul>
-        </nav>        
+        @include ('pages/partials/navigation')        
     </header>
 
     <main class="main">

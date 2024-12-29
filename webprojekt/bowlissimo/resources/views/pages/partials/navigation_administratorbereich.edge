@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navigation Administratorbereich</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="nav_oben">
+        <ul>
+            <li>
+                <a href="/administratorbereich/pasta" class="{{ request.url() === '/administratorbereich/pasta' ? 'aktiv' : 'inaktiv' }}">
+                    PASTA-BOWLS
+                </a>
+            </li>
+            <li>
+                <a href="/administratorbereich/getraenke" class="{{ request.url() === '/administratorbereich/getraenke' ? 'aktiv' : 'inaktiv' }}">
+                    DRINKS
+                </a>
+            </li>
+            <li>
+                <a href="/administratorbereich/beilagen" class="{{ request.url() === '/administratorbereich/beilagen' ? 'aktiv' : 'inaktiv' }}">
+                    BEILAGEN
+                </a>
+            </li>
+            <li>
+                <a href="/administratorbereich/logout" class="inaktiv">LOGOUT</a>
+            </li>
+        </ul>
+    </nav>        
+</body>
+</html>

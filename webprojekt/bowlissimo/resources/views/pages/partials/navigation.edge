@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navigation</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav class="nav_oben_ohne_log">
+            <ul>
+                <li>
+                    <a href="/" class="{{ request.url() === '/' ? 'aktiv' : 'inaktiv' }}">PASTA-BOWLS</a>
+                </li>
+                <li>
+                    <a href="/startseite_drinks" class="{{ request.url() === '/startseite_drinks' ? 'aktiv' : 'inaktiv' }}">DRINKS</a>
+                </li>
+                <li>
+                    <a href="/startseite_beilagen" class="{{ request.url() === '/startseite_beilagen' ? 'aktiv' : 'inaktiv' }}">BEILAGEN</a>
+                </li>
+                @if (!kundeAngemeldet)
+                <li>
+                    <a href="/login" class="{{ request.url() === '/login' ? 'aktiv' : 'inaktiv' }}">
+                        <img src="/storage/profil_grün.png" alt="Logo" style="width: 25px; height: 25px;" class="profil_bild">
+                    </a>
+                </li>
+                @endif
+
+                @if (kundeAngemeldet)
+                <li>
+                    <a href="/favoriten" class="{{ request.url() === '/favoriten' ? 'aktiv' : 'inaktiv' }}">
+                        <img src="/storage/herz_grün.png" alt="Logo" style="width: 25px; height: 25px;" class="herz_bild">
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" class="inaktiv">Logout</a>
+                </li>
+                @endif
+                <li>
+                    <a href="/warenkorb" class="{{ request.url() === '/warenkorb' ? 'aktiv' : 'inaktiv' }}" id="warenkorb-button">
+                        Warenkorb ({{ anzahl_warenkorb }})
+                    </a>
+                </li>
+            </ul>
+        </nav>
+</body>
+</html>
