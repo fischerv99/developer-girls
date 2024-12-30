@@ -58,7 +58,7 @@ body {
 
 .main_startseitepasta {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns:70% 30%;
   grid-template-rows: auto;
   gap: 20px;
   width: 100%;
@@ -539,19 +539,27 @@ h3.überschrift_zusatz {
   text-decoration: underline;
 }
 
-#zum_warenkorb_hinzufügen, #favoriten {
-  color: var(--farbe_schriften_konvert);
-  padding: 5px 10px;
-  font-size: var(--schriftgröße_nav_buttons);
-  border: none;
-  border-radius: 6px;
-  background-color: var(--farbe_hintergrund_nav);
-  margin: 10px;
-  cursor: pointer;
+#favoriten,
+#zum_warenkorb_hinzufügen {
+  display: inline-block; /* Stellt sicher, dass die Buttons sichtbar sind */
+  width: auto; /* Automatische Breite */
+  padding: 5px;
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons); /* Einheitliche Schriftgröße */
+  color: var(--farbe_schriften_konvert); /* Textfarbe */
+  background-color: var(--farbe_hintergrund_nav); /* Hintergrundfarbe */
+  border: none; /* Ohne Rahmen */
+  border-radius: 6px; /* Runde Ecken */
+  text-align: center; /* Zentrierter Text */
+  cursor: pointer; /* Mauszeiger als Hand */
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+  margin-bottom: 15px;
 }
 
-#zum_warenkorb_hinzufügen:hover, #favoriten_text:hover {
-  font-weight: bold;
+#favoriten:hover,
+#zum_warenkorb_hinzufügen:hover {
+  background-color: var(--farbe_akzente); /* Hover-Farbe */
+  font-weight: bold; /* Fettdruck beim Hovern */
 }
 
 /* DETAILANSICHT */
@@ -898,41 +906,57 @@ font-size: var(--schriftgröße_texte);
   margin: 0;
 }
 
-
 .warenkorb_hellgrün {
   position: sticky;
   top: 150px;
   width: 100%;
   max-width: 100%;
   grid-column: 2;
-  height: calc(100vh - 180px);
+  max-height: 100vh;
   min-width: 25%;
-  padding: 20px 20px 10px 10px;
+  min-height: 300px;
   background-color: var(--farbe_hintergrund_hellgrün);
   border-radius: 8px;
   overflow: hidden;
+  overflow-y: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) { /* Schwelle für kleinere Bildschirme */
   .main_startseitepasta {
-      display: flex;
-      flex-direction: column;
-  }
-
-  .produkt_darstellung {
-      width: 100%;
+    display: flex;
+    flex-direction: column; /* Produkte und Warenkorb untereinander */
   }
 
   .warenkorb_hellgrün {
-      position: relative;
-      top: auto;
-      width: 100%; 
-      margin-top: 20px;
-      height: auto;
-      overflow-y: auto;
+    position: static; /* Nicht mehr fixiert */
+    width: 100%; /* Nimmt die gesamte Breite ein */
+    overflow-y: auto; /* Nur der Inhalt des Warenkorbs kann scrollen */
+    background-color: var(--farbe_hintergrund_hellgrün);
+    max-height: auto; /* Keine Höhenbegrenzung */
+    top: 100px; /* Abstand nach oben anpassen */
+    min-height: 200px; /* Mindesthöhe verringern */
+    max-height: calc(100vh - 100px); /* Dynamische Höhe */
   }
 }
 
+.warenkorb_hellgrün button {
+  display: block; /* Jeder Button nimmt eine Zeile ein */
+  width: 50%; /* Nimmt die gesamte verfügbare Breite ein */
+  max-width: 300px; /* Maximale Breite der Buttons */
+  text-align: center; /* Zentriert den Text */
+  position: relative;
+  bottom: 10px; /* Abstand vom unteren Rand */
+  margin-bottom: 0; /* Kein zusätzlicher Abstand */
+  z-index: 10; /* Buttons immer im Vordergrund */
+}
+
+@media (max-width: 1200px) {
+  #favoriten,
+  #zum_warenkorb_hinzufügen {
+    width: 50%; /* Breite der Buttons an den Bildschirm anpassen */
+    max-width: 400px; /* Maximale Breite */
+  }
+}
 
 .warenkorbhellgrün_überschrift {
   width: 100%;
@@ -941,7 +965,7 @@ font-size: var(--schriftgröße_texte);
   font-size: var(--schriftgröße_unterüberschrift);
   align-items: center;
   color: var(--farbe_schriften1);
-  padding: 20px 20px 20px 40px;
+  padding: 0px;
 }
 
 .warenkorbhellgrün_überschrift_zusatz {

@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Dynamische Positionierung der Toppings im Kreis
     const toppings = document.querySelectorAll(".kreation_toppings");
     const totalToppings = toppings.length;
     const toppingsWrapper = document.querySelector(".kreation_toppings_wrapper");
