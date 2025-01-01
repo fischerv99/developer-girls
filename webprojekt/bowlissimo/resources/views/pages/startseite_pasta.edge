@@ -17,7 +17,8 @@
     <div id="location-popup" class="popup hidden">
         <div class="popup-content">
           <h2>Wo willst du essen?</h2>
-          <form id="location-form">
+          <form id="location-form" action="/save-location" method="post">
+            {{ csrfField() }} 
             <label for="city-select">Stadt</label>
             <select id="city-select" name="city" required>
               <option value="" disabled selected>Wähle deine Stadt</option>
@@ -27,9 +28,9 @@
             </select> 
       
             <label for="zipcode">Postleitzahl</label>
-            <input type="text" id="zipcode" name="zipcode" placeholder="Deine PLZ" required pattern="\d{5}" readonly />
+            <input type="text" id="zipcode" name="zipcode" placeholder="Deine PLZ" required pattern="\d{5}" />
       
-            <button type="submit" class="btn_revert">Bestätigen</button>
+            <button type="submit" class="btn_revert" id="confirm">Bestätigen</button>
           </form>
         </div>
     </div>
@@ -196,40 +197,48 @@
 
 
     <script>
-        // Elemente selektieren
-        const popup = document.getElementById('location-popup');
-        const overlay = document.querySelector('.popup-overlay');
-
-        // Funktion: Pop-up öffnen
-        function openPopup() {
-        popup.classList.add('visible'); // Pop-up sichtbar machen
-        overlay.classList.add('visible'); // Overlay sichtbar machen
-        document.body.classList.add('blurred'); // Hintergrund verschwommen machen
-        }
         document.addEventListener("DOMContentLoaded", () => {
-  const citySelect = document.getElementById("city-select");
-  const zipcodeInput = document.getElementById("zipcode");
-          // Event-Listener für die Auswahl im Dropdown
-  citySelect.addEventListener("change", (event) => {
-    const selectedOption = event.target.options[event.target.selectedIndex];
-    const selectedValue = selectedOption.value; // Postleitzahl als Wert
-    citySelect.value = selectedValue; // PLZ ins Input-Feld setzen
-  });
+    const popup = document.getElementById('location-popup');
+    const overlay = document.querySelector('.popup-overlay');
+    const citySelect = document.getElementById("city-select");
+    const zipcodeInput = document.getElementById("zipcode");
+
+
+    // Vom Server gesteuerter Wert: Soll das Pop-up angezeigt werden?
+    const showPopup = {{ showPopup ? 'true' : 'false' }};
+
+    if (showPopup === true ) {
+        setTimeout(() => {
+            popup.classList.remove('hidden'); // Entfernt die versteckte Klasse
+            popup.classList.add('visible');
+            overlay.classList.add('visible');
+            document.body.classList.add('blurred');
+        }, 2000);
+    }else{
+        console.log("Fehler beim Laden des Popups oder bereits Stadt ausgewählt")
+    }
+    //console.log("Show Popup (Client):", showPopup);
+    //console.log("Datentyp:", typeof showPopup);
+    //console.log("Popup Klassen nach Timeout:", popup.classList);
+    //console.log("Overlay Klassen nach Timeout:", overlay.classList);
+
+    // Funktion: Pop-up schließen, wenn overlay geklickt wird.
+    overlay.addEventListener('click', () => {
+        popup.classList.remove('visible');
+        overlay.classList.remove('visible');
+        document.body.classList.remove('blurred');
+    });
+
+
+
+
+    // PLZ automatisch setzen, wenn Stadt ausgewählt wird (falls nötig)
+    citySelect.addEventListener("change", (event) => {
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const selectedValue = selectedOption.value;
+        // Logik zur PLZ-Zuordnung, falls Daten verfügbar
+    });
 });
-  
-        // Funktion: Pop-up schließen
-        function closePopup() {
-        popup.classList.remove('visible'); // Pop-up ausblenden
-        overlay.classList.remove('visible'); // Overlay ausblenden
-        document.body.classList.remove('blurred'); // Hintergrund normal
-        }
-
-        // Beispiel: Pop-up automatisch nach 2 Sekunden öffnen
-        setTimeout(openPopup, 2000);
-
-        // Pop-up schließen, wenn Overlay geklickt wird
-        overlay.addEventListener('click', closePopup);
-
     </script>
 </body>
 </html>

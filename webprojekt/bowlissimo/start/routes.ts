@@ -24,6 +24,9 @@ router.get('/', [ProduktController, 'startseite_pasta'])
 router.get('/startseite_drinks', [ProduktController, 'startseite_getraenke'])
 router.get('/startseite_beilagen', [ProduktController, 'startseite_beilagen'])
 router.get('/startseite_pasta', [ProduktController, 'startseite_pasta'])
+
+router.post('/save-location', [ProduktController, 'saveLocation'])
+
 // Detailansicht für ein Produkt (auch für angemeldete Kunden)
 router.get('/details/:kategorie/:id', [ProduktController, 'details'])
 
