@@ -30,6 +30,13 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   // Abrufen der Städte-Daten aus der Datenbank (Evy)
   const cities = await db.from('cities').select('City', 'Postcodes')
+
+  // Postcodes parsen und für das Frontend vorbereiten (Evy)
+  const citiesWithParsedPostcodes = cities.map((city) => ({
+    city: city.City,
+    postcodes: JSON.parse(city.Postcodes), // Postcodes als Array
+  }));
+  
       //console.log('Cities aus der Datenbank:', cities); // Debug-Ausgabe im Terminal
   const showPopup = !session.get('city'); // Pop-up anzeigen, wenn keine Stadt gewählt wurde
       console.log("Show Popup:", showPopup);
@@ -61,7 +68,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   console.log("cities 1", cities);
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities, showPopup })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -71,7 +78,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, showPopup })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -92,7 +99,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb,kundeAngemeldet, cities, showPopup })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb,kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -104,7 +111,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                                                       .whereIn('id', aktuelle_toppings_ids)
                                                       .select('*')
                 console.log(cities);
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings_ids, cities, showPopup, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_toppings_ids, cities, citiesWithParsedPostcodes, showPopup, aktuelle_toppings, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet })
   } } } } else {
 
   const anzahl_warenkorb = 0;
@@ -117,7 +124,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
   //Wenn keine Kreation vorhanden ist, wird die View normal gerendert
   if (!aktuelle_kreation) {
-    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities, showPopup })
+    return view.render('pages/startseite_pasta', { pasta, soßen, toppings, anzahl_warenkorb, kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
   } else {
     //Wenn eine Kreation vorhanden ist (es ist auf jeden Fall Pastasorte gewählt), wird diese angezeigt
       //id der Pasta speichern 
@@ -127,7 +134,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
 
       //Wenn keine Soße gewählt wurde, wird die View gerendert
       if (aktuelle_kreation.sossen_id === 0) { //Länge überprüfen und nicht mit ob vorhnaden, da es auch sein kann, dass Soße gewählt wurde und dann wieder entfernt wurde
-        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, showPopup })
+        return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
 
       } else {
         //Wenn Pasta und Soße gewählt wurden, werden diese angezeigt  
@@ -147,7 +154,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
               
               //Wenn keine Toppings gewählt wurden, wird die View gerendert
               if (kreation_toppings.length == 0) { //Länge überprüfen und nicht ob vorhanden, da es auch sein kann, dass Toppings gewählt wurden und dann wieder entfernt wurden
-                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, showPopup })
+                return view.render('pages/startseite_pasta', { pasta, soßen, toppings, aktuelle_pasta, aktuelle_soße, aktuelle_kreation, anzahl_warenkorb, kundeAngemeldet, cities, citiesWithParsedPostcodes, showPopup })
               } else {
                 //Wenn Toppings gewählt wurden, werden diese angezeigt
                   //Alle ids der ausgewählten Toppings speichern
@@ -171,6 +178,7 @@ public async startseite_pasta({ view, session }: HttpContext) {
                   kundeAngemeldet, 
                   aktuelle_toppings_ids, 
                   cities, 
+                  citiesWithParsedPostcodes,
                   showPopup
                 })
               }
