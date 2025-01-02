@@ -1086,9 +1086,15 @@ h3 {
 }
 
 
-
-
-
+/* Buttons ausgrauen für alle buttons die das ATTRIBUT disabled besitzen (=Pseudoklasse) 
+Die Buttons haben das disabled-Attribut, aber nicht die Klasse disabled !!(Evy) */
+button:disabled {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+.auswahl_button:disabled:hover {
+  font-weight: normal; /* Setze den ursprünglichen Font-Weight */
+}
 
 /* Pop-up Styling (Evy) */
 #city-select, #zipcode {

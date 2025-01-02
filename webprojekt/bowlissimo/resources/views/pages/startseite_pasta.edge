@@ -94,7 +94,7 @@
                             <form action="/update_kreatio_sosse" method="post" enctype="application/x-www-form-urlencoded">
                                 {{csrfField()}}
                                 <input type="hidden" name="sossensorte" value="{{ sorte.id }}">
-                                <button class="auswahl_button" type="submit" >Auswählen</button>
+                                <button class="auswahl_button" {{ pasta_selected ? '' : 'disabled' }} type="submit" >Auswählen</button>
                             </form>
                             <h4 class="produkt_id">{{ sorte.id }}</h4>
                             <p class="produkt_preis" data-preis="{{ sorte.preis }}">{{ sorte.preis }}</p>
@@ -127,7 +127,7 @@
                             <form action="/update_kreation_toppings" method="post" enctype="application/x-www-form-urlencoded">
                                 {{csrfField()}}
                                 <input type="hidden" name="toppingsorte" value="{{ sorte.id }}">
-                                <button class="auswahl_button" type="submit">Auswählen</button>
+                                <button class="auswahl_button" {{ pasta_selected ? '' : 'disabled' }} type="submit">Auswählen</button>
                             </form>
                             @endif
                             <h4 class="produkt_id">{{ sorte.id }}</h4>
