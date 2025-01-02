@@ -12,6 +12,8 @@
   --schriftgröße_nav_buttons: 15px; /*für Navigation & Buttons*/
   --schriftgröße_texte: 18px; /*für Produktnamen*/
   --schriftgröße_klein: 14px; /*für "Details", Preise, etc.*/
+  --schriftgröße_sehrklein: 12px; /*für "Details", Preise, etc.*/
+
 
   /* Farben */
   --farbe_hintergrund:#649e4c; /*für alle Seiten*/
@@ -1086,7 +1088,7 @@ h3 {
 }
 
 
-/* Buttons ausgrauen für alle buttons die das ATTRIBUT disabled besitzen (=Pseudoklasse) 
+/* Buttons ausgrauen & Tooltip-Styling für alle buttons die das ATTRIBUT disabled besitzen (=Pseudoklasse) 
 Die Buttons haben das disabled-Attribut, aber nicht die Klasse disabled !!(Evy) */
 button:disabled {
   opacity: 0.5; 
@@ -1095,6 +1097,38 @@ button:disabled {
 .auswahl_button:disabled:hover {
   font-weight: normal; /* Setze den ursprünglichen Font-Weight */
 }
+/* Tooltip für deaktivierte Buttons */
+button:disabled[data-tooltip]:hover::after {
+  /*button:disabled: Wählt alle Buttons aus, die das disabled-Attribut besitzen.
+  [data-tooltip]: Wählt nur die Buttons aus, die zusätzlich ein data-tooltip-Attribut besitzen.
+  :hover: Aktiviert die Regel nur, wenn sich der Mauszeiger über dem Button befindet.
+  ::after: Erstellt ein virtuelles Element (::after ist ein Pseudo-Element), das hinter dem Button-Element eingefügt wird. Dieses Pseudo-Element wird als Tooltip verwendet.*/
+  content: attr(data-tooltip); /* Text aus data-tooltip anzeigen */
+  position: absolute;
+  font-family: var(--schriftart_nav_buttons);
+  background: rgba(0, 0, 0, 1); /* Dunkler Hintergrund */
+  color: var(--farbe_schriften1); /* Weißer Text */
+  padding: 5px 10px; /* Innenabstand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  font-size: var(--schriftgröße_sehrklein); /* Schriftgröße */
+  white-space: nowrap; /* Kein Zeilenumbruch */
+  transform: translateY(-120%); /* Tooltip über dem Button anzeigen */
+  z-index: 1000; /* Sicherstellen, dass es über anderen Elementen liegt */
+  opacity: 1; /* Tooltip sichtbar */
+  transition: opacity 0.2s ease-in-out;  /*Weicher Übergang */
+}
+
+/* Tooltip standardmäßig unsichtbar */
+button:disabled[data-tooltip]::after {
+  opacity: 0; /* Unsichtbar, wenn kein Hover */
+  pointer-events: none; /* Tooltip blockiert keine Klicks */
+}
+
+/* Positionierung des Buttons */
+button:disabled[data-tooltip]:hover {
+  position: relative; /* Der Button wird als Referenzpunkt für die absolute Positionierung des Tooltips verwendet. */
+}
+
 
 /* Pop-up Styling (Evy) */
 #city-select, #zipcode {
