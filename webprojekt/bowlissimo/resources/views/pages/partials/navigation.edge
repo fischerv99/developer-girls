@@ -14,10 +14,10 @@
             <span></span>
         </label>
         <nav class="nav_oben_ohne_log">
-            <ul>
-                <div class="filter-container">
+            <ul class="filter-container">
+                <li>
                     <!-- Filter-Icon -->
-                    <img id="filter-icon" src="filter-icon.png" alt="Filter" width="24" height="24" onclick="toggleDropdown()" />
+                    <img id="filter-icon" src="/storage/filter-icon.png" alt="Filter" style="width: 25px; height: 25px;" onclick="toggleDropdown()" />
             
                     <!-- Dropdown-Menü -->
                     <select id="filter-dropdown" class="hidden" onchange="filterByDiet()">
@@ -26,8 +26,8 @@
                         <option value="vegetarisch">Vegetarisch</option>
                         <option value="omnivor">Omnivor</option>
                     </select>
-                </div>
-                
+                </li>
+
                 <li>
                     <a href="/" class="{{ request.url() === '/' ? 'aktiv' : 'inaktiv' }}">PASTA-BOWLS</a>
                 </li>
