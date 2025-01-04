@@ -15,17 +15,24 @@
         </label>
         <nav class="nav_oben_ohne_log">
             <ul class="filter-container">
-                <li >
+
+                <li class="filter-icon-wrapper">
                     <!-- Filter-Icon -->
-                    <img id="filter-icon" src="/storage/filter-yellow.png" alt="Filter" style="heigth: 25px; width:25px;"  onclick="toggleDropdown()" />
-            
+                    <img 
+                    class="filter-icon" 
+                    src="/storage/filter-green.png" 
+                    alt="Filter" 
+                    style="  width: 25px; height: 25px; transform: scale(1.2); transition: all 0.3s ease;"
+                    onclick="toggleDropdown()" 
+                    />
+                    <br>
                     <!-- Dropdown-Menü -->
-                    <select id="filter-dropdown" hidden onchange="filterByDiet()">
-                        <option value="">Alle</option>
-                        <option value="vegan">Vegan</option>
-                        <option value="vegetarisch">Vegetarisch</option>
-                        <option value="omnivor">Omnivor</option>
-                    </select>
+                    <div id="filter-dropdown" class="custom-dropdown" hidden >
+                    <span class="custom-option" data-value="">Alle</span>
+                    <span class="custom-option" data-value="vegan">Vegan</span>
+                    <span class="custom-option" data-value="vegetarisch">Vegetarisch</span>
+                    <span class="custom-option" data-value="omnivor">Omnivor</span>
+                    </div>
                 </li>
 
                 <li>
@@ -65,5 +72,44 @@
                 </li>
             </ul>
         </nav>
+
+        <script>
+            const filterIcon = document.getElementById("filter-icon");
+            const dropdown = document.getElementById("filter-dropdown");
+
+            // Funktion, um das Dropdown zu öffnen oder zu schließen
+            function toggleDropdown(event) {
+            // Dropdown umschalten
+            dropdown.hidden = !dropdown.hidden;
+
+            // Icon-Bild ändern
+            if (!dropdown.hidden) {
+                filterIcon.src = "/storage/filter-yellow.png";
+            } else {
+                filterIcon.src = "/storage/filter-green.png";
+            }
+
+            // Verhindert, dass der Klick auf das Icon das Dokument-Event auslöst
+            event.stopPropagation();
+            }
+
+            // Funktion, um das Dropdown zu schließen, wenn außerhalb geklickt wird
+            function closeDropdown() {
+            dropdown.hidden = true;
+            filterIcon.src = "/storage/filter-green.png"; // Icon zurücksetzen
+            }
+
+            // Event-Listener für das Filter-Icon
+            filterIcon.addEventListener("click", toggleDropdown);
+
+            // Event-Listener für Klicks außerhalb des Dropdowns
+            document.addEventListener("click", closeDropdown);
+
+            // Verhindern, dass Klicks im Dropdown das Schließen auslösen
+            dropdown.addEventListener("click", (event) => {
+            event.stopPropagation();
+            });
+
+          </script>
 </body>
 </html>

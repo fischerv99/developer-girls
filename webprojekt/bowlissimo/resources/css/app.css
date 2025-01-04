@@ -198,6 +198,74 @@ a.aktiv .herz_bild {
   transition: 0.3s ease;
 }
 
+/*Filter Styling Evy*/
+/* Filter Icon Styling */
+.filter-icon {
+  width: 25px;
+  height: 25px;
+  transform: scale(1.2);
+  transition: all 0.3s ease; /* Für sanfte Übergänge */
+}
+.filter-icon-wrapper{
+  position: relative;
+}
+
+/* Bild bei Hover */
+.filter-icon-wrapper:hover .filter-icon {
+  content: url('/storage/filter-yellow.png');
+  cursor: pointer;
+}
+
+/* Bild bei Klick */
+.filter-icon-wrapper:active .filter-icon {
+  content: url('/storage/filter-yellow.png');
+}
+
+/* Custom Dropdown Styling */
+.custom-dropdown {
+  position: absolute; /* Position relativ zum .filter-icon-wrapper */
+  top: calc(100% + 7px); /* Direkt unter dem Icon mit 5px Abstand */
+  left: 50%; /* Ausrichtung am linken Rand des Wrappers */
+  transform: translateX(-50%); /* Exakte Zentrierung */
+  background-color: var(--farbe_akzente); /* Deine Akzentfarbe */
+  border: none;
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Sicherstellen, dass es über anderen Elementen liegt */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0.9;
+}
+
+.custom-dropdown[hidden] {
+  display: none;
+}
+
+/* Styling der einzelnen Optionen */
+.custom-option {
+  padding: 5px 10px;
+  background-color: var(--farbe_hintergrund_nav);
+  color: black;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: var(--farbe_hintergrund_nav) 0.3s ease;
+}
+
+/* Hover-Effekt auf Optionen */
+.custom-option:hover {
+  background-color: var(--farbe_akzente);
+}
+
+/* Markierung der aktiven Option */
+.custom-option.active {
+  background-color: var(--farbe_akzente);
+  color: var(--farbe_schriften1);
+}
+
 /* Responsive Off-Canvas-Menü */
 @media (max-width: 768px) {
   /* Verbirgt das normale Menü und zeigt den Burger-Button */
