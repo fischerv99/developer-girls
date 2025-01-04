@@ -10,4 +10,7 @@ export default class SonstigesController {
         return view.render('pages/impressum')
     }
     
+    public async ueberuns({ view }: HttpContext) {
+        return view.render('pages/ueberuns')
+      }
 }

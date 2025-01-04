@@ -674,8 +674,8 @@ h3.überschrift_zusatz {
 }
 
 
-/*IMPRESSUM & DATENSCHUTZ & WARENKORB*/
-.impressum, .datenschutz, .warenkorb {
+/*IMPRESSUM & DATENSCHUTZ & WARENKORB & ÜBER UNS*/
+.impressum, .datenschutz, .warenkorb, .ueberuns{
   max-width: 1000px; /* Begrenzte Breite */
   padding: 0 1rem; /* Seitlicher Abstand */
   color: var(--farbe_schriften1); /* Weiße Schriftfarbe */
@@ -684,25 +684,48 @@ h3.überschrift_zusatz {
   margin-left: 80px; /* Verschiebt den Container nach rechts */
 }
 
-.impressum h1, .datenschutz h1 {
+.impressum h1, .datenschutz h1, .ueberunsh1 {
   font-family: var(--schriftart_überschrift); 
   font-size: var(--schriftgröße_überschrift);
   color: var(--farbe_schriften1);
 }
 
-.impressum h2, .datenschutz h2 {
+.impressum h2, .datenschutz h2, .ueberunsh2 {
 font-family: var(--schriftart_texte); 
 font-size: var(--schriftgröße_texte);
 }
 
 /* Textabschnitte */
-.impressum p, .datenschutz p {
+.impressum p, .datenschutz p, .ueberuns p {
   margin-bottom: 20px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
+/* ÜBER UNS - Layout für Bild und Text nebeneinander */
+.ueberuns .about-content {
+  display: flex; /* Flexbox-Layout aktivieren */
+  align-items: flex-start; /* Bild und Text oben ausrichten */
+  justify-content: flex-start; /* Text links und Bild rechts */
+  gap: 20px; /* Abstand zwischen Text und Bild */
+}
+
+.ueberuns .text-content {
+  flex: 1; /* Der Text nimmt den verfügbaren Raum ein */
+}
+
+.ueberuns .image-content {
+  flex-shrink: 0; /* Verhindert, dass das Bild schrumpft */
+  max-width: 200px; /* Setze eine maximale Breite für das Bild */
+}
+
+.ueberuns .image-content img {
+  width: 100%; /* Bild passt sich der Containergröße an */
+  height: auto; /* Beibehaltung der Bildproportionen */
+}
+
+
+
 
 /* Warenkorb */
-
 .warenkorb h1 {
   font-family: var(--schriftart_überschrift); 
   font-size: var(--schriftgröße_überschrift);

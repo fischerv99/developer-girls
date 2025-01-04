@@ -37,6 +37,9 @@
                 <li>
                     <a href="/startseite_beilagen" class="{{ request.url() === '/startseite_beilagen' ? 'aktiv' : 'inaktiv' }}">BEILAGEN</a>
                 </li>
+                <li>
+                    <a href="/ueberuns" class="{{ request.url() === '/ueberuns' ? 'aktiv' : 'inaktiv' }}">ÜBER UNS</a>
+                    
                 @if (!kundeAngemeldet)
                 <li>
                     <a href="/login" class="{{ request.url() === '/login' ? 'aktiv' : 'inaktiv' }}">

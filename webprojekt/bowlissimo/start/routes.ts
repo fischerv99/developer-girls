@@ -76,9 +76,11 @@ router.post('/warenkorb/entfernen/:produkt', [WarenkorbsController, 'entfernen']
 router.post('/warenkorb/menge/erhoehen/:produkt', [WarenkorbsController, 'erhoehen'])
 router.post('/warenkorb/menge/verringern/:produkt', [WarenkorbsController, 'verringern'])
 
-//Route für Datenschutz und Impressum -> SonstigesController
+//Route für Datenschutz, Über Uns und Impressum -> SonstigesController
 router.get('/datenschutz', [SonstigesController, 'datenschutz'])
 router.get('/impressum', [SonstigesController, 'impressum'])
+router.get('/ueberuns', [SonstigesController, 'ueberuns']);
+
 
 //Route um Bestellung abzuschließen -> bestellungsController
 router.get('/kasse', [BestellungsController, 'kasse'])
