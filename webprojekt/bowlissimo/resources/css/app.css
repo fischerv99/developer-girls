@@ -756,6 +756,59 @@ h3.überschrift_zusatz {
   text-align: center;
 }
 
+/*ELEMENTE HINZUFÜGEN*/
+.form_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: var(--farbe_hintergrund);
+  color: var(--farbe_schriften1);
+  font-family: var(--schriftart_texte);
+  border-radius: 10px;
+}
+
+.überschrift_form {
+  font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_überschrift);
+  color: var(--farbe_schriften1);
+  text-align: left;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form_reihe {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.form_reihe label {
+  font-size: var(--schriftgröße_texte);
+  color: var(--farbe_schriften1);
+  font-weight: bold;
+}
+
+.form_input {
+  padding: 2px;
+  font-size: var(--schriftgröße_texte);
+  border: 1px solid var(--farbe_schriften1);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--farbe_schriften1);
+  font-family: var(--schriftart_texte);
+}
+
+.form_feld:focus {
+  outline: none;
+  border-color: var(--farbe_akzente);
+}
+
 
 /*IMPRESSUM & DATENSCHUTZ & WARENKORB & ÜBER UNS*/
 .impressum, .datenschutz, .warenkorb, .ueberuns{
