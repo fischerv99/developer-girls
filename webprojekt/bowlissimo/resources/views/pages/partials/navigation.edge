@@ -19,12 +19,12 @@
                 <li class="filter-icon-wrapper">
                     <!-- Filter-Icon -->
                     <img 
+                    id="filter-icon"
                     class="filter_navigation"
                     class="filter-icon" 
                     src="/storage/filter-green.png" 
                     alt="Filter" 
                     style="  width: 25px; height: 25px; transform: scale(1.2); transition: all 0.3s ease;"
-                    onclick="toggleDropdown()" 
                     />
                     <br>
                     <!-- Dropdown-Menü -->
@@ -75,42 +75,77 @@
         </nav>
 
         <script>
-            const filterIcon = document.getElementById("filter-icon");
-            const dropdown = document.getElementById("filter-dropdown");
+            document.addEventListener("DOMContentLoaded", () => {
+    const filterIcon = document.getElementById("filter-icon");
+    const dropdown = document.getElementById("filter-dropdown");
+    const options = dropdown.querySelectorAll(".custom-option"); // Alle Optionen auswählen
 
-            // Funktion, um das Dropdown zu öffnen oder zu schließen
-            function toggleDropdown(event) {
-            // Dropdown umschalten
-            dropdown.hidden = !dropdown.hidden;
+    // Funktion, um das Dropdown zu öffnen oder zu schließen
+    function toggleDropdown(event) {
+        event.stopPropagation(); // Event-Propagation verhindern
+        dropdown.hidden = !dropdown.hidden;
 
-            // Icon-Bild ändern
-            if (!dropdown.hidden) {
-                filterIcon.src = "/storage/filter-yellow.png";
+        // Icon-Bild ändern
+        if (!dropdown.hidden) {
+            filterIcon.src = "/storage/filter-yellow.png";
+        } else {
+            filterIcon.src = "/storage/filter-green.png";
+        }
+    }
+
+    // Funktion, um das Dropdown zu schließen, wenn außerhalb geklickt wird
+    function closeDropdown() {
+        dropdown.hidden = true;
+        filterIcon.src = "/storage/filter-green.png"; // Icon zurücksetzen
+    }
+
+    // Event-Listener für das Filter-Icon
+    filterIcon.addEventListener("click", toggleDropdown);
+
+    // Event-Listener für Klicks außerhalb des Dropdowns
+    document.addEventListener("click", closeDropdown);
+
+    // Verhindern, dass Klicks im Dropdown das Schließen auslösen
+    dropdown.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    // Event-Listener für die Optionen
+    options.forEach(option => {
+        option.addEventListener("click", () => {
+            const isAlleOption = option.getAttribute("data-value") === ""; // Prüfen, ob die Option "Alle" ist
+            const activeOptions = dropdown.querySelectorAll(".custom-option.active");
+
+            if (isAlleOption) {
+                // Wenn "Alle" ausgewählt wird, alle anderen Optionen deaktivieren
+                activeOptions.forEach(opt => opt.classList.remove("active"));
+                option.classList.add("active");
             } else {
-                filterIcon.src = "/storage/filter-green.png";
+                // Wenn eine andere Option gewählt wird
+                const alleOption = dropdown.querySelector(".custom-option[data-value='']");
+
+                // Entferne die Aktivierung der "Alle"-Option
+                alleOption.classList.remove("active");
+
+                if (activeOptions.length < 2) {
+                    // Aktivieren oder deaktivieren der aktuellen Option
+                    if (option.classList.contains("active")) {
+                        option.classList.remove("active"); // Deaktivieren
+                    } else {
+                        option.classList.add("active"); // Aktivieren
+                    }
+                } else {
+                    // Wenn bereits zwei Optionen aktiv sind und eine dritte gewählt wird
+                    // Alle Optionen deaktivieren
+                    options.forEach(opt => opt.classList.remove("active"));
+
+                    // "Alle"-Option aktivieren
+                    alleOption.classList.add("active");
+                }
             }
-
-            // Verhindert, dass der Klick auf das Icon das Dokument-Event auslöst
-            event.stopPropagation();
-            }
-
-            // Funktion, um das Dropdown zu schließen, wenn außerhalb geklickt wird
-            function closeDropdown() {
-            dropdown.hidden = true;
-            filterIcon.src = "/storage/filter-green.png"; // Icon zurücksetzen
-            }
-
-            // Event-Listener für das Filter-Icon
-            filterIcon.addEventListener("click", toggleDropdown);
-
-            // Event-Listener für Klicks außerhalb des Dropdowns
-            document.addEventListener("click", closeDropdown);
-
-            // Verhindern, dass Klicks im Dropdown das Schließen auslösen
-            dropdown.addEventListener("click", (event) => {
-            event.stopPropagation();
-            });
-
-          </script>
+        });
+    });
+});
+</script>
 </body>
 </html>
