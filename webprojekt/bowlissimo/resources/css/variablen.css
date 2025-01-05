@@ -1,0 +1,25 @@
+/*VARIABLEN*/
+:root {
+    /* Schriftarten */
+    --schriftart_überschrift: "baileywick-jf-gothic", sans-serif; /*für alle h1-Überschriften*/
+    --schriftart_texte: "roboto", sans-serif; /*alle Texte*/
+    --schriftart_nav_buttons: "aileron", sans-serif; /*für Navigation & Buttons*/
+  
+    /* Schriftgrößen */
+    --schriftgröße_überschrift: 35px; /*nur für h1-Überschriften!*/
+    --schriftgröße_unterüberschrift: 30px; /*für h2,h3,etc. Überschriften*/
+    --schriftgröße_überschrift_zusatz: 20px;
+    --schriftgröße_nav_buttons: 15px; /*für Navigation & Buttons*/
+    --schriftgröße_texte: 18px; /*für Produktnamen*/
+    --schriftgröße_klein: 14px; /*für "Details", Preise, etc.*/
+    --schriftgröße_sehrklein: 12px; /*für "Details", Preise, etc.*/
+  
+  
+    /* Farben */
+    --farbe_hintergrund:#649e4c; /*für alle Seiten*/
+    --farbe_hintergrund_nav:#FCF8ED; /*für Hintergrund Navigation & Buttons*/
+    --farbe_hintergrund_hellgrün:#bdd3aa; /*für den hellgrünen Warenkorb an der rechten Seite an der Startseite*/
+    --farbe_schriften1:#FCF8ED; /*für alle Texte*/
+    --farbe_schriften_konvert:#649e4c; /*für Texte, die auf hellem Hintergrund sind, Beispiel Navigation & Buttons*/
+    --farbe_akzente:#FCC21D; /*Akzentfarbe, verwenden für bspw hovern oder um „ausgewählt“ zu kennzeichnen*/
+  }

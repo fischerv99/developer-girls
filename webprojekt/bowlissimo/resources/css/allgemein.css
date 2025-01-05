@@ -1,0 +1,36 @@
+@import url('/resources/css/variablen.css');
+
+/*ALLGEMEIN*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    font-family: var(--schriftart_texte);
+    font-size: var(--schriftgröße_texte);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Verhindert horizontales Scrollen */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body {
+    background-color: var(--farbe_hintergrund);
+  }
+  
+  .main {
+    display: flex;
+    padding-top: 150px;
+    flex-direction: column;
+    width: 100%;
+    color: var(--farbe_schriften1);
+    align-items: center;
+  }
+  

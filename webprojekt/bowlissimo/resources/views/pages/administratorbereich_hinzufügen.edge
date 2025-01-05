@@ -5,64 +5,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bowlissimo | {{unterkategorie}} hinzufügen</title>
+    <title>Bowlissimo | {{ unterkategorie }} hinzufügen</title>
     <link rel="stylesheet" href="https://use.typekit.net/nvm4puz.css">
+    <link rel="stylesheet" href="resources/css/allgemein.css">
     <link rel="stylesheet" href="/resources/css/app.css">
     <link rel="icon" href="/storage/nudel.png" type="image/png">
 </head>
 
 <body>
-    <h1>{{ unterkategorie }} hinzufügen</h1>
+    <header class="header">    
+        @include('pages/partials/header')   
+        @include ('pages/partials/navigation')
+    </header>
+    
+    <main class="main">
+        <div class="form_container">
+            <div class="überschrift_form_container">
+                <h1 class="überschrift_form">{{ unterkategorie }} hinzufügen</h1>
+            </div>
 
-    @if(error != null) 
-    <p>{{ error }}</p>
-    @endif
+            @if(error != null) 
+            <p class="error_hinweis">{{ error }}</p>
+            @endif
 
-    <form action= "/administratorbereich/hinzufuegen/{{oberkategorie}}/{{unterkategorie}}" method="post" enctype="multipart/form-data">
-        {{csrfField()}}
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+            <form class="form" action="/administratorbereich/hinzufuegen/{{oberkategorie}}/{{unterkategorie}}" method="post" enctype="multipart/form-data">
+                {{csrfField()}}
+                <div class="form_reihe">
+                    <label class="form_label" for="name">Name:</label>
+                    <input class="form_input" type="text" id="name" name="name" required autofocus>
+                </div>
 
-        <label for="beschreibung">Beschreibung:</label>
-        <input type="text" id="beschreibung" name="beschreibung" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="beschreibung">Beschreibung:</label>
+                    <input class="form_input" type="text" id="beschreibung" name="beschreibung" required>
+                </div>
 
-        <label for="inhalte">Inhalte:</label>
-        <input type="text" id="inhalte" name="inhalte" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="inhalte">Inhalte:</label>
+                    <input class="form_input" type="text" id="inhalte" name="inhalte" required>
+                </div>
         
-        <label for="allergene">Allergene:</label>
-        <input type="text" id="allergene" name="allergene" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="allergene">Allergene:</label>
+                    <input class="form_input" type="text" id="allergene" name="allergene" required>
+                </div>
 
-        <label for="ernaehrungsform">Ernährungsform:</label><br>   <!--Radio-Button dass nutzer eingeschränkt wird-->
-        <input type="radio" id="omnivor" name="ernaehrungsform" value="omnivor" required>
-        <label for="omnivor">Omnivor</label><br>
-        <input type="radio" id="vegan" name="ernaehrungsform" value="vegan" required>
-        <label for="vegan">Vegan</label><br>
-        <input type="radio" id="vegetarisch" name="ernaehrungsform" value="vegetarisch" required>
-        <label for="vegetarisch">Vegetarisch</label><br><br>
+                <div class="form_reihe radio_reihe">
+                    <label class="formu_label" for="ernaehrungsform">Ernährungsform:</label>
+                    <div>
+                        <input class="radio_input" type="radio" id="omnivor" name="ernaehrungsform" value="omnivor" required>
+                        <label class="radio_label" for="omnivor">Omnivor</label>
+                    </div>
+                    <div>
+                        <input class="radio_input" type="radio" id="vegan" name="ernaehrungsform" value="vegan" required>
+                        <label class="radio_label" for="vegan">Vegan</label>
+                    </div>
+                    <div>
+                        <input class="radio_input" type="radio" id="vegetarisch" name="ernaehrungsform" value="vegetarisch" required>
+                        <label class="radio_label" for="vegetarisch">Vegetarisch</label>
+                    </div>
+                </div>
 
-        <label for="kalorien_pro_100me">Kalorien pro 100g oder ml:</label> 
-        <input type="number" id="kalorien_pro_100me" name="kalorien_pro_100me" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="kalorien_pro_100me">Kalorien pro 100g oder ml:</label>
+                    <input class="form_input" type="number" id="kalorien_pro_100me" name="kalorien_pro_100me" required>
+                </div>
 
-        <label for="portionsgroesse">Portionsgröße:<label> 
-        <input type="number" id="portionsgroesse" name="portionsgroesse" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="portionsgroesse">Portionsgröße:</label>
+                    <input class="form_input" type="number" id="portionsgroesse" name="portionsgroesse" required>
+                </div>
 
-        <label for="kalorien_pro_portion">Kalorien pro Portion:</label>
-        <input type="number" id="kalorien_pro_portion" name="kalorien_pro_portion" required><br><br>
+                <div class="form_reihe">
+                    <label class="form_label" for="kalorien_pro_portion">Kalorien pro Portion:</label>
+                    <input class="form_input" type="number" id="kalorien_pro_portion" name="kalorien_pro_portion" required>
+                </div>
 
-        <!--Preis bei pasta nicht benötigt -->
-        @if (oberkategorie != "pasta")
-        <label for="preis">Preis:</label> 
-        <input type="number" id="preis" name="preis" required><br><br>
-        @endif
+                @if (oberkategorie != "pasta")
+                <div class="form_reihe">
+                    <label class="form_label" for="preis">Preis:</label>
+                    <input class="form_input" type="number" id="preis" name="preis" required>
+                </div>
+                @endif
 
-         <!--Bild:  -->
-        <label for="bild">Bild:</label>
-        <br> <p>Bitte nur .png Dateien in Herzform hochladen</p> 
-        <input type="file" id="bild" name="bild" required><br><br>
-        
+                <div class="form_reihe">
+                    <label class="form_label" for="bild">Bild:</label>
+                    <p class="bild_hinweis">Bitte nur .png Dateien in Herzform hochladen</p>
+                    <input class="form_input" type="file" id="bild" name="bild" required>
+                </div>
 
-        <button type="submit">{{ unterkategorie }} hinzufügen</button>
-    </form>
+                <button class="auswahl_button" type="submit">{{ unterkategorie }} hinzufügen</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        @include('pages/partials/footer')
+    </footer>  
 </body>
 
 </html>
