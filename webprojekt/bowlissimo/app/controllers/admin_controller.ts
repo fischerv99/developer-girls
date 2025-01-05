@@ -261,6 +261,39 @@ export default class AdminController {
         return response.redirect(`/administratorbereich/pasta`);
       }
 
+      public async bestellungen ({ view }: HttpContext) {
+        //Bestellungen aus der Datenbank holen
+        const bestellungen = await db.from('warenkorb_bestellung').where('in_bestellung', 1).select('id').select('kunde_id')
+        console.log(bestellungen); //Ausgabe: { id: 1, kunde_id: 1 }
+
+        //Ausgewählte Produkte der Warenkorbs_id
+        for (const bestellung of bestellungen) {
+          const ausgewaehlte_produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', bestellung.id).select('produkt', 'menge')
+          bestellung.warenkorb = ausgewaehlte_produkte
+        console.log(bestellung); //Ausgabe: { id: 1, kunde_id: 1 , warenkorb: [ { produkt: 1, menge: 1 } ] }
+
+        //Wenn das Produkt Getränk oder Beilage ist, dann kann es so bleiben
+        //Wenn das Produkt Pasta ist, dann muss der Name des Produkts geholt werden und die ID durch mit Produkt ergänzt werden
+        for (const produkt of bestellung.warenkorb) {
+            if (!isNaN(produkt.produkt)) {
+          const kreation = await db.from('kreation').where('id', produkt.produkt).select('pasta_id', 'sossen_id', 'id').first();
+          produkt.produkt = kreation; //Ersetzt die ID durch das Produkt-Objekt
+        console.log(produkt); //Ausgabe: { produkt: 'Pasta' }
+
+        // Toppings zur Kreation hinzufügen
+        const toppings = await db.from('kreation_toppings').where('kreation_id', kreation.id).select('topping_id');
+
+      // Toppings-IDs in ein Array umwandeln
+      produkt.produkt.toppings = toppings.map(t => t.topping_id);
+      console.log(produkt.produkt); // Ausgabe: { pasta_id: 1, sossen_id: 2, id: 1, toppings: [3, 4] }
+
+      console.log(bestellung); 
+
+      return view.render('pages/administratorbereich_bestellungen', { bestellungen, produkt });
+            }
+        }} 
+      }
+
 
     // Beim Logout (27.11.Evy)
     public async logout({ session, response }: HttpContext) {

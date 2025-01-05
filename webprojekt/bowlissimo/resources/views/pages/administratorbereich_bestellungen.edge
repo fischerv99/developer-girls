@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administratorbereich - Bestellungen</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Optional: Verknüpfe CSS für Styles -->
+</head>
+<body>
+    <header>
+        <h1>Bestellungen Übersicht</h1>
+    </header>
+    <main>
+        @if(bestellungen.length > 0)
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bestell-ID</th>
+                        <th>Kunde-ID</th>
+                        <th>Produkte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(bestellungen as bestellung)
+                        <tr>
+                            <td>{{ bestellungen.id }}</td>
+                            <td>{{ bestellungen.kunde_id }}</td>
+                            <td>
+                                <ul>
+                                    @foreach(bestellung.warenkorb as produkt)
+                                        <li>
+                                            @if(produkt.produkt.pasta_id)
+                                                <strong>Pasta:</strong> Pasta-ID: {{ produkt.produkt.pasta_id }},
+                                                Soße-ID: {{ produkt.produkt.sossen_id }},
+                                                Menge: {{ produkt.menge }},
+                                                Toppings: 
+                                                @if(produkt.produkt.toppings.length > 0)
+                                                    <ul>
+                                                        @foreach(produkt.produkt.toppings as topping)
+                                                            <li>Topping-ID: {{ topping }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @else
+                                                    Keine Toppings
+                                                @endif
+                                            @else
+                                                <strong>Produkt:</strong> Produkt-ID: {{ produkt.produkt }},
+                                                Menge: {{ produkt.menge }}
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Keine Bestellungen vorhanden.</p>
+        @endif
+    </main>
+</body>
+</html>

@@ -59,6 +59,7 @@ router.post('/administratorbereich_login', [AdminController, 'login2'])
 router.get('/administratorbereich/pasta', [AdminController, 'pasta'])
 router.get('/administratorbereich/getraenke', [AdminController, 'getraenke'])
 router.get('/administratorbereich/beilagen', [AdminController, 'beilagen'])
+router.get('administratorbereich/bestellungen', [AdminController, 'bestellungen'])
 router.get('/administratorbereich/logout', [AdminController, 'logout'])
 
 // Hinzufügen eines neuen Produkts
