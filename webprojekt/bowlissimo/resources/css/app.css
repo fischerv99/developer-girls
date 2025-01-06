@@ -558,20 +558,44 @@ h3.überschrift_zusatz {
   font-weight: bold;
 }
 
-.zurück_button {
-  color: var(--farbe_schriften1);
-  font-size: var(--schriftgröße_nav_buttons);
-  border: none;
-  background-color: transparent;
-  padding-left: 40px;
+.zurück_button_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--farbe_hintergrund_nav);
   cursor: pointer;
-  font-family: var(--schriftgröße_nav_buttons);
-  text-align: left;
+  border-radius: 30px; /* Rundung */
+  padding: 5px; /* Abstand */
+  max-width: fit-content;
+  text-decoration: none; /* Kein Unterstrich für den Text */
 }
 
-.zurück_button:hover {
+.zurück_button_text {
+  padding-left: 10px;
+}
+
+.zurück_button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--farbe_hintergrund_nav);
+  border-radius: 30px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: var(--farbe_schriften_konvert); 
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
+}
+
+.zurück_button_pfeil {
+  height: 25px;
+  width: auto;
+  margin-right: 8px; /* Abstand zwischen Pfeil und Text */
+}
+
+.zurück_button_container:hover {
   color: var(--farbe_akzente);
-  font-weight: bold;
 }
 
 .bearbeiten_button {
@@ -704,7 +728,6 @@ h3.überschrift_zusatz {
   flex-wrap: wrap; 
   justify-content: space-between;
   align-items: flex-start; 
-  max-width: 1200px;
   gap: 20px;
   color: var(--farbe_schriften1);
 }
@@ -778,7 +801,6 @@ h3.überschrift_zusatz {
   justify-content: space-between;
   padding: 20px 40px;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
