@@ -160,29 +160,6 @@ a.aktiv .herz_bild {
   display: none;
 }
 
-/* Burger-Button Styling */
-.menu-icon {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  padding-top: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
-  position: absolute;
-  top: 0px;
-  right: 20px;
-  z-index: 1001;
-}
-
-.menu-icon span {
-  display: block;
-  height: 2px;
-  width: 22px;
-  background-color:var(--farbe_hintergrund_nav);
-  margin: 4px 0;
-  transition: 0.3s ease;
-}
-
 /*Filter Styling Evy*/
 /* Filter Icon Styling */
 .filter-icon {
@@ -265,35 +242,124 @@ a.aktiv .herz_bild {
   color: var(--farbe_schriften1);
 }
 
-/* Responsive Off-Canvas-Menü */
-@media (max-width: 768px) {
-  /* Verbirgt das normale Menü und zeigt den Burger-Button */
-  .nav_oben ul {
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0px;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: var(--farbe_hintergrund_nav);
-      padding-top: 60px;
-      transition: left 0.3s ease;
-      z-index: 1000;
-  }
 
-  /* Checkbox aktiviert das Menü */
-  #menu-toggle:checked ~ .nav_oben ul {
-      left: 0;
-  }
+/* BURGER MENÜ */
 
-  /* Burger-Button anzeigen */
-  .menu-icon {
-      display: flex;
-  }
-
+.menü_icon {
+  display: flex;
+  flex-direction: column;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1000;
 }
-  
+
+.menü_icon span {
+  width: 100%;
+  height: 3px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#menü_toggle:checked ~ .nav_oben_ohne_log {
+  display: flex;
+}
+
+/* Standardmäßig: Desktop-Ansicht (großer Viewport) */
+.menü_icon {
+  display: none; /* Burger-Menü verstecken */
+}
+
+#menü_toggle {
+  display: none; /* Checkbox für das Burger-Menü ebenfalls verstecken */
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    display: none; /* Navigation standardmäßig ausblenden */
+    flex-direction: column; /* Vertikale Anordnung für mobile Ansicht */
+    align-items: flex-start; /* Links ausrichten */
+    gap: 10px; /* Abstand zwischen Navigationselementen */
+    background-color: var(--farbe_hintergrund_nav); /* Hintergrundfarbe */
+    position: fixed;
+    top: 85px; /* Höhe, passend zur alten Navigation */
+    left: 0;
+    width: 80%; /* Navigation nimmt 80% der Breite ein */
+    max-width: 300px; /* Maximale Breite */
+    height: calc(100vh - 85px); /* Höhe unterhalb der fixierten Navigation */
+    padding: 20px 15px; /* Innenabstand */
+    z-index: 999;
+    overflow-y: auto; /* Scrollbar bei zu vielen Elementen */
+  }
+
+  #menü_toggle:checked ~ nav ul {
+    display: flex; /* Navigation anzeigen, wenn Burger-Menü aktiv ist */
+  }
+
+  .menü_icon {
+    display: flex; /* Burger-Menü anzeigen */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px; /* Gleiche Höhe wie das Logo */
+    right: 15px;
+    z-index: 1000;
+  }
+
+  .menü_icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--farbe_schriften1); /* Farbe des Icons */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .filter-icon-wrapper {
+    position: relative;
+    z-index: 1001; /* Über Navigation */
+  }
+
+  .custom-dropdown {
+    position: absolute;
+    top: 35px; /* Abstand unter dem Icon */
+    left: 100px; /* Links etwas eingerückt */
+    background-color: var(--farbe_akzente);
+    border-radius: 5px;
+    z-index: 1002; /* Höher als Navigation */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    opacity: 0.95;
+    width: 200px; /* Breite des Dropdowns */
+    max-width: 250px;
+  }
+
+  .custom-option {
+    padding: 5px 10px;
+    background-color: var(--farbe_hintergrund_nav);
+    color: var(--farbe_schriften_konvert);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .custom-option:hover {
+    background-color: var(--farbe_akzente);
+    color: var(--farbe_hintergrund_nav);
+  }
+
+  .custom-option.active {
+    background-color: var(--farbe_akzente);
+    color: var(--farbe_hintergrund_nav);
+  }
+}
+
+
+
+
 /*STARTSEITEN*/
 
 /* Hauptüberschrift und Basispreis nebeneinander */
