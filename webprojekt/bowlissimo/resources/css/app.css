@@ -114,10 +114,6 @@ nav ul li a {
   padding-bottom: 15px;
 }
 
-.filter_navigation {
-  margin-bottom: 15px;
-}
-
 /* Hover-Effekt für Links */
 nav ul li a:hover {
   color: var(--farbe_akzente);
@@ -150,7 +146,6 @@ a .herz_bild {
   transition: all 0.3s ease;
   margin-bottom: 10px;
 }
-
 
 a:hover .herz_bild {
   content: url('/storage/herz_gelb.png');
@@ -193,23 +188,36 @@ a.aktiv .herz_bild {
 .filter-icon {
   width: 25px;
   height: 25px;
-  transform: scale(1.2);
   transition: all 0.3s ease; /* Für sanfte Übergänge */
 }
 
-.filter-icon-wrapper{
-  position: relative;
+.filter-icon {
+  position: absolute;
 }
 
 /* Bild bei Hover */
-.filter-icon-wrapper:hover .filter-icon {
+.filter-icon {
+  width: 25px; 
+  height: 25px; 
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.filter-icon:hover {
+  width: 25px; 
+  height: 25px; 
+  margin-bottom: 15px;
   content: url('/storage/filter-yellow.png');
   cursor: pointer;
 }
 
 /* Bild bei Klick */
-.filter-icon-wrapper:active .filter-icon {
+.filter-icon:active {
   content: url('/storage/filter-yellow.png');
+}
+
+.filter-icon-wrapper {
+  position: relative;
 }
 
 /* Custom Dropdown Styling */
