@@ -264,35 +264,58 @@ export default class AdminController {
       public async bestellungen ({ view }: HttpContext) {
         //Bestellungen aus der Datenbank holen
         const bestellungen = await db.from('warenkorb_bestellung').where('in_bestellung', 1).select('id').select('kunde_id')
-        console.log(bestellungen); //Ausgabe: { id: 1, kunde_id: 1 }
 
         //Ausgewählte Produkte der Warenkorbs_id
         for (const bestellung of bestellungen) {
           const ausgewaehlte_produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', bestellung.id).select('produkt', 'menge')
-          bestellung.warenkorb = ausgewaehlte_produkte
-        console.log(bestellung); //Ausgabe: { id: 1, kunde_id: 1 , warenkorb: [ { produkt: 1, menge: 1 } ] }
+
+        //Anlegen eines Warenkorbs für die Bestellung
+          bestellung.warenkorb = [];
 
         //Wenn das Produkt Getränk oder Beilage ist, dann kann es so bleiben
-        //Wenn das Produkt Pasta ist, dann muss der Name des Produkts geholt werden und die ID durch mit Produkt ergänzt werden
-        for (const produkt of bestellung.warenkorb) {
+        //Wenn das Produkt eine Kreation ist, dann müssen Inhalte der Kreation geholt werden und die ID ergänzt werden
+        for (const produkt of ausgewaehlte_produkte) {
             if (!isNaN(produkt.produkt)) {
-          const kreation = await db.from('kreation').where('id', produkt.produkt).select('pasta_id', 'sossen_id', 'id').first();
-          produkt.produkt = kreation; //Ersetzt die ID durch das Produkt-Objekt
-        console.log(produkt); //Ausgabe: { produkt: 'Pasta' }
+              const kreation = await db.from('kreation').where('id', produkt.produkt).select('id').first();
 
-        // Toppings zur Kreation hinzufügen
-        const toppings = await db.from('kreation_toppings').where('kreation_id', kreation.id).select('topping_id');
+              const pastaName = await db.from('kreation').where('id', produkt.produkt).select('pasta_id').first();
+              const sosseName = await db.from('kreation').where('id', produkt.produkt).select('sossen_id').first();
+              
+        // Toppings zur Kreation hinzufügen 
+        const toppingNamen = await db.from('kreation_toppings').where('kreation_id', kreation.id).select('topping_id');
+        //Ergebnis: { topping_id: 'Tofu' },{ topping_id: 'Haehnchen' },{ topping_id: 'Lachs' }
+        const toppingNamenArray = toppingNamen.map(topping => topping.topping_id);
+        const toppingNamenString = toppingNamenArray.join(', ');
 
-      // Toppings-IDs in ein Array umwandeln
-      produkt.produkt.toppings = toppings.map(t => t.topping_id);
-      console.log(produkt.produkt); // Ausgabe: { pasta_id: 1, sossen_id: 2, id: 1, toppings: [3, 4] }
+       // Kreationsdetails aufbereiten
+       const produktDetails = {
+        produkt: pastaName, sosseName, toppingNamenString,
+        menge: produkt.menge
+      };
+       // Produkt zum Warenkorb hinzufügen
+    if (produktDetails) {
+      bestellung.warenkorb.push(produktDetails);
+    }
+    } else {
+      // Produkt ist Getränk oder Beilage
+      const produktDetails = {
+          produkt: produkt,
+          menge: produkt.menge
+      };
+       // Produkt zum Warenkorb hinzufügen
+    if (produktDetails) {
+      bestellung.warenkorb.push(produktDetails);
+    }
+    }
+   
+  }
 
-      console.log(bestellung); 
+console.log(bestellungen); // Überprüfen der Bestellung
+console.log(bestellung.warenkorb); // Überprüfen der Warenkorb-Produkte
+}
 
-      return view.render('pages/administratorbereich_bestellungen', { bestellungen, produkt });
-            }
-        }} 
-      }
+return view.render('pages/administratorbereich_bestellungen', { bestellungen });
+}
 
 
     // Beim Logout (27.11.Evy)

@@ -1,11 +1,17 @@
 import db from "@adonisjs/lucid/services/db" // Import für Datenbankzugriffe
 
-class CartCleanupService { 
+class CartCleanupService {
+  cleanup(sessionId: string) {
+    throw new Error('Method not implemented.');
+  }
+  static start() {
+    throw new Error('Method not implemented.');
+  } 
   private static instance: CartCleanupService;
   private cleanupInterval: number;
 
   private constructor() {
-    this.cleanupInterval = 1000 * 60 * 60 * 24; // 24h
+    this.cleanupInterval = 24 * 60 * 60 * 1000; // 24h in ms
       this.startCleanup();
     }
 

@@ -1,14 +1,14 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import db from "@adonisjs/lucid/services/db"
-import CartCleanupService from '../services/clean.ts' // Importiere den Bereinigungsservice
+//import CartCleanupService from '../services/clean.ts' // Importiere den Bereinigungsservice
 
 export default class ProduktesController {
 
 public async startseite_pasta({ view, session }: HttpContext) {
 
-  // Bereinigungsservice für den Warenkorb starten 
-  const cartCleanupService = CartCleanupService.getInstance();
-  console.log('CartCleanupService gestartet:', cartCleanupService);
+  // Bereinigungsservice für den Warenkorb starten
+  //const cartCleanupService = CartCleanupService.getInstance();
+  
 
   // Session-ID prüfen und setzen (03.12.Evy)
   if (!session.get('sessionId')) {

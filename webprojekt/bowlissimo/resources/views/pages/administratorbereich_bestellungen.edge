@@ -3,61 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administratorbereich - Bestellungen</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Optional: Verknüpfe CSS für Styles -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bowlissimo | Bestellübersicht </title>
+    <link rel="stylesheet" href="https://use.typekit.net/nvm4puz.css">
+    <link rel="stylesheet" href="/resources/css/app.css">
+    <link rel="icon" href="/storage/nudel.png" type="image/png">
 </head>
+
 <body>
-    <header>
-        <h1>Bestellungen Übersicht</h1>
-    </header>
-    <main>
-        @if(bestellungen.length > 0)
-            <table>
-                <thead>
-                    <tr>
-                        <th>Bestell-ID</th>
-                        <th>Kunde-ID</th>
-                        <th>Produkte</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(bestellungen as bestellung)
-                        <tr>
-                            <td>{{ bestellungen.id }}</td>
-                            <td>{{ bestellungen.kunde_id }}</td>
-                            <td>
+    <h1>Administratorbereich: Bestellungen</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bestell-ID</th>
+                <th>Kunden-ID</th>
+                <th>Warenkorb</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(bestellung in bestellungen)
+                <tr>
+                    <td>{{ bestellung.id }}</td>
+                    <td>{{ bestellung.kunde_id }}</td>
+                    <td>
+                        <div class="warenkorb">
+                            @if(bestellung.warenkorb && bestellung.warenkorb.length > 0)
                                 <ul>
                                     @foreach(bestellung.warenkorb as produkt)
                                         <li>
+                                            <strong>Produkt:</strong> 
                                             @if(produkt.produkt.pasta_id)
-                                                <strong>Pasta:</strong> Pasta-ID: {{ produkt.produkt.pasta_id }},
-                                                Soße-ID: {{ produkt.produkt.sossen_id }},
-                                                Menge: {{ produkt.menge }},
-                                                Toppings: 
-                                                @if(produkt.produkt.toppings.length > 0)
-                                                    <ul>
-                                                        @foreach(produkt.produkt.toppings as topping)
-                                                            <li>Topping-ID: {{ topping }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @else
-                                                    Keine Toppings
-                                                @endif
+                                                Pasta: {{ produkt.produkt.pasta_id }},
+                                                Soße: {{ produkt.sosseName.sossen_id }},
+                                                Toppings: {{ produkt.toppingNamenString }}
                                             @else
-                                                <strong>Produkt:</strong> Produkt-ID: {{ produkt.produkt }},
-                                                Menge: {{ produkt.menge }}
+                                                {{ produkt.produkt }}
                                             @endif
+                                            <br>
+                                            <strong>Menge:</strong> {{ produkt.menge }}
                                         </li>
-                                    @endforeach
+                                    @endeach
                                 </ul>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Keine Bestellungen vorhanden.</p>
-        @endif
-    </main>
+                            @else
+                                <p>Keine Produkte im Warenkorb.</p>
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+            @endeach
+        </tbody>
+    </table>
 </body>
 </html>
