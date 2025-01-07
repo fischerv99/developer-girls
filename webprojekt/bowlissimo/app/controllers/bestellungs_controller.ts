@@ -42,40 +42,50 @@ export default class BestellungsController {
         })
         
         //Session löschen, da Bestellung abgeschlossen
+        await this.deleteSession(session);
 
         return view.render('pages/dankeseite', {vorname})
 
-}
+    }
 
     public async bestellen ({ view, request, session, params }: HttpContext) {
+
         const { nutzername } = params
 
         //Daten werden in der db bei kunden_angemeldet gespeichert -> falls Nutzer was ändert wird es gespeichert
-    const vorname = request.input('vorname')
-    const nachname = request.input('nachname')
-    const strasse_nr = request.input('strasse_nr')
-    const postleitzahl = request.input('postleitzahl')
-    const stadt = request.input('stadt')
-    const mail = request.input('mail')
-    const bezahlart = request.input('bezahlart')
+        const vorname = request.input('vorname')
+        const nachname = request.input('nachname')
+        const strasse_nr = request.input('strasse_nr')
+        const postleitzahl = request.input('postleitzahl')
+        const stadt = request.input('stadt')
+        const mail = request.input('mail')
+        const bezahlart = request.input('bezahlart')
 
-    const kunden_id = session.get('kunde')
-    await db.from('kunden_angemeldet')
-            .where('kunden_id', kunden_id)
-            .update({
-                vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart
-            })
-    
-    //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird und Kunde vermerken
-    await db.from('warenkorb_bestellung')
-    .where('session_id', session.sessionId)
-    .update({in_bestellung: 1,
-             kunde_id: nutzername
-})
+        const kunden_id = session.get('kunde')
+        await db.from('kunden_angemeldet')
+                .where('kunden_id', kunden_id)
+                .update({
+                    vorname, nachname, strasse_nr, postleitzahl, stadt, mail, bezahlart
+                })
+        
+        //In der Datenbank warenkorb_bestellung vermerken, dass diese Bestellung abgeschlossen wird und Kunde vermerken
+        await db.from('warenkorb_bestellung')
+        .where('session_id', session.sessionId)
+        .update({in_bestellung: 1,
+                kunde_id: nutzername
+        })
 
-  //Session löschen, da Bestellung abgeschlossen
-    session.forget(session.sessionId)
+        //Session löschen, da Bestellung abgeschlossen
+        await this.deleteSession(session);
 
-        return view.render('pages/dankeseite', {vorname})
-        }
+            return view.render('pages/dankeseite', {vorname})
     }
+
+        //Session löschen (Evy)
+    private async deleteSession(session: HttpContext['session']) {
+        // Session-Daten löschen
+        session.clear();
+        console.log('Session wurde erfolgreich gelöscht');// Debugging
+    }
+} 
+
