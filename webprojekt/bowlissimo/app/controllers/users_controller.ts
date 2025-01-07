@@ -171,10 +171,11 @@ public async favoriten_entfernen({ response, session, params}: HttpContext) {
 
 public async logout({ response, session}: HttpContext) {
     session.clear(); //Für vollständige Sessionlöschung
+    
     console.log('Benutzer wurde erfolgreich ausgeloggt.');//Debugging
 
     return response.redirect('/');
-    
+
 }
 
 }
