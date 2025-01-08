@@ -12,6 +12,7 @@
 
     <header class="header"> 
         @include('pages/partials/header')
+        @include ('pages/partials/navigation')
     </header>
 
 <main class="ueberuns">
@@ -46,6 +47,12 @@
            Wir möchten Bowlissimo zu einer der führenden Marken im Bereich gesunder und moderner Ernährung machen. Dabei legen wir besonderen Wert auf Nachhaltigkeit, Innovation und Kundenzufriedenheit. Unser Ziel ist es, eine Community aufzubauen, die für Qualität, Vielfalt und Genuss steht.
         </p>
     </section>
+    <div class="zurück_button_container" onclick="window.history.back();">
+        <button class="zurück_button">
+            <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+            <span class="zurück_button_text">Zurück</span>
+        </button>
+    </div>  
     
 </main>
 

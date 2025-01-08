@@ -22,12 +22,12 @@
             <div class="produkt_details_header">
                 <h1 class="details_überschrift">{{ produkt.id }}</h1> <!-- Name des Produkts --> 
 
-                <div class="zurück_button_container" onclick="window.location.href='/'">
-                    <a href="/" class="zurück_button">
+                <div class="zurück_button_container" onclick="window.history.back();">
+                    <button class="zurück_button">
                         <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
-                        <span class="zurück_button_text">Zurück zur Produktübersicht</span>
-                    </a>
-                </div>            
+                        <span class="zurück_button_text">Zurück</span>
+                    </button>
+                </div>                     
 
             </div>
             <div class="product-image">
