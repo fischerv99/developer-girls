@@ -92,8 +92,14 @@
             <!-- Zur Kasse Button -->
     <button class="kasse_auswahl" onclick="window.location.href='/kasse'">Zur Kasse</button>
         @else
-            <p>Dein Warenkorb ist leer. <a href="/">Zurück zum Shop</a></p>
+            <p>Dein Warenkorb ist leer. 
         @endif
+        <div class="zurück_button_container" onclick="window.history.back();">
+            <button class="zurück_button">
+                <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+                <span class="zurück_button_text"> Zurück zum Shop </span>
+            </button>
+        </div>  
     </div>
   </div>
 
