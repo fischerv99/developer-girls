@@ -13,46 +13,38 @@
 <body>
     <h1>Administratorbereich: Bestellungen</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Bestell-ID</th>
-                <th>Kunden-ID</th>
-                <th>Warenkorb</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(bestellung in bestellungen)
-                <tr>
-                    <td>{{ bestellung.id }}</td>
-                    <td>{{ bestellung.kunde_id }}</td>
-                    <td>
-                        <div class="warenkorb">
-                            @if(bestellung.warenkorb && bestellung.warenkorb.length > 0)
-                                <ul>
-                                    @foreach(bestellung.warenkorb as produkt)
-                                        <li>
-                                            <strong>Produkt:</strong> 
-                                            @if(produkt.produkt.pasta_id)
-                                                Pasta: {{ produkt.produkt.pasta_id }},
-                                                Soße: {{ produkt.sosseName.sossen_id }},
-                                                Toppings: {{ produkt.toppingNamenString }}
-                                            @else
-                                                {{ produkt.produkt }}
-                                            @endif
-                                            <br>
-                                            <strong>Menge:</strong> {{ produkt.menge }}
-                                        </li>
-                                    @endeach
-                                </ul>
-                            @else
-                                <p>Keine Produkte im Warenkorb.</p>
-                            @endif
-                        </div>
-                    </td>
-                </tr>
-            @endeach
-        </tbody>
-    </table>
+    <ul>
+      @each(bestellung in bestellungen)
+        <li>
+          <strong>ID:</strong> {{ bestellung.id }} <br>
+          <strong>Kunde:</strong>   {{ bestellung.kunde_id.vorname }} {{ bestellung.kunde_id.nachname }} <br>
+          <strong>Adresse:</strong> {{ bestellung.kunde_id.strasse_nr }}, {{ bestellung.kunde_id.stadt }}, {{ bestellung.kunde_id.postleitzahl }} <br>
+          <strong>E-Mail:</strong> {{ bestellung.kunde_id.mail || 'Nicht angegeben' }} <br>
+          
+          <strong>Warenkorb:</strong>
+          <ul>
+
+            @each(item in bestellung.warenkorb)
+            <li>
+              @if(item.produkt && item.sosseName && item.toppingNamenString) 
+                <!-- Falls alle Details vorhanden sind -->
+                <strong>Pasta:</strong> {{ item.produkt.pasta_id }} <br>
+                <strong>Sosse:</strong> {{ item.sosseName.sossen_id }} <br>
+                <strong>Topping:</strong> {{ item.toppingNamenString }} <br>
+                <strong>Menge:</strong> {{ item.menge }} <br>
+              @else
+                <!-- Falls nur die ID vorhanden ist -->
+                <strong>Produkt:</strong> {{ item.produkt.produkt }} <br>
+                <strong>Menge:</strong> {{ item.menge }} <br>
+              @endif
+            </li>
+          @endeach
+          </ul>
+        </li>
+        <br>
+      @endeach
+    </ul>
+    
+
 </body>
 </html>

@@ -287,32 +287,44 @@ export default class AdminController {
         const toppingNamenArray = toppingNamen.map(topping => topping.topping_id);
         const toppingNamenString = toppingNamenArray.join(', ');
 
-       // Kreationsdetails aufbereiten
-       const produktDetails = {
-        produkt: pastaName, sosseName, toppingNamenString,
-        menge: produkt.menge
-      };
-       // Produkt zum Warenkorb hinzufügen
-    if (produktDetails) {
-      bestellung.warenkorb.push(produktDetails);
-    }
-    } else {
+        // Kreationsdetails aufbereiten
+        const produktDetails = { produkt: pastaName, sosseName, toppingNamenString,
+                                 menge: produkt.menge
+                                };
+        // Produkt zum Warenkorb hinzufügen
+        if (produktDetails) {
+        bestellung.warenkorb.push(produktDetails);
+        }
+
+        } else {
       // Produkt ist Getränk oder Beilage
       const produktDetails = {
           produkt: produkt,
           menge: produkt.menge
       };
-       // Produkt zum Warenkorb hinzufügen
-    if (produktDetails) {
+       
+      // Produkt zum Warenkorb hinzufügen
+      if (produktDetails) {
       bestellung.warenkorb.push(produktDetails);
+      }
     }
-    }
-   
+
+    //Kundeninformationen holen
+    //let kunde = await db.from('kunden_angemeldet').where('kunden_id', bestellung.kunde_id).select('vorname', 'nachname', 'strasse_nr', 'stadt', 'postleitzahl', 'mail').first();
+
+    //if (kunde === null) {
+      //let kunde = await db.from('kunde_gast').where('kunde_id', bestellung.kunde_id).first();
+      //bestellung.kunde_id = kunde;
+    //} else {
+     // bestellung.kunde_id = kunde;
+   // }
+
   }
+}
 
 console.log(bestellungen); // Überprüfen der Bestellung
-console.log(bestellung.warenkorb); // Überprüfen der Warenkorb-Produkte
-}
+console.log(JSON.stringify(bestellungen, null, 2));
+
 
 return view.render('pages/administratorbereich_bestellungen', { bestellungen });
 }
