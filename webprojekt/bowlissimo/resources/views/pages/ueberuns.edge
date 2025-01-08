@@ -15,11 +15,10 @@
         @include ('pages/partials/navigation')
     </header>
 
-<main class="ueberuns">
-    <h1 class="page-title">Über Uns</h1>
-    
-    <section class="about-content">
-        <div class="text-content">
+    <main class="ueberuns">
+        <h1 class="page-title">Über Uns</h1>
+        
+        <section>
             <h2> Wer wir sind:</h2>
           <p>
             Wir sind Bowlissimo, ein junges und dynamisches Start-up aus Stuttgart, das 2024 gegründet wurde. Unsere Leidenschaft gilt der Idee, gesunde, leckere und erschwingliche Bowls für jeden Geschmack anzubieten. Mit einer klaren Vision und einem Fokus auf Qualität und Nachhaltigkeit sind wir stolz darauf, bereits an vier verschiedenen Standorten vertreten zu sein.
@@ -33,12 +32,8 @@
             Unser Ziel ist es, Bowlissimo zu einer Marke zu machen, die für Qualität, Vielfalt und Genuss steht. Wir möchten eine Community aufbauen, die gesundes Essen zu schätzen weiß und gleichzeitig die Vorteile einer erschwinglichen, modernen und nachhaltigen Küche genießt.
           </p>
           <p>
-            <strong>Bowlissimo – für alle, die gesund, lecker und unkompliziert genießen möchten!</strong><br>
+            <strong>Bowlissimo – für alle, die gesund, lecker und unkompliziert genießen möchten!</strong>
           </p>
-        </div>
-        <div class="image-content">
-            <img src="/storage/nudel.png" alt="Eine Nudel" width="400" height="auto">
-        </div>
     </section>
        
     <section>
@@ -47,13 +42,38 @@
            Wir möchten Bowlissimo zu einer der führenden Marken im Bereich gesunder und moderner Ernährung machen. Dabei legen wir besonderen Wert auf Nachhaltigkeit, Innovation und Kundenzufriedenheit. Unser Ziel ist es, eine Community aufzubauen, die für Qualität, Vielfalt und Genuss steht.
         </p>
     </section>
+
+    <section class="delivery-notice">
+        <strong>
+            Bitte beachte, dass wir nur innerhalb dieser Standorte liefern können und auch nur innerhalb unserer Lieferzeiten. <br>
+            Bitte bestelle also spätestens um 19:00, eine Stunde vor Schluss, damit du deine Bestellung erhältst.
+        </strong>
+    </section>
+
+    <section class="locations-and-hours">
+        <div class="locations">
+            <h2>Unsere Standorte</h2>
+            <div class="locations-image">
+                <img src="/storage/locations.png" alt="Unsere Standorte" width="600" height="auto">
+            </div>
+        </div>
+        <div class="hours">
+            <h2>Lieferzeiten</h2>
+            <p>
+                <strong>Montag:</strong> <br> Geschlossen<br>
+                <strong>Dienstag-Donnerstag:</strong> <br> 12:30-20:00 Uhr<br>
+                <strong>Freitag-Sonntag:</strong> <br> 12:00-20:00 Uhr <br>
+                <strong>Feiertage:</strong> <br> Sonderöffnungszeiten
+            </p>
+        </div>
+    </section>
+
     <div class="zurück_button_container" onclick="window.history.back();">
         <button class="zurück_button">
             <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
             <span class="zurück_button_text">Zurück</span>
         </button>
     </div>  
-    
 </main>
 
 <footer class="footer">
@@ -62,3 +82,4 @@
     
 </body>
 </html>
+

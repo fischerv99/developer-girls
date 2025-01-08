@@ -898,31 +898,34 @@ font-size: var(--schriftgröße_texte);
 
 /* Textabschnitte */
 .impressum p, .datenschutz p, .ueberuns p {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
-/* ÜBER UNS - Layout für Bild und Text nebeneinander */
-.ueberuns .about-content {
-  display: flex; /* Flexbox-Layout aktivieren */
-  align-items: flex-start; /* Bild und Text oben ausrichten */
-  justify-content: flex-start; /* Text links und Bild rechts */
-  gap: 20px; /* Abstand zwischen Text und Bild */
+.delivery-notice {
+  color: var(--farbe_akzente);
 }
 
-.ueberuns .text-content {
-  flex: 1; /* Der Text nimmt den verfügbaren Raum ein */
+/* Location und Lieferzeiten */
+.locations-and-hours {
+    display: flex;
+    justify-content: space-evenly; /* Gleiche Abstände, rückt weiter nach rechts */
+    gap: 150px; /* Mehr Abstand zwischen den Elementen */
+    align-items: flex-start;
+    margin-top: 80px;
+  }
+
+.hours {
+  margin-left: 150px !important; /* Erzwingt den Abstand */
 }
 
-.ueberuns .image-content {
-  flex-shrink: 0; /* Verhindert, dass das Bild schrumpft */
-  max-width: 200px; /* Setze eine maximale Breite für das Bild */
+.locations, .hours {
+  max-width: 50%; /* Breite der einzelnen Abschnitte begrenzen */
 }
 
-.ueberuns .image-content img {
-  width: 100%; /* Bild passt sich der Containergröße an */
-  height: auto; /* Beibehaltung der Bildproportionen */
+.locations img {
+  width: 100%; /* Bild skalieren, um den Container auszufüllen */
+  height: auto; /* Proportionen beibehalten */
 }
-
 
 
 
