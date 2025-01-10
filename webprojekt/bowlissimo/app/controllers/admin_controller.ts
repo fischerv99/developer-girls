@@ -265,6 +265,25 @@ export default class AdminController {
         //Bestellungen aus der Datenbank holen
         const bestellungen = await db.from('warenkorb_bestellung').where('in_bestellung', 1).select('id').select('kunde_id')
 
+        //Für jede Bestellung die Kundeninformationen holen
+        for (const bestellung of bestellungen) {   
+      
+        let kunde = await db.from('kunden_angemeldet').where('kunden_id', bestellung.kunde_id).select('vorname', 'nachname', 'strasse_nr', 'stadt', 'postleitzahl', 'mail').first();
+        // Wenn der Kunde nicht gefunden wird, aus der Gasttabelle holen
+        if (kunde === null || kunde === undefined) {
+            kunde = await db.from('kunde_gast').where('kunde_id', bestellung.kunde_id).first();
+        }
+      
+        // Stelle sicher, dass du nur die relevanten Kundeninformationen richtig speicherst
+       bestellung.kunde_id = {
+        vorname: kunde.vorname,
+        nachname: kunde.nachname,
+        strasse_nr: kunde.strasse_nr,
+        stadt: kunde.stadt,
+        postleitzahl: kunde.postleitzahl,
+        mail: kunde.mail
+       };  }
+
         //Ausgewählte Produkte der Warenkorbs_id
         for (const bestellung of bestellungen) {
           const ausgewaehlte_produkte = await db.from('ausgewaehltes_produkt').where('warenkorb_id', bestellung.id).select('produkt', 'menge')
@@ -275,7 +294,7 @@ export default class AdminController {
         //Wenn das Produkt Getränk oder Beilage ist, dann kann es so bleiben
         //Wenn das Produkt eine Kreation ist, dann müssen Inhalte der Kreation geholt werden und die ID ergänzt werden
         for (const produkt of ausgewaehlte_produkte) {
-            if (!isNaN(produkt.produkt)) {
+            if (!isNaN(produkt.produkt)) { // Produkt ist eine Kreation, wenn es eine Zahl ist
               const kreation = await db.from('kreation').where('id', produkt.produkt).select('id').first();
 
               const pastaName = await db.from('kreation').where('id', produkt.produkt).select('pasta_id').first();
@@ -307,27 +326,13 @@ export default class AdminController {
       if (produktDetails) {
       bestellung.warenkorb.push(produktDetails);
       }
-    }
-
-    //Kundeninformationen holen
-    //let kunde = await db.from('kunden_angemeldet').where('kunden_id', bestellung.kunde_id).select('vorname', 'nachname', 'strasse_nr', 'stadt', 'postleitzahl', 'mail').first();
-
-    //if (kunde === null) {
-      //let kunde = await db.from('kunde_gast').where('kunde_id', bestellung.kunde_id).first();
-      //bestellung.kunde_id = kunde;
-    //} else {
-     // bestellung.kunde_id = kunde;
-   // }
-
-  }
-}
-
+    } 
 console.log(bestellungen); // Überprüfen der Bestellung
 console.log(JSON.stringify(bestellungen, null, 2));
 
 
 return view.render('pages/administratorbereich_bestellungen', { bestellungen });
-}
+} }}
 
 
     // Beim Logout (27.11.Evy)
