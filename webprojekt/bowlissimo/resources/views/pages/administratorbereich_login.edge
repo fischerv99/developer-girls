@@ -19,9 +19,6 @@
 
         <div class="login">
             <h1 class="überschrift">Anmelden als Administrator</h1>
-            <button class="zurück_button" onclick="window.history.back();">
-                <span class="zurück_button_text">Zurück</span>
-            </button>   
 
             @if (error != undefined)
                 Fehler: {{ error }}
@@ -40,6 +37,12 @@
                 <!-- Login Button -->
                 <button type="submit" class="einloggen_button">Anmelden</button>
             </form>
+            <div class="zurück_button_container" onclick="window.history.back();" style="margin-left: 190px; margin-bottom: 20px;">
+                <button class="zurück_button">
+                    <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+                    <span class="zurück_button_text">Zurück</span>
+                </button>
+            </div> 
         </div>
     </main>
 

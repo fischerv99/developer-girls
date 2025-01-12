@@ -11,14 +11,20 @@
 </head>
 
 <body>
-
-
+    <header class="header">
+        @include('pages/partials/header')
+        @include('pages/partials/navigation_administratorbereich')
+    </header>
+    
     <main>
         <div class="product-details">
             <h1 class="details_überschrift">{{ produkt.id }}</h1> <!-- Name des Produkts -->
-            <button class="zurück_button" onclick="window.history.back();">
-                <span class="zurück_button_text">Zurück</span>
-            </button>   
+            <div class="zurück_button_container" onclick="window.history.back();" style="margin-left: 40px;">
+                <button class="zurück_button">
+                    <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+                    <span class="zurück_button_text">Zurück</span>
+                </button>
+            </div> 
             
             <div class="product-image">
                 <img src="{{ produkt.bild }}" alt="{{ produkt.id }} Bild"> <!-- Bild des Produkts -->

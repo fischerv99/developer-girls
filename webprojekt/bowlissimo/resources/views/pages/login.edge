@@ -17,12 +17,6 @@
 
   <main class="main">
     <h1 class="überschrift">Login</h1>
-    <div class="zurück_button_container" onclick="window.history.back();">
-      <button class="zurück_button">
-          <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
-          <span class="zurück_button_text">Zurück</span>
-      </button>
-    </div> 
 
     @if (error != undefined)
       Fehler: {{ error }}
@@ -38,6 +32,12 @@
     
         <button type="submit" class="einloggen_button">Einloggen</button>
       </form>
+      <div class="zurück_button_container" onclick="window.history.back();">
+        <button class="zurück_button">
+            <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+            <span class="zurück_button_text">Zurück</span>
+        </button>
+      </div> 
       <p class="keinkonto_text">Noch kein Konto? <a href="/register" class="registrieren_button">Registrieren</a></p>
   </main>
 </body>

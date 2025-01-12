@@ -16,10 +16,7 @@
 
   <main class="main">
     <h1 class="überschrift">Registrieren</h1>
-    <p class="registrieren_text"> Bitte füllen Sie folgende Felder aus, um ein Konto zu erstellen. Die Daten können später noch geändert werden.</p>
-    <button class="zurück_button" onclick="window.history.back();">
-      <span class="zurück_button_text">Zurück</span>
-    </button>   
+    <p class="registrieren_text"> Bitte füllen Sie folgende Felder aus, um ein Konto zu erstellen. Die Daten können später noch geändert werden.</p> 
 
     @if (error != null)
     <p> Fehler: {{ error }} <p>
@@ -61,6 +58,12 @@
     
       <button type="submit">Registrieren</button>
     </form>
+    <div class="zurück_button_container" onclick="window.history.back();" style="margin-bottom: 20px;">
+      <button class="zurück_button">
+          <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+          <span class="zurück_button_text">Zurück</span>
+      </button>
+    </div> 
     <p class="registrieren_text" id="schon_ein_konto">Schon ein Konto? <a href="/login" class="einloggen_button">Einloggen</a></p>
   </main>
 </body>

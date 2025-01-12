@@ -96,6 +96,12 @@
                 <button class="auswahl_button" type="submit">{{ unterkategorie }} hinzufügen</button>
             </form>
         </div>
+        <div class="zurück_button_container" onclick="window.history.back();" style="margin-bottom: 10px;">
+            <button class="zurück_button">
+                <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+                <span class="zurück_button_text">Zurück</span>
+            </button>
+        </div> 
     </main>
     <footer>
         @include('pages/partials/footer')
