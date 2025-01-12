@@ -11,6 +11,12 @@
 </head>
 
 <body>
+
+  <header class="header"> 
+    @include('pages/partials/header')
+    @include('pages/partials/navigation_administratorbereich')  
+</header>
+
     <h1>Administratorbereich: Bestellungen</h1>
 
     <ul>
@@ -42,6 +48,9 @@
           </ul>
         </li>
         <br>
+        <button class="erledigt_button" onclick="window.location.href='/bestellung/erledigt/{{ bestellung.id }}'">
+          <span class="erledigt_button_text">Bestellung {{bestellung.id}} erledigt</span>
+      </button>
       @endeach
     </ul>
     

@@ -329,10 +329,22 @@ export default class AdminController {
     } 
 console.log(bestellungen); // Überprüfen der Bestellung
 console.log(JSON.stringify(bestellungen, null, 2));
+  } }
 
 
 return view.render('pages/administratorbereich_bestellungen', { bestellungen });
-} }}
+} 
+
+// Bestellung als erledigt markieren
+public async bestellung_erledigt ({ params, response }: HttpContext) {
+  // Bestellungs-ID aus den URL-Parametern extrahieren
+  const { bestellung_id } = params; 
+  // Bestellung in der Datenbank als erledigt markieren
+  await db.from('warenkorb_bestellung').where('id', bestellung_id).update({ in_bestellung: 3 });
+ // Wieder suf die Seite
+  return response.redirect('/administratorbereich/bestellungen');
+}
+
 
 
     // Beim Logout (27.11.Evy)
