@@ -11,10 +11,11 @@
 <body>
     <header class="header">
         @include('pages/partials/header')
+        @include('pages/partials/navigation')
     </header>
     <main class="main">
         <div>
-            <a href="/login">Anmelden als Kunde</a>
+            <a href="/login" class="einloggen_button">Anmelden als Kunde</a>
         </div>
 
         <div class="login">
@@ -28,14 +29,14 @@
                 {{csrfField()}}
                 <!-- Benutzername -->
                 <label for="nutzername" class="login_überschrift">Nutzername:</label>
-                <input type="text" id="nutzername" name="nutzername" required placeholder="Geben Sie Ihren Nutzernamen ein.">
+                <input type="text" id="nutzername" name="nutzername" required>
 
                 <!-- Passwort -->
                 <label for="passwort" class="login_überschrift">Passwort:</label>
-                <input type="password" id="passwort" name="passwort" required placeholder="Geben Sie Ihr Passwort ein.">
+                <input type="password" id="passwort" name="passwort" required>
 
                 <!-- Login Button -->
-                <button type="submit" class="einloggen_button">Anmelden</button>
+                <button type="submit" class="einloggen_button" style="margin-bottom: 20px; margin-top: 30px;">Anmelden</button>
             </form>
             <div class="zurück_button_container" onclick="window.history.back();" style="margin-left: 190px; margin-bottom: 20px;">
                 <button class="zurück_button">

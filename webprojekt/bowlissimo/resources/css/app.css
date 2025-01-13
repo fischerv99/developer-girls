@@ -693,17 +693,17 @@ h3.überschrift_zusatz {
 
 #favoriten,
 #zum_warenkorb_hinzufügen {
-  display: inline-block; /* Stellt sicher, dass die Buttons sichtbar sind */
-  width: auto; /* Automatische Breite */
+  display: inline-block;
+  width: auto;
   padding: 5px;
   font-family: var(--schriftart_nav_buttons);
-  font-size: var(--schriftgröße_nav_buttons); /* Einheitliche Schriftgröße */
-  color: var(--farbe_schriften_konvert); /* Textfarbe */
-  background-color: var(--farbe_hintergrund_nav); /* Hintergrundfarbe */
-  border: none; /* Ohne Rahmen */
-  border-radius: 6px; /* Runde Ecken */
-  text-align: center; /* Zentrierter Text */
-  cursor: pointer; /* Mauszeiger als Hand */
+  font-size: var(--schriftgröße_nav_buttons);
+  color: var(--farbe_schriften_konvert);
+  background-color: var(--farbe_hintergrund_nav);
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
   margin-bottom: 15px;
 }
@@ -1008,51 +1008,95 @@ font-size: var(--schriftgröße_texte);
   color:var(--farbe_akzente);
 }
 
-/* LOG IN SEITE */
-
-.login_form {
-  background-color: transparent;
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 25px;
+/* REGISTRIEREN & LOGIN */
+form.login_form {
+  display: grid;
+  gap: 20px;
+  margin-top: 40px;
 }
 
-.login_form .login_überschrift {
-  display: block;
+.login_form_spalte1 {
+  grid-column: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 150px;
+  padding-right: 100px;
+}
+
+.login_form_spalte2 {
+  grid-column: 2;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 100px;
+  padding-right: 150px;
+}
+
+.registrieren_text {
+  font-family: var(--schriftart_texte);
   font-size: var(--schriftgröße_texte);
   color: var(--farbe_schriften1);
+}
+
+.login_überschrift {
   font-family: var(--schriftart_texte);
-  margin-bottom: 8px;
+  font-size: var(--schriftgröße_texte);
+  font-weight: bold;
+  color: var(--farbe_akzente);
+}
+
+/* Form Elements */
+form.login_form input, form.login_form select {
+  display: inline-block;
+  width: 100%;
+  padding: 5px;
+  border: 3px solid var(--farbe_hintergrund_nav);
+  border-radius: 5px;
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_klein);
+  background-color: transparent;
+  color: var(--farbe_schriften1);
+}
+
+/* Button Styles */
+form.login_form button[type="submit"] {
+  grid-column: span 2;
+  justify-self: center;
+  width: 200px;
+  background-color: var(--farbe_hintergrund_nav);
+  color: var(--farbe_schriften_konvert);
+  border: none;
+  border-radius: 25px;
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
+  cursor: pointer;
+}
+
+form.login_form button[type="submit"]:hover {
   font-weight: bold;
 }
 
-.login_form input[type="text"],
-.login_form input[type="password"],
-.login_form input[type="email"],
-.login_form input[type="integer"],
-.login_form select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc; 
-  border-radius: 5px;
-  font-size: var(--schriftgröße_texte);
-  box-sizing: border-box;
+form.login_form input:focus,
+form.login_form select:focus {
+  outline: none;
+  border-color: var(--farbe_hintergrund_hellgrün);
 }
 
-/* REGISTRIEREN */
-.registrieren_text {
-  color:var(--farbe_schriften1);
-  font-size: var(--schriftgröße_texte);
-  padding-left: 40px;
+/* Payment Section */
+.bezahlart {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--farbe_hintergrund_hellgrün);
+  padding: 2rem;
+  border-radius: 8px;
 }
 
-#bezahlart {
-  cursor:pointer;
-}
-
-#schon_ein_konto {
-  padding-bottom: 20px;
+.bezahlart h2 {
+  font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_unterüberschrift);
+  color: var(--farbe_schriften1);
+  margin-bottom: 1.5rem;
 }
 
 
@@ -1267,7 +1311,8 @@ font-size: var(--schriftgröße_texte);
 /*Kasse*/
 h3 {
   color: var(--farbe_schriften1); /* Textfarbe auf weiß setzen */
-  font-size: var(--schriftgröße_überschrift_zusatz); /* Schriftgröße anpassen */
+  font-family: var(--schriftart_überschrift);
+  font-size: var(--schriftgröße_überschrift); /* Schriftgröße anpassen */
   text-align: center; /* Text zentrieren */
   margin-bottom: 20px; /* Optional: Abstand nach unten */
 }
@@ -1286,17 +1331,18 @@ h3 {
   background-color: var(--farbe_hintergrund_nav);
   color: var(--farbe_schriften_konvert);
   font-size: var(--schriftgröße_nav_buttons);
+  font-family: var(--schriftart_nav_buttons);
   border: none;
   border-radius: 12px;
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
   text-transform: uppercase;  /* Text in Großbuchstaben */
-  font-weight: bold;
 } 
 
-.kasse-buttons buttons:hover {
+.kasse-buttons button:hover {
   color: var(--farbe_akzente);
+  font-weight: bold;
 }
 
 .kasse-button-bestellen {

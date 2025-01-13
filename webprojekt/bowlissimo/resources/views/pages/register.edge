@@ -12,6 +12,7 @@
 <body>
   <header class="header">
     @include('pages/partials/header')
+    @include('pages/partials/navigation')
   </header>
 
   <main class="main">
@@ -25,40 +26,47 @@
     <form action="/register" method="post" enctype= "application/x-www-form-urlencoded" class="login_form">
       {{csrfField()}}
 
-      <label for="nutzername" class="login_überschrift">Nutzername:</label>
-      <input type="text" id="nutzername" name="nutzername" required>
+      <div class="login_form_spalte1">
+
+        <label for="nutzername" class="login_überschrift">Nutzername:</label>
+        <input type="text" id="nutzername" name="nutzername" required autofocus>
     
-      <label for="passwort" class="login_überschrift">Passwort:</label>
-      <input type="password" id="passwort" name="passwort" required>
+        <label for="passwort" class="login_überschrift">Passwort:</label>
+        <input type="password" id="passwort" name="passwort" required>
 
-      <label for ="vorname" class="login_überschrift">Vorame:</label>
-      <input type="text" id="vorname" name="vorname" required>
+        <label for ="vorname" class="login_überschrift">Vorname:</label>
+        <input type="text" id="vorname" name="vorname" required>
 
-      <label for ="nachname" class="login_überschrift">Nachname:</label>
-      <input type="text" id="nachname" name="nachname" required>
+        <label for ="nachname" class="login_überschrift">Nachname:</label>
+        <input type="text" id="nachname" name="nachname" required>
 
-      <label for="strasse_nr" class="login_überschrift"> Straße und Hausnummer: </label>
-      <input type="text" id="strasse_nr" name="strasse_nr" required>
+        <label for="strasse_nr" class="login_überschrift"> Straße und Hausnummer: </label>
+        <input type="text" id="strasse_nr" name="strasse_nr" required>
 
-      <label for="postleitzahl" class="login_überschrift">Postleitzahl:</label>
-      <input type="integer" id="postleitzahl" name="postleitzahl" required>
+      </div>
+      <div class="login_form_spalte2">
 
-      <label for="stadt" class="login_überschrift">Stadt:</label>
-      <input type="text" id="stadt" name="stadt" required>
+        <label for="postleitzahl" class="login_überschrift">Postleitzahl:</label>
+        <input type="integer" id="postleitzahl" name="postleitzahl" required>
 
-      <label for="bezahlart" class="login_überschrift">Bezahlart:</label>
-      <select id="bezahlart" name="bezahlart" required>
-        <option value="kreditkarte">Kreditkarte</option>
-        <option value="paypal">PayPal</option>
-        <option value="bar">Bar</option>
-      </select>
+        <label for="stadt" class="login_überschrift">Stadt:</label>
+        <input type="text" id="stadt" name="stadt" required>
 
-      <label for="email" class="login_überschrift">E-Mail:</label>
-      <input type="email" id="email" name="email" required>
+        <label for="bezahlart" class="login_überschrift">Bezahlart:</label>
+        <select id="bezahlart" name="bezahlart" required>
+          <option value="kreditkarte">Kreditkarte</option>
+          <option value="paypal">PayPal</option>
+          <option value="bar">Bar</option>
+        </select>
+
+        <label for="email" class="login_überschrift">E-Mail:</label>
+        <input type="email" id="email" name="email" required>
+
+      </div>
     
       <button type="submit">Registrieren</button>
     </form>
-    <div class="zurück_button_container" onclick="window.history.back();" style="margin-bottom: 20px;">
+    <div class="zurück_button_container" onclick="window.history.back();" style="margin-bottom: 20px; margin-top: 20px;">
       <button class="zurück_button">
           <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
           <span class="zurück_button_text">Zurück</span>
