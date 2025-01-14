@@ -13,8 +13,9 @@
 <body>
     <header class="header">
         @include('pages/partials/header')
+        @include('pages/partials/navigation')
     </header>
-    <main class="main">
+    <main class="main" id="favoriten_main">
         <div class="überschrift">
             <h1>Deine Favoriten:</h1>
         </div>
@@ -22,36 +23,41 @@
         @if(!kreationen)
         <div class="text">
             Du hast bisher keine Favoriten. Kreiere jetzt deine erste Pasta-Bowl!
-         </div>
+        </div>
         @endif
 
        @each(kreation in kreationen)
-       <p>{{ kreation.name }}</p>
-    <form action="favoriten/update-name/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
-        {{csrfField()}}
-        <input type="text" name="name" placeholder="Neuer Name">
-        <button type="submit">Namen ändern</button>    
-    </form>
-    <form action="/favoriten/entfernen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
-        {{csrfField()}}
-        <button type="submit">Entfernen</button>
-    </form>
-       <p>{{ kreation.pasta_id }}</p>
-       <p>{{ kreation.sossen_id }}</p>
-       <p>{{ kreation.toppings }}</p>
-       @endeach
-    
-        
+        <p class="text">{{ kreation.name }}</p>
+        <div class="favoriten_buttons">
+            <form action="favoriten/update-name/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                {{csrfField()}}
+                <input type="text" name="name" placeholder="Neuer Name">
+                <button type="submit">Namen ändern</button>    
+            </form>
+            <form action="/favoriten/entfernen/{{ kreation.id }}" method="post" enctype="application/x-www-form-urlencoded">
+                {{csrfField()}}
+                <button type="submit">Entfernen</button>
+            </form>
         </div>
-
-        <div class="zurück_button_container" onclick="window.history.back();">
-            <button class="zurück_button">
-                <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
-                <span class="zurück_button_text">Zurück</span>
-            </button>
-        </div> 
-        
+        <div class="favoriten_kreationen_container">
+            <div class="favoriten_kreation_pasta">
+                <p>{{ kreation.pasta_id }}</p>
+            </div>
+            <div class="favoriten_kreation_sosse">
+                <p>{{ kreation.sossen_id }}</p>
+            </div>
+            <div class="favoriten_kreation_toppings">
+                <p>{{ kreation.toppings }}</p>
+            </div>
+        </div>
+       @endeach
     </main>
+    <div class="zurück_button_container" onclick="window.history.back();" style="margin: 20px;">
+        <button class="zurück_button">
+            <img class="zurück_button_pfeil" src="/storage/pfeil_gelb.png" alt="Ein gelber Pfeil, der nach links zeigt.">
+            <span class="zurück_button_text">Zurück</span>
+        </button>
+    </div> 
     <footer>
         @include('pages/partials/footer')
     </footer>

@@ -1192,6 +1192,7 @@ form.login_form select:focus {
   border-radius: 8px;
   overflow: hidden;
   overflow-y: auto;
+  padding: 20px;
 }
 
 @media (max-width: 1200px) { /* Schwelle für kleinere Bildschirme */
@@ -1473,7 +1474,95 @@ body.blurred {
 }
 
 
+/* Favoriten-Elemente */
+.favoriten_elemente {
+  display: grid;
+  grid-template-columns: 20% 60% 20%; /* Klare Spaltenaufteilung: Name, Inhalte, Buttons */
+  align-items: center;
+  justify-items: start; /* Linksbündige Elemente */
+  background-color: var(--farbe_hintergrund_hellgrün);
+  border-radius: 12px;
+  padding: 15px 20px; /* Innenabstand */
+  margin: 20px 0; /* Abstand zwischen den Favoriten */
+  width: 100%;
+  max-width: 1200px;
+  font-family: var(--schriftart_texte);
+  font-size: var(--schriftgröße_texte);
+  color: var(--farbe_schriften1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  gap: 20px; /* Abstand zwischen den Spalten */
+}
 
+/* Name der Kreation */
+.favoriten_elemente .text {
+  grid-column: 1; /* Linke Spalte */
+  text-align: left;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+/* Inhalt der Kreation */
+.favoriten_kreationen_container {
+  grid-column: 2; /* Mittlere Spalte */
+  text-align: left;
+}
+
+.favoriten_kreationen_container ul {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.favoriten_kreationen_container ul li {
+  margin-bottom: 5px;
+}
+
+/* Buttons */
+.favoriten_buttons {
+  grid-column: 3; /* Rechte Spalte */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Rechtsbündige Buttons */
+  gap: 10px; /* Abstand zwischen den Buttons */
+}
+
+.favoriten_buttons form {
+  margin: 0;
+}
+
+.favoriten_buttons button {
+  padding: 8px 12px;
+  font-family: var(--schriftart_nav_buttons);
+  font-size: var(--schriftgröße_nav_buttons);
+  border: none;
+  border-radius: 6px;
+  background-color: var(--farbe_akzente);
+  color: var(--farbe_hintergrund);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.favoriten_buttons button:hover {
+  background-color: var(--farbe_schriften1);
+  color: var(--farbe_hintergrund);
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .favoriten_elemente {
+      grid-template-columns: 1fr; /* Vertikale Anordnung */
+      gap: 15px;
+  }
+
+  .favoriten_buttons {
+      align-items: center; /* Zentrierte Buttons */
+  }
+
+  .favoriten_kreationen_container {
+      text-align: center; /* Inhalte zentrieren */
+  }
+}
 
 
 
