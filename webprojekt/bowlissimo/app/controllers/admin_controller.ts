@@ -282,7 +282,7 @@ export default class AdminController {
         stadt: kunde.stadt,
         postleitzahl: kunde.postleitzahl,
         mail: kunde.mail
-       };  }
+       };  } 
 
         //Ausgewählte Produkte der Warenkorbs_id
         for (const bestellung of bestellungen) {
