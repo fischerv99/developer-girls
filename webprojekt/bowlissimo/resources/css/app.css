@@ -1579,17 +1579,20 @@ footer {
   align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
   justify-content: space-between; /* Platz zwischen Logo und Links */
   padding: 10px 60px;           /* Abstand innerhalb des Footers */
+  width: 100%;
   border-top: 5px solid var(--farbe_hintergrund_nav); /* Eine leichte Linie oben im Footer */
   font-family: var(--schriftart_texte);
   font-size: var(--schriftgröße_texte);              /* Schriftgröße */
 }
 
-footer .footer-logo {
+.footer-logo {
   max-height: 40px;  /* Maximale Höhe des Logos */
-  margin-top: 5px;   /* Abstand zwischen Logo und Linie */     
+  margin-top: 5px;   /* Abstand zwischen Logo und Linie */    
+  width: auto;
+
 }
 
-footer .footer-links {
+.footer-links {
   display: flex;         /* Flexbox für Links aktivieren */
   justify-content: flex-end; /* Links nach rechts verschieben */
   gap: 20px;             /* Abstand zwischen den Links */
@@ -1627,42 +1630,15 @@ footer * {
   padding: 0;
   border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
 }
-footer {
-  display: flex;                /* Flexbox aktivieren */
-  align-items: center;          /* Logo und Links vertikal auf gleicher Höhe */
-  padding: 10px 60px;           /* Abstand innerhalb des Footers */
-  border-top: 5px solid var(--farbe_hintergrund_nav); /* Eine leichte Linie oben im Footer */
-  font-size: 14px;              /* Schriftgröße */
+@media screen and (max-width: 768px) {
+  footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+  }
+  
+  .footer-links {
+      margin-top: 1rem;
+      justify-content: center;
+  }
 }
-
-footer .footer-logo {
-  max-height: 40px;  /* Maximale Höhe des Logos */
-  margin-top: 5px;   /* Abstand zwischen Logo und Linie */     
-}
-
-footer .footer-links {
-  text-align: right;    /* Links nach rechts verschieben */
-  margin-left: 800px;    /* Mehr Abstand zwischen Logo und Links */
-  margin-top: 10px;
-}  
-
-footer a {
-  color: var(--farbe_hintergrund_nav);   /* Weiß für Links */
-  text-decoration: none;  /* Keine Unterstreichung */
-  font-weight: normal;    /* Normale Schriftstärke für Links */
-  margin: 0 20px;
-  line-height: 40px;   
-}
-
-footer a:hover {
-  text-decoration: underline; /* Unterstreichung beim Hover */
-  color: var(--farbe_akzente);   /* Farbe beim Hover */
-}
-
-/* Entfernen von zusätzlichen Rändern oder Linien */
-footer * {
-  margin: 0;
-  padding: 0;
-  border: 0;  /* Sicherstellen, dass keine ungewollten Ränder vorhanden sind */
-}
-
